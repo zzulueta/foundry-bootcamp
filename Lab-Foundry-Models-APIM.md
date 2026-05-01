@@ -71,16 +71,15 @@ By the end of this lab, you will have:
 ### 2.1 Create a Foundry Resource
 1. In the Azure Portal, click **Create a resource**
 2. Search for **Microsoft Foundry** and select it.
-3. Under Use with Foundry select **Foundry**.
-4. Click **Create**
-5. Configure the resource:
+3. Click **Create**
+4. Configure the resource:
    - **Subscription:** Select your subscription
    - **Resource group:** `rg-foundry-lab`  
    - **Name:** `foundry<yourname>` (must be globally unique)
    - **Region:** `Australia East`
    - **Default project name:** `project01`
-6. Click **Review + Create**, then **Create**
-7. Wait for the deployment to complete (typically 1-2 minutes)
+5. Click **Review + Create**, then **Create**
+6. Wait for the deployment to complete (typically 1-2 minutes)
 
 ### 2.2 Access Microsoft Foundry Portal
 1. Once deployment completes, click **Go to resource**
@@ -98,7 +97,7 @@ By the end of this lab, you will have:
 3. Click **Deploy a base model**
 4. Search for the **gpt-4.1** model
 5. **Select** the model.
-6. Select Deploy->Custom settings.
+6. Select Deploy > Custom settings.
 7. Configure the deployment:
    - **Deployment name:** `gpt-4.1`
    - **Deployment type:** Select **Global Standard** (pay-per-token, easiest for testing)
@@ -149,14 +148,14 @@ By the end of this lab, you will have:
    ```
 5. Test a non-Azure related question to verify the system message is working:
    ```
-    What is the capital of France?
+   What is the capital of France?
    ```
 
 ### 4.4 Verify Token Usage
 1. At the bottom of the response, you'll see token usage metrics:
-  - **Input:** Number of tokens in your input
-  - **Output:** Number of tokens in the response
-
+   - **Input:** Number of tokens in your input
+   - **Output:** Number of tokens in the response
+   
 2. Go to the Monitor tab to view detailed usage metrics and trends.
 
 > **Note:** Token usage affects your billing and is important for monitoring costs.
@@ -219,7 +218,7 @@ By the end of this lab, you will have:
 1. Once created, click on the **Microsoft Foundry API** in the APIs list
 2. Navigate to the **Design** tab
 3. Verify operations are listed (e.g., `Creates a completion for the chat message`)
-4. Select All operations->Inbound processing->Policies. Review the automatically applied policies for token per minute and token quota enforcement.
+4. Select All operations > Inbound processing > Policies. Review the automatically applied policies for token per minute and token quota enforcement.
 5. Navigate to the **Settings** tab
 6. Note the following:
    - **Base URL:** This shows your APIM gateway URL
@@ -268,13 +267,13 @@ By the end of this lab, you will have:
 5. Review the response and verify you receive a valid response from the model with token usage headers included.
 6. Modify the deployment-id to `DeepSeek-V3.2` and test the second model as well.
 
-### 5.4 Get Your API Credentials
+### 5.5 Get Your API Credentials
 1. In APIM, navigate to **Subscriptions** in the left menu
 2. Create a new subscription:
    - Click **+ Add subscription**
    - **Name:** `foundry-test-subscription`
    - **Display name:** `Foundry Test Subscription`
-   - **Scope:** Select **API** > **Azure OpenAI API**
+   - **Scope:** Select **API** > **Microsoft Foundry API**
    - Click **Create**
 3. Click the **...** menu next to your subscription and select **Show/hide keys**
 4. Copy the **Primary key** to your Notepad - you'll need this for authentication
@@ -298,7 +297,7 @@ By the end of this lab, you will have:
 
 In Cloud Shell, set up your environment variables. You'll need the following information:
 - **APIM Instance Name:** `apim<yourname>` (e.g., `apimjohn`)
-- **Subscription Key:** From Step 5.4
+- **Subscription Key:** From Step 5.5
 - **Deployment Name:** `gpt-4.1` or `DeepSeek-V3.2`
 - **API Version:** `2025-03-01-preview`
 
@@ -308,7 +307,7 @@ Copy and paste the following commands, replacing the placeholder values:
 # Set your API Management endpoint (from Step 5.3)
 APIM_ENDPOINT="YOUR_API_URL"
 
-# Set your subscription key (from Step 5.4)
+# Set your subscription key (from Step 5.5)
 SUBSCRIPTION_KEY="YOUR_SUBSCRIPTION_KEY_HERE"
 
 # Set the deployment name
@@ -568,13 +567,13 @@ ApiManagementGatewayLlmLog
 **Issue 2: 401 Unauthorized error**
 - **Solution:** 
   - Verify your subscription key is correct and copied completely (no extra spaces)
-  - Check that the subscription is associated with the **Azure OpenAI API** (from Step 5.4)
+  - Check that the subscription is associated with the **Microsoft Foundry API** (from Step 5.5)
   - Verify the subscription is in **Active** state in APIM
 
 **Issue 3: 404 Not Found error**
 - **Solution:** 
   - Verify the deployment name matches exactly (`gpt-4.1` or `DeepSeek-V3.2`)
-  - Check that the base path is `/openai/` (not `/foundry/`)
+  - Check that the base path is `/foundry/`
   - Ensure API version is valid (`2025-03-01-preview`)
   - Verify your APIM instance name is correct in the URL
 
@@ -616,7 +615,7 @@ To avoid incurring charges, delete the resources when you're finished with the l
 ### Option 2: Delete Individual Resources
 If you want to keep some resources:
 1. Delete the API Management instance (highest cost)
-2. Delete the AI Services resource
+2. Delete the Foundry resource
 3. Keep the resource group for future use
 
 > **Note:** Deleting APIM may take several minutes to complete.
@@ -629,10 +628,12 @@ In this lab, you successfully:
 
 1. ✅ Created a Microsoft Foundry resource for hosting AI models
 2. ✅ Provisioned an Azure API Management instance for API gateway capabilities
-3. ✅ Deployed a GPT model in Microsoft Foundry
+3. ✅ Deployed a GPT and DeepSeek model in Microsoft Foundry
 4. ✅ Tested the model in the Foundry playground
 5. ✅ Integrated the Foundry API with API Management
 6. ✅ Called the model via REST API using curl
+7. ✅ Implemented token consumption policies in APIM
+8. ✅ Monitored API usage and token consumption in Log Analytics
 
 ### Benefits of Using APIM with Foundry Models
 
@@ -652,57 +653,6 @@ In this lab, you successfully:
 
 ---
 
-## Next Steps and Further Learning
-
-### Explore Advanced Features
-1. **Token Limits:** Configure per-subscription token limits to control costs
-   - Documentation: [Manage token consumption](https://learn.microsoft.com/en-us/azure/api-management/llm-token-limit-policy)
-
-2. **Semantic Caching:** Enable caching for similar prompts to reduce costs and latency
-   - Documentation: [Enable semantic caching](https://learn.microsoft.com/en-us/azure/api-management/azure-openai-enable-semantic-caching)
-
-3. **Content Safety:** Integrate Azure AI Content Safety to filter inappropriate content
-   - Documentation: [Enforce content safety checks](https://learn.microsoft.com/en-us/azure/api-management/llm-content-safety-policy)
-
-4. **Load Balancing:** Configure multiple Foundry deployments for high availability
-   - Documentation: [Backend pools in APIM](https://learn.microsoft.com/en-us/azure/api-management/backends)
-
-5. **Developer Portal:** Customize the APIM developer portal for your API consumers
-   - Documentation: [Customize developer portal](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-developer-portal-customize)
-
-### Related Training Resources
-- [Explore API Management - Microsoft Learn](https://learn.microsoft.com/en-us/training/modules/explore-api-management/)
-- [Develop generative AI apps in Microsoft Foundry](https://learn.microsoft.com/en-us/training/paths/create-custom-copilots-ai-studio/)
-- [Microsoft Certified: Azure AI Fundamentals](https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/)
-
----
-
-## References and Citations
-
-This lab was created using information from the following official Microsoft Learn documentation:
-
-1. **Microsoft Foundry Overview**
-   - [What is Microsoft Foundry?](https://learn.microsoft.com/en-us/azure/foundry/)
-   - Primary source for understanding Foundry architecture and capabilities
-
-2. **Foundry Resource Setup**
-   - [Quickstart: Set up Microsoft Foundry resources](https://learn.microsoft.com/en-us/azure/foundry/tutorials/quickstart-create-foundry-resources)
-   - Used for Steps 1 and 3: Creating resources and deploying models
-
-3. **Deployment Types**
-   - [Deployment types for Microsoft Foundry Models](https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types)
-   - Referenced in Step 3 for understanding deployment type selection
-
-4. **APIM Integration**
-   - [Import a Microsoft Foundry API](https://learn.microsoft.com/en-us/azure/api-management/azure-ai-foundry-api)
-   - Used for Steps 2, 5, and 6: APIM setup and API integration
-
-5. **API Management Documentation**
-   - [Azure API Management Documentation](https://learn.microsoft.com/en-us/azure/api-management/)
-   - Referenced throughout for APIM concepts and best practices
-
----
-
 ## Lab Completion Badge
 
 Congratulations! 🎉 You have completed the **Microsoft Foundry Models with Azure API Management** lab.
@@ -715,146 +665,6 @@ You now have hands-on experience with:
 - Token consumption policies and quota management
 - Testing with Azure Cloud Shell
 - Monitoring API usage and analytics
-
-**Lab Version:** 1.1  
-**Last Updated:** April 30, 2026  
-**Microsoft Learn References:** Current as of April 2026
-
----
-
-## Appendix: Additional Code Examples
-
-### Python Example
-```python
-import requests
-import json
-
-# Configuration - replace with your values
-apim_name = "apim<yourname>"  # e.g., "apimjohn"
-apim_endpoint = f"https://{apim_name}.azure-api.net/openai"
-subscription_key = "YOUR_SUBSCRIPTION_KEY"
-deployment_name = "gpt-4.1"
-api_version = "2025-03-01-preview"
-
-# Headers
-headers = {
-    "Content-Type": "application/json",
-    "Ocp-Apim-Subscription-Key": subscription_key
-}
-
-# Request body
-data = {
-    "messages": [
-        {
-            "role": "user",
-            "content": "Explain Azure API Management in simple terms."
-        }
-    ],
-    "max_tokens": 200,
-    "temperature": 0.7
-}
-
-# Make request
-url = f"{apim_endpoint}/openai/deployments/{deployment_name}/chat/completions?api-version={api_version}"
-response = requests.post(url, headers=headers, json=data)
-
-# Print response
-if response.status_code == 200:
-    print(json.dumps(response.json(), indent=2))
-    print(f"\nTokens used: {response.json()['usage']['total_tokens']}")
-else:
-    print(f"Error: {response.status_code}")
-    print(response.text)
-```
-
-### C# Example
-```csharp
-using System;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-class Program
-{
-    static async Task Main(string[] args)
-    {
-        // Configuration - replace with your values
-        string apimName = "apim<yourname>";  // e.g., "apimjohn"
-        string apimEndpoint = $"https://{apimName}.azure-api.net/openai";
-        string subscriptionKey = "YOUR_SUBSCRIPTION_KEY";
-        string deploymentName = "gpt-4.1";
-        string apiVersion = "2025-03-01-preview";
-
-        using var client = new HttpClient();
-        client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-
-        var requestBody = new
-        {
-            messages = new[]
-            {
-                new { role = "user", content = "What is Microsoft Foundry?" }
-            },
-            max_tokens = 150,
-            temperature = 0.7
-        };
-
-        string json = JsonSerializer.Serialize(requestBody);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-        string url = $"{apimEndpoint}/openai/deployments/{deploymentName}/chat/completions?api-version={apiVersion}";
-        var response = await client.PostAsync(url, content);
-        
-        string result = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(result);
-        Console.WriteLine($"\nStatus: {response.StatusCode}");
-    }
-}
-```
-
-### JavaScript (Node.js) Example
-```javascript
-const axios = require('axios');
-
-// Configuration - replace with your values
-const apimName = 'apim<yourname>';  // e.g., 'apimjohn'
-const apimEndpoint = `https://${apimName}.azure-api.net/openai`;
-const subscriptionKey = 'YOUR_SUBSCRIPTION_KEY';
-const deploymentName = 'gpt-4.1';
-const apiVersion = '2025-03-01-preview';
-
-// Request configuration
-const config = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': subscriptionKey
-    }
-};
-
-// Request body
-const data = {
-    messages: [
-        {
-            role: 'user',
-            content: 'Tell me about Azure API Management benefits.'
-        }
-    ],
-    max_tokens: 200,
-    temperature: 0.7
-};
-
-// Make request
-const url = `${apimEndpoint}/openai/deployments/${deploymentName}/chat/completions?api-version=${apiVersion}`;
-
-axios.post(url, data, config)
-    .then(response => {
-        console.log(JSON.stringify(response.data, null, 2));
-        console.log(`\nTokens used: ${response.data.usage.total_tokens}`);
-    })
-    .catch(error => {
-        console.error('Error:', error.response ? error.response.data : error.message);
-    });
-```
 
 ---
 
