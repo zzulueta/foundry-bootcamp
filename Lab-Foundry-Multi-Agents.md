@@ -213,7 +213,7 @@ In this task, you will add conditional logic to evaluate the confidence score an
 
 1. Select the **+** icon next to Triage-Agent, and then choose **If / else** under **Flow** to add a conditional logic node for handling low-confidence classifications
 **Important**: Make sure to select the **+** icon next to the Triage-Agent node inside the For each loop, not the one outside of it, to ensure the condition is evaluated for each individual ticket.
-2. In the If/Else node editor, select **+ Add a path** to create the **If** branch. Then select the Pencil icon in the If branch to edit the condition.
+2. In the If / else node editor, select **+ Add a path** to create the **If** branch. Then select the Pencil icon in the If branch to edit the condition.
 3. Set the **Condition** field to the following expression to check if the confidence score is above 0.6:
    ```
    Local.TriageOutputJson.confidence > 0.6
@@ -223,7 +223,7 @@ In this task, you will add conditional logic to evaluate the confidence score an
 ### 2.6 Recommend Additional Info for Low-Confidence Tickets
 In this task, you will configure the workflow to request additional details from the customer when the ticket classification confidence is low.
 
-1. In the visualizer, beside the **Else** branch of the If/Else condition node, select the **+** (plus) icon to add a new node that recommends additional information for low-confidence tickets
+1. In the visualizer, beside the **Else** branch of the If / else condition node, select the **+** (plus) icon to add a new node that recommends additional information for low-confidence tickets
 2. In the workflow actions menu, under **Basics**, select **Deliver a message** to add a send message activity
 3. In the Deliver message node editor, set the **Message to send** field to the following response:
    ```
@@ -234,15 +234,15 @@ In this task, you will configure the workflow to request additional details from
 ### 2.7 Route the Ticket Based on Category
 In this task, you will add routing logic to identify billing issues and escalate them to the human support team while allowing other categories to continue through automation.
 
-1. In the visualizer, beside the **If** branch of the If/Else condition node, select the **+** (plus) icon to add a new node that routes the ticket based on its category
-2. In the workflow actions menu, under **Flow**, select **If/Else** to add another conditional logic node
-3. In the If/Else node editor, select **Add a path** to create the **If** branch. Then select the Pencil icon in the If branch to edit the condition.
+1. In the visualizer, beside the **If** branch of the If / else condition node, select the **+** (plus) icon to add a new node that routes the ticket based on its category
+2. In the workflow actions menu, under **Flow**, select **If / else** to add another conditional logic node
+3. In the If / else node editor, select **+ Add a path** to create the **If** branch. Then select the Pencil icon in the If branch to edit the condition.
 4. Set the **Condition** field to the following expression to check if the ticket category is "Billing":
    ```
    Local.TriageOutputJson.category = "Billing"
    ```
 5. Select **Done**
-6. Select the **+** (plus) icon beside the If branch of the If/Else node to add a new node that drafts a response
+6. Select the **+** (plus) icon beside the If branch of the If / else node to add a new node that drafts a response
 7. In the workflow actions menu, under **Basics**, select **Deliver message** to add a send message activity
 8. In the Deliver message node editor, set the **Message to send** to the following response:
    ```
@@ -253,7 +253,7 @@ In this task, you will add routing logic to identify billing issues and escalate
 ### 2.8 Generate a Recommended Response
 In this task, you will invoke the Resolution Agent to automatically generate a professional support response for non-billing tickets based on the classified category.
 
-1. In the visualizer, select the **+** (plus) icon beside the **Else** branch of the second If/Else node to add a new node that drafts a response for non-billing tickets
+1. In the visualizer, select the **+** (plus) icon beside the **Else** branch of the second If / else node to add a new node that drafts a response for non-billing tickets
 2. In the workflow actions menu, under **Invoke**, select **Agent** to add an agent node
 3. In the Agent pane, open the **Select an agent** dropdown, and then select **Create a new agent** from the list
 4. In the Create an agent pane, enter `Resolution-Agent` as the agent name, and then select **Create**
@@ -286,7 +286,7 @@ In this task, you will invoke the Resolution Agent to automatically generate a p
 7. Set the **Input message** field to the `Local.TriageOutputText` variable
 8. Under **Save agent output message as**, create a new variable by entering `ResolutionOutputText` and select **Create new variable** from the drop-down
 9. Select **Done** to save the node
-10. Ensure that your workflow matches the one illustrated in workflow.jpg found in the Workflow folder of this repository.
+10. Ensure that your workflow matches the one illustrated in **workflow.jpg** found in the Workflow folder of this repository.
 
 ### 2.9 Preview the Workflow
 In this task, you will test and validate the workflow by running a preview to observe how support tickets are processed, classified, escalated, and resolved automatically.
@@ -472,7 +472,7 @@ In this task, you will execute the Python application to run and validate the AI
    Thank you for reaching out. A 403 error typically indicates a permissions issue. Please ensure that your API key has the necessary permissions to create invoices and that it has not expired or been restricted. If the issue persists, try regenerating your API key and updating it in your integration. Let us know if you need further assistance.
    ```
 6. If you are encountering issues, review your code for any syntax errors or indentation issues, and ensure that your workflow in the Foundry portal matches the one you are trying to invoke in your code.
-Tip: You may copy the code provided in the workflow.py file found in the Workflow folder of this repository and paste it into your workflow.py file in the cloud shell to ensure accuracy.
+> **Tip:** You may copy the code provided in the workflow.py file found in the Workflow folder of this repository and paste it into your workflow.py file in the cloud shell to ensure accuracy.
 7. In the Cloud Shell window, select the **Close (X)** icon to exit Cloud Shell
 
 ---
@@ -514,7 +514,7 @@ Group chat orchestration models a collaborative conversation among multiple agen
 
 ### 4.3 Understanding the Collaborative Reasoning Scenario
 
-In this lab, you'll create a group chat where three specialized agents collaborate to explain technical concepts to non-technical audiences through iterative refinement.
+In this lab, you'll create a group chat where three specialized agents collaborate to explain technical concepts to non-technical audiences using language suitable for a 10-year-old through iterative refinement.
 
 **The Agents (No Tools):**
 
@@ -735,22 +735,26 @@ if __name__ == "__main__":
 ```
 
 5. Save the file using **CTRL+S** and close the editor with **CTRL+Q**
+> **Tip:** You may copy the code provided in the group_chat_quality_control.py file found in the Workflow folder of this repository and paste it into your file in the cloud shell to ensure accuracy.
 
 ### 4.5 Run the Group Chat Quality Control Workflow
 
-1. In the Cloud Shell console, enter the following command to run the group chat:
+1. Install first the agent framework library by entering the following command in the Cloud Shell console:
    ```bash
    pip install agent_framework==1.2.2
+   ```
+2. Enter the following command to run the group chat:
+   ```bash
    python group_chat_quality_control.py
    ```
 
-2. Observe the collaborative workflow:
+3. Observe the collaborative workflow:
    - **Explainer** creates the initial explanation
    - **Critic** reviews and identifies specific problems (jargon, unclear logic, etc.)
    - **Refiner** revises the explanation addressing all critique points
    - **Orchestrator** may send it back to Critic for validation or end if quality is satisfactory
 
-3. Notice the key aspects:
+4. Notice the key aspects:
    - ✅ No tools are used - only role instructions and shared context
    - ✅ Orchestrator makes intelligent decisions, not round-robin
    - ✅ Each agent has a clear, distinct role
@@ -777,7 +781,7 @@ In code, you say “async” for the things that can happen at the same time. Yo
 [Critic]: Review:
 
 1. "Imagine you’re waiting for your cookies to bake in the oven." – This is a clear and relatable example.
-2. "You could just sit there and watch the oven... But that wouldn’t be fun..." – Good comparison, easy to understand for10-year-olds.
+2. "You could just sit there and watch the oven... But that wouldn’t be fun..." – Good comparison, easy to understand for 10-year-olds.
 3. "Instead, you can play a game, draw, or read a book while the cookies bake. When the cookies are ready, you stop what you’re doing and eat them!" – This is a strong real-life analogy.
 4. "In Python, 'async' is a way to tell the computer, 'I’m going to start something, like baking cookies. While I wait for it to finish, I can do other things.' 'Await' is like checking if the cookies are ready or stopping your game to go eat them when they are done." – This is very clear, using simple language and connecting to the analogy.
 5. "So, async/await is just a fun way for computers to not get bored while waiting..." – Using the phrase 'not get bored' might be slightly abstract for some kids, but in the context it works, especially with the cookie analogy.
