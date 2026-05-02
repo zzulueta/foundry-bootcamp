@@ -163,7 +163,7 @@ By the end of this lab, you will have:
 
    Guidelines:
    - Use the get_stock_quote tool to fetch current stock prices from Alpha Vantage
-   - Use the save_stock_data tool to store stock information in Azure Table Storage
+   - Use the stock-storage-mcp tool to store stock information in Azure Table Storage
    - Use Code Interpreter to perform calculations, analyze data, and create visualizations
    - Write clean, well-commented Python code
    - Explain your analysis and findings clearly
@@ -172,7 +172,7 @@ By the end of this lab, you will have:
 
    When analyzing stocks:
    1. First, fetch the stock data using the get_stock_quote tool
-   2. Save the data using save_stock_data tool for future reference
+   2. Save the data using the stock-storage-mcp tool for future reference
    3. Analyze the data structure and key metrics
    4. Perform the requested analysis using Python
    5. Create visualizations when appropriate
@@ -419,6 +419,7 @@ This demonstrates:
        "ChangePercent": "@{triggerBody()?['changePercent']}"
      }
      ```
+Note: This configuration uses the stock symbol as the PartitionKey and a timestamp as the RowKey to ensure uniqueness. In addition, we are retrieving all relevant stock data from the trigger body and storing it as properties in the Table Storage entity.
 
 ### 5.7 Add Response Action
 1. Click **New step** (the + icon below the trigger) and select **Add an action**
@@ -481,12 +482,12 @@ This demonstrates:
 6. Navigate to the Runs history in the Logic App designer.
 7. Select the latest run to see the details of the execution.
 8. Verify that you see green check marks for all steps, indicating success.
-9. Navigate to your storage account in Azure Portal (ststocks<yourname>)
+9. Navigate to your storage account in Azure Portal (`ststocks<yourname>`)
 10. Go to **Storage Browser** > **Tables** > **stockquotes**
 11. Verify the MSFT entity was created with all the stock data fields
 
 ### 5.10 Create an MCP Server using the Logic App
-1. Navigate back to the Logic App (logic-stocks-<yourname>)
+1. Navigate back to the Logic App (`logic-stocks-<yourname>`)
 2. In the left menu, click on **MCP servers** under the **Agents** section
 3. Select **Use existing workflows**
 4. Create an MCP server:
