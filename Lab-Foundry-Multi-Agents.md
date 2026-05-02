@@ -212,7 +212,7 @@ In this task, you will invoke the Triage Agent to classify each support ticket i
 In this task, you will add conditional logic to evaluate the confidence score and determine whether the ticket classification is reliable for further automated processing.
 
 1. Select the **+** icon next to Triage-Agent, and then choose **If / else** under **Flow** to add a conditional logic node for handling low-confidence classifications
-**Important**: Make sure to select the **+** icon next to the Triage-Agent node inside the For each loop, not the one outside of it, to ensure the condition is evaluated for each individual ticket.
+>> Important: Make sure to select the **+** icon next to the Triage-Agent node inside the For each loop, not the one outside of it, to ensure the condition is evaluated for each individual ticket.
 2. In the If / else node editor, select **+ Add a path** to create the **If** branch. Then select the Pencil icon in the If branch to edit the condition.
 3. Set the **Condition** field to the following expression to check if the confidence score is above 0.6:
    ```
