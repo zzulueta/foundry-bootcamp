@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+labenv/
+venv/
+env/
+ENV/
+.venv
+
+# Environment variables
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Azure
+.azure/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log

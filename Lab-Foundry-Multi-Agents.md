@@ -336,7 +336,7 @@ In this task, you will prepare the environment in Microsoft Azure by setting up 
    - The provided files include application code and a file for configuration settings
 
 ### 3.2 Configure the Application Settings
-In this task, you will configure the application settings by installing dependencies and updating the project endpoint and model deployment details to connect your code with Microsoft Foundry.
+In this task, you will configure the application settings by installing dependencies and updating the project endpoint details to connect your code with Microsoft Foundry.
 
 1. In the cloud shell command-line pane, enter the following command to install the libraries you'll use:
    ```bash
@@ -500,7 +500,14 @@ Group chat orchestration models a collaborative conversation among multiple agen
    ```bash
    cd ~/ai-agents/Labfiles/08-build-workflow-ms-foundry/Python
    ```
-2. Create a new Python file for the group chat example:
+2. Add the model deployment in the .env file:  
+   ```bash
+   code .env
+   ```
+   - Place this in the file `MODEL_DEPLOYMENT_NAME=gpt-4.1`
+   - Click **CTRL+S** to save the file and **CTRL+Q** to exit the editor.
+
+3. Create a new Python file for the group chat example:
    ```bash
    code group_chat_quality_control.py
    ```
@@ -539,186 +546,193 @@ This demonstrates **non-linear orchestration** where the manager makes intellige
 ### 4.4 Implement the Group Chat with Agent-Based Orchestrator
 
 1. In the `group_chat_quality_control.py` file, add the following code to set up the client and define the three specialized agents:
-   ```python
-   import os
-   import asyncio
-   from agent_framework.foundry import FoundryChatClient
-   from azure.identity import AzureCliCredential
-   from agent_framework import Agent
-   from agent_framework.orchestrations import GroupChatBuilder
-   from agent_framework import AgentResponseUpdate, Message
+```python
+import os
+import asyncio
+from dotenv import load_dotenv
+from agent_framework.foundry import FoundryChatClient
+from azure.identity import AzureCliCredential
+from agent_framework import Agent
+from agent_framework.orchestrations import GroupChatBuilder
+from agent_framework import AgentResponseUpdate
 
-   # Initialize the Azure OpenAI client
-   client = FoundryChatClient(
-       project_endpoint=os.environ["PROJECT_ENDPOINT"],
-       model=os.environ["MODEL_DEPLOYMENT_NAME"],
-       credential=AzureCliCredential(),
-   )
+load_dotenv()
+endpoint = os.environ["PROJECT_ENDPOINT"]
+model = os.environ["MODEL_DEPLOYMENT_NAME"]
 
-   # Create the Explainer agent - produces initial explanations
-   explainer = Agent(
-       client=client,
-       name="Explainer",
-       description="Creates clear initial explanations of technical concepts for non-technical audiences",
-       instructions="""You are an expert at explaining technical concepts to non-technical audiences.
+# Initialize the Azure OpenAI client
+client = FoundryChatClient(
+   project_endpoint=endpoint,
+   model=model,
+   credential=AzureCliCredential(),
+)
+
+# Create the Explainer agent - produces initial explanations
+explainer = Agent(
+   client=client,
+   name="Explainer",
+   description="Creates clear initial explanations of technical concepts for 10-year-olds",
+   instructions="""You are an expert at explaining technical concepts to 10-year-old children.
 
    Your role:
    - Produce the initial explanation of the given topic
    - Focus on clarity and correctness
-   - Use simple language and avoid jargon
-   - Use analogies when helpful
+   - Use very simple language a 10-year-old would understand
+   - Use fun, relatable analogies from a child's everyday life
    - Do NOT critique or revise - only explain
 
    Guidelines:
-   - Keep explanations concise (3-5 paragraphs)
-   - Use everyday examples
-   - Break down complex ideas into simple parts
-   - Assume the reader has no technical background""",
-   )
+   - Keep explanations short and simple (3-5 paragraphs)
+   - Use examples from games, toys, school, or daily activities kids know
+   - Break down complex ideas into very simple parts
+   - Use short sentences
+   - Assume the reader is a 10-year-old with no technical background""",
+)
 
-   # Create the Critic agent - identifies problems
-   critic = Agent(
-       client=client,
-       name="Critic",
-       description="Reviews explanations and identifies clarity issues, jargon, and logic problems",
-       instructions="""You are a quality control specialist focused on clarity for non-technical audiences.
+# Create the Critic agent - identifies problems
+critic = Agent(
+   client=client,
+   name="Critic",
+   description="Reviews explanations to ensure they're understandable by 10-year-olds",
+   instructions="""You are a quality control specialist ensuring explanations are clear for 10-year-old children.
 
    Your role:
-   - Review the explanation provided
+   - Review the explanation as if you're checking if a 10-year-old would understand it
    - Identify specific problems such as:
-     * Technical jargon that wasn't explained
-     * Missing explanations of key concepts
-     * Confusing logic or unclear flow
-     * Assumptions about technical knowledge
+     * Big words or complicated terms a 10-year-old wouldn't know
+     * Missing explanations of important ideas
+     * Confusing logic or sentences that are too long or complicated
+     * Assumptions that the child knows things they probably don't
+     * Abstract concepts that need concrete examples from a child's life
    - Provide constructive, specific feedback
    - Do NOT rewrite - only critique
 
    Guidelines:
    - Be specific about what needs improvement
    - Quote problematic phrases when possible
-   - Explain why something is unclear
-   - Focus on helping non-technical readers understand""",
-   )
+   - Explain why a 10-year-old would find something confusing
+   - Suggest simpler words or more relatable examples from kids' daily lives
+   - Check if sentences are short enough and vocabulary is age-appropriate
+   
+   IMPORTANT - When to indicate completion:
+   - If the explanation is clear, simple, uses kid-friendly language, and a 10-year-old could understand it
+   - State explicitly: "This explanation is now clear and appropriate for a 10-year-old"
+   - Provide any minor suggestions if needed, but indicate the work is essentially complete""",
+)
 
-   # Create the Refiner agent - improves based on feedback
-   refiner = Agent(
-       client=client,
-       name="Refiner",
-       description="Revises explanations by incorporating critique feedback",
-       instructions="""You are an editor who improves explanations based on feedback.
+# Create the Refiner agent - improves based on feedback
+refiner = Agent(
+   client=client,
+   name="Refiner",
+   description="Revises explanations to make them perfect for 10-year-olds",
+   instructions="""You are an editor who improves explanations to be perfect for 10-year-old children.
 
    Your role:
    - Read the original explanation
    - Review the Critic's feedback carefully
    - Revise the explanation to address ALL issues raised
-   - Maintain the core message while improving clarity
+   - Make it even simpler and more fun for kids to understand
    - Do NOT ignore any critique points
 
    Guidelines:
    - Address each piece of feedback specifically
-   - Simplify jargon that was called out
-   - Add missing explanations
-   - Improve flow and logic where needed
+   - Replace big or complicated words with simple ones a 10-year-old knows
+   - Add missing explanations using examples from kids' daily lives
+   - Use shorter sentences and simpler logic
+   - Keep it fun and relatable to a child's experiences
    - Keep the same approximate length""",
-   )
-   ```
+)
+```
 
 2. Add the orchestrator agent that makes intelligent decisions about speaker selection:
-   ```python
-   # Create the Orchestrator agent - manages the conversation flow
-   orchestrator = Agent(
-       name="Orchestrator",
-       description="Coordinates the collaborative explanation refinement process",
-       instructions="""You coordinate a team of three agents to produce high-quality explanations through iterative refinement.
+```python
+orchestrator = Agent(
+   name="Orchestrator",
+   description="Coordinates the collaborative explanation refinement process for 10-year-olds",
+   instructions="""You coordinate a team of three agents to produce high-quality explanations suitable for 10-year-old children.
 
    Your team:
-   - Explainer: Creates initial explanations
-   - Critic: Reviews and identifies problems
-   - Refiner: Revises based on critique
+   - Explainer: Creates initial explanations for kids
+   - Critic: Reviews to ensure a 10-year-old would understand
+   - Refiner: Revises based on critique to make it kid-friendly
 
    Decision logic:
    1. If no explanation exists yet → select Explainer
    2. If explanation exists but hasn't been critiqued → select Critic
    3. If critique exists but hasn't been addressed → select Refiner
-   4. After refinement, you may:
-      - Send back to Critic for validation (if major changes)
-      - End conversation if quality is satisfactory
+   4. After refinement → send back to Critic for validation
+   5. Continue cycles of critique and refinement until the Critic indicates the explanation is satisfactory
    
-   Quality criteria for ending:
-   - Explanation is clear and jargon-free
-   - All critique points have been addressed
-   - Suitable for non-technical audience
-
+   TERMINATION: When the Critic's feedback shows the explanation is clear, uses kid-friendly language,
+   and is suitable for a 10-year-old, FINISH the conversation. Look for positive indicators like
+   "clear for a 10-year-old," "appropriate for children," "kid-friendly," or minimal/minor feedback.
+   
    Always select the most appropriate agent based on the current conversation state.
    Think about what has been done and what needs to happen next.""",
-       client=client,
-   )
-   ```
+   client=client,
+)
+```
 
 3. Build the group chat workflow with the agent-based orchestrator:
-   ```python
-   # Build group chat with agent-based orchestrator
-   workflow = GroupChatBuilder(
-       participants=[explainer, critic, refiner],
-       # Set termination condition: stop after 10 assistant messages (safety limit)
-       termination_condition=lambda messages: sum(1 for msg in messages if msg.role == "assistant") >= 10,
-       orchestrator_agent=orchestrator,
-   ).build()
-   ```
+```python
+# Build group chat with agent-based orchestrator
+workflow = GroupChatBuilder(
+   participants=[explainer, critic, refiner],
+   # Terminate when reaching message limit (allows for multiple refinement cycles)
+   termination_condition=lambda messages: sum(1 for msg in messages if msg.role == "assistant") >= 15,
+   intermediate_outputs=True,  # Enable intermediate outputs to see all agent messages
+   orchestrator_agent=orchestrator,
+).build()
+```
 
 4. Add the main execution function to run the collaborative reasoning task:
-   ```python
-   async def run_quality_control_chat():
-       """Run the group chat with quality control workflow."""
-       task = "Explain async/await in Python to a non-technical audience."
+```python
+async def run_quality_control_chat():
+   """Run the group chat with quality control workflow."""
+   task = "Explain async/await in Python to a 10-year-old child."
 
-       print(f"Task: {task}\n")
-       print("=" * 80)
-       print("Collaborative Reasoning and Quality Control")
-       print("=" * 80)
+   print(f"Task: {task}\n")
+   print("=" * 80)
+   print("Collaborative Reasoning and Quality Control (for 10-year-olds)")
+   print("=" * 80)
 
-       final_conversation: list[Message] = []
-       last_author: str | None = None
-
-       # Run the workflow with streaming enabled
-       async for event in workflow.run(task, stream=True):
-           if event.type == "output" and isinstance(event.data, AgentResponseUpdate):
-               # Print streaming agent updates
-               author = event.data.author_name
+   # Keep track of the last author to format output nicely in streaming mode
+   last_author: str | None = None
+   
+   # Run the workflow with streaming enabled
+   async for event in workflow.run(task, stream=True):
+       if event.type == "output":
+           data = event.data
+           if isinstance(data, AgentResponseUpdate):
+               author = data.author_name
+               
+               # Print agent name when we encounter a new author
                if author != last_author:
                    if last_author is not None:
                        print("\n")
                    print(f"\n[{author}]:", end=" ", flush=True)
                    last_author = author
-               print(event.data.text, end="", flush=True)
-           elif event.type == "output" and isinstance(event.data, list):
-               # Workflow completed - data is a list of Message
-               final_conversation = event.data
+               
+               # Skip empty text chunks but after we've printed the agent name
+               if data.text and not data.text.isspace():
+                   print(data.text, end="", flush=True)
+           elif isinstance(data, list):  
+               # The output of the group chat workflow is a collection of chat messages from all participants
+               outputs = data
+               print("\n\n" + "=" * 80)
+               print("Final Conversation Transcript:")
+               print("=" * 80)
+               for message in outputs:
+                   print(f"\n[{message.author_name or message.role}]")
+                   print(message.text)
+                   print("-" * 80)
 
-       if final_conversation:
-           print("\n\n" + "=" * 80)
-           print("Workflow Summary")
-           print("=" * 80)
-           print(f"Total messages: {len(final_conversation)}")
-           agent_names = [msg.author_name for msg in final_conversation if msg.author_name and msg.author_name != "Orchestrator"]
-           print(f"Participating agents: {', '.join(set(agent_names))}")
-           print(f"Refinement cycles completed: {agent_names.count('Refiner')}")
-           
-           # Display the final refined explanation
-           print("\n" + "=" * 80)
-           print("Final Refined Explanation")
-           print("=" * 80)
-           for msg in reversed(final_conversation):
-               if msg.author_name == "Refiner":
-                   print(f"\n{msg.text}\n")
-                   break
+   print("\nWorkflow completed.")
 
-       print("\nWorkflow completed.")
-
-   # Run the async function
-   if __name__ == "__main__":
-       asyncio.run(run_quality_control_chat())
-   ```
+# Run the async function
+if __name__ == "__main__":
+   asyncio.run(run_quality_control_chat())
+```
 
 5. Save the file using **CTRL+S** and close the editor with **CTRL+Q**
 
@@ -726,6 +740,7 @@ This demonstrates **non-linear orchestration** where the manager makes intellige
 
 1. In the Cloud Shell console, enter the following command to run the group chat:
    ```bash
+   pip install agent_framework==1.2.2
    python group_chat_quality_control.py
    ```
 
@@ -744,90 +759,39 @@ This demonstrates **non-linear orchestration** where the manager makes intellige
 
 **Expected Output:**
 ```plaintext
-Task: Explain async/await in Python to a non-technical audience.
+Task: Explain async/await in Python to a 10-year-old child.               
 
 ================================================================================
-Collaborative Reasoning and Quality Control
+Collaborative Reasoning and Quality Control (for 10-year-olds)
 ================================================================================
 
-[Explainer]: Imagine you're at a restaurant waiting for your food. In traditional programming 
-(synchronous), you'd sit at your table doing absolutely nothing until your meal arrives - you 
-can't read, talk, or check your phone. You're completely blocked, just waiting.
+[Explainer]: Imagine you’re waiting for your cookies to bake in the oven. You could just sit there and watch the oven the whole time. But that wouldn’t be fun, right? Instead, you can play a game, draw, or read a book while the cookies bake. When the cookies are ready, you stop what you’re doing and eat them!
 
-Async/await in Python is like being able to do other things while you wait. You order your food 
-(start an async task), and then you're free to read a book, check messages, or chat with friends 
-(do other work) while the kitchen prepares your meal. When your food is ready, the waiter gets 
-your attention (await), and you can enjoy your meal...
+In Python, “async” is a way to tell the computer, “I’m going to start something, like baking cookies. While I wait for it to finish, I can do other things.” “Await” is like checking if the cookies are ready or stopping your game to go eat them when they are done.
 
-[Critic]: The restaurant analogy is good, but there are a few issues:
+So, async/await is just a fun way for computers to not get bored while waiting. They can do lots of things at once, like playing games while waiting for cookies to bake. This makes them faster and more helpful!
 
-1. "Async task" - the term "async" is used without defining it first for non-technical readers
-2. The explanation mentions "do other work" but doesn't clarify what "work" means in programming
-3. Missing: why this matters or when someone would use this
-4. The connection between the analogy and actual Python code is unclear...
+In code, you say “async” for the things that can happen at the same time. You say “await” for the moments you need to check if those things are finished. It’s like making busy time fun!
 
-[Refiner]: Imagine you're at a restaurant waiting for your food. Normally, you might sit at 
-your table doing absolutely nothing until your meal arrives - you can't read, talk, or check 
-your phone. You're completely blocked, just staring at the wall and waiting.
 
-Python's async/await is like being a smarter restaurant customer. When you place your order, 
-you don't just freeze and stare at the kitchen. Instead, you can read a book, reply to text 
-messages, or have a conversation - you're productive while waiting. When your food is ready, 
-the waiter taps you on the shoulder to let you know.
+[Critic]: Review:
 
-In programming terms: your program can handle multiple things at once. While waiting for a 
-slow operation (like downloading a file from the internet or querying a database), your 
-program can work on other tasks instead of sitting idle...
+1. "Imagine you’re waiting for your cookies to bake in the oven." – This is a clear and relatable example.
+2. "You could just sit there and watch the oven... But that wouldn’t be fun..." – Good comparison, easy to understand for10-year-olds.
+3. "Instead, you can play a game, draw, or read a book while the cookies bake. When the cookies are ready, you stop what you’re doing and eat them!" – This is a strong real-life analogy.
+4. "In Python, 'async' is a way to tell the computer, 'I’m going to start something, like baking cookies. While I wait for it to finish, I can do other things.' 'Await' is like checking if the cookies are ready or stopping your game to go eat them when they are done." – This is very clear, using simple language and connecting to the analogy.
+5. "So, async/await is just a fun way for computers to not get bored while waiting..." – Using the phrase 'not get bored' might be slightly abstract for some kids, but in the context it works, especially with the cookie analogy.
+6. "They can do lots of things at once, like playing games while waiting for cookies to bake." – Good, concrete example.
+7. "In code, you say 'async' for the things that can happen at the same time. You say 'await' for the moments you need to check if those things are finished. It’s like making busy time fun!" – Clear and summarizes the analogy well.
 
-================================================================================
-Workflow Summary
-================================================================================
-Total messages: 6
-Participating agents: Explainer, Critic, Refiner
-Refinement cycles completed: 1
+...
 
-================================================================================
-Final Refined Explanation
-================================================================================
+Conclusion:This explanation is now clear and appropriate for a10-year-old. No further changes are needed. Great job!
 
-[Refined explanation displayed here]
 
+[Orchestrator]: Awesome! The explanation of async/await in Python is now perfect for a 10-year-old and ready to use.
 Workflow completed.
 ```
-
-### 4.6 Understanding the Group Chat Architecture
-
-**Key Learnings from This Lab:**
-
-1. **No Tools Required for Value**
-   - The Explainer, Critic, and Refiner agents demonstrate effective collaboration without any tools
-   - Value comes from role separation, orchestration logic, and shared context
-   - No file search, APIs, or external data needed for sophisticated workflows
-
-2. **Orchestrator Intelligence**
-   - The orchestrator makes strategic decisions based on conversation state
-   - Not simple turn-taking (round-robin)
-   - Understands what has been done and what needs to happen next
-   - Can send work back for additional refinement
-
-3. **Context Synchronization**
-   - All agents see the full conversation history, but maintain separate sessions
-   - **After each agent's turn:** The orchestrator broadcasts the response to all other agents
-   - **Before the next turn:** The selected agent receives the complete conversation history
-   - Each agent maintains its own session, synchronized by the orchestrator
-   - This enables different agent types to coexist in the same workflow
-
-4. **Iterative Refinement Process**
-   - Initial draft → Critique → Revision → Optional re-critique
-   - Each cycle improves quality through specialized feedback
-   - Termination based on quality criteria, not arbitrary turn count
-   - Demonstrates true collaborative intelligence
-
-**Why This Matters:**
-- Proves that complex agent coordination doesn't require infrastructure
-- Shows how role separation creates value
-- Demonstrates manager-driven orchestration patterns
-- Provides a template for quality control workflows
 
 ---
 
@@ -909,90 +873,6 @@ In this lab, you successfully:
 14. ✅ Experienced iterative refinement through role separation and quality control
 15. ✅ Understood that effective collaboration doesn't require tools or external data
 16. ✅ Learned context synchronization principles in multi-agent systems
-
-### Benefits of Microsoft Foundry Workflows
-
-**Best Practice:** Building workflows with AI agents provides:
-- **Automation at scale:** Process hundreds or thousands of requests automatically
-- **Intelligent routing:** Use AI to classify and route items appropriately
-- **Quality control:** Implement confidence thresholds and human-in-the-loop escalation
-- **Consistency:** Ensure consistent handling of similar requests
-- **Observability:** Track workflow execution and monitor performance
-- **Integration:** Connect workflows to your applications via SDK
-- **Collaborative intelligence:** Multiple agents working together for better outcomes
-- **Iterative refinement:** Agents can review and improve each other's work
-
-### Architecture Patterns
-
-**Sequential Workflow with AI Agents:**
-1. **Input collection:** Start with a batch of items to process
-2. **Iteration:** Loop through each item individually
-3. **AI classification:** Use agents with structured outputs (JSON schema) for reliable categorization
-4. **Conditional branching:** Route items based on classification results and confidence scores
-5. **Specialized handling:** Apply different agents or logic for different categories
-6. **Output generation:** Produce automated responses or escalations
-
-This pattern is ideal for:
-- ✅ Customer support ticket triage
-- ✅ Document classification and routing
-- ✅ Content moderation workflows
-- ✅ Lead qualification and scoring
-- ✅ Invoice processing and approval routing
-
-**Group Chat Orchestration Pattern:**
-1. **Orchestrator analysis:** Intelligent coordinator analyzes conversation state
-2. **Strategic selection:** Selects next speaker based on workflow logic (not round-robin)
-3. **Agent contribution:** Selected agent processes task with full context
-4. **Response broadcast:** Orchestrator shares response with all agents
-5. **Context synchronization:** All agents maintain updated conversation history
-6. **Iterative cycles:** Process repeats with intelligent routing until quality criteria met
-7. **Final output:** Complete conversation history with all agent contributions
-
-This pattern is ideal for:
-- ✅ Collaborative reasoning and quality control (explain/critique/refine workflows)
-- ✅ Iterative content creation with review cycles
-- ✅ Multi-perspective analysis with specialized roles
-- ✅ Automated quality assurance and approval workflows
-- ✅ Scenarios requiring iterative improvement without external tools
-- ✅ Code review workflows (developer-reviewer-refiner patterns)
-
-**Key Learning:** Effective orchestration doesn't require tools - role separation, shared context, and intelligent coordination create value.
-
-### Important Notes
-
-> **Note:** The workflow builder in Microsoft Foundry is currently in preview. You may experience some unexpected behavior, warnings, or errors.
-
-**JSON Schema for Structured Outputs:**
-- JSON schemas ensure agents return predictable, parseable responses
-- Use `"strict": true` to enforce exact schema adherence
-- Define all required fields to avoid missing data
-- Structured outputs are essential for workflow automation and conditional logic
-
-**Confidence Scores:**
-- Always evaluate confidence when using AI classification
-- Set appropriate thresholds (e.g., 0.6) for your use case
-- Route low-confidence items to human review or request more information
-- Monitor confidence distributions to improve prompts and training data
-
-**Group Chat Orchestration Strategies:**
-- **Agent-based orchestrators:** Intelligent selection based on conversation context and workflow state
-- **Role separation:** Each agent has a distinct, non-overlapping responsibility
-- **Termination conditions:** Define when conversation should end (quality criteria, message count, approval keywords)
-- **Context synchronization:** All agents see full history, enabling true collaboration
-- **No tools required:** Effective collaboration through role instructions and shared context alone
-
-**When to Use Group Chat:**
-- You need iterative refinement (multiple review cycles)
-- Agents have complementary expertise that should be combined (explain/critique/refine)
-- The task benefits from quality control and multiple perspectives
-- You want collaborative reasoning without external data
-- Role separation creates value through specialized feedback
-
-**Avoid Group Chat When:**
-- Strict sequential processing is required (use Sequential orchestration)
-- Agents should work independently (use Concurrent orchestration)
-- Direct agent-to-agent handoffs are needed (use Handoff orchestration)
-- Simple turn-taking is sufficient (consider simpler patterns)
 
 ---
 
