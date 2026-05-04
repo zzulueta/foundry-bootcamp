@@ -42,6 +42,7 @@ By the end of this lab, you will have:
    - **Subscription:** Select your subscription
    - **Resource group name:** `rg-foundry-controlplane`
    - **Region:** `East US 2`
+> Note: Cloud red teaming is currently available in the following regions: East US 2, France Central, Sweden Central, Switzerland West, and US North Central. 
 5. Click **Review + Create**, then **Create**
 
 ### 1.3 Create Application Insights Resource
