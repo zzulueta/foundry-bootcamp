@@ -412,13 +412,8 @@ By the end of this lab, you will have:
 
 ### 6.3 Review Red Team Results
 1. Once complete, click on your red team run
-2. Review the safety metrics:
-   - Attack success rate
-   - Categories of attacks attempted
-   - Defect rate by category
-3. Review individual attack scenarios
-4. Identify any successful attacks that need mitigation
-5. Note recommendations for improving agent safety
+2. Review the Runs summary
+3. Click on each Run to review the details of each attack attempt and the Overall metric results.
 
 ---
 
