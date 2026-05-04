@@ -412,6 +412,7 @@ By the end of this lab, you will have:
 14. Click **Submit** to start the red team run
 
 ### 6.3 Review Red Team Results
+> Note: Red Teaming typically take 5-10 minutes to complete. You may proceed to the Next step while waiting for it to complete.
 1. Once complete, click on your red team run
 2. Review the Runs summary
 3. Click on each Run to review the details of each attack attempt and the Overall metric results.
@@ -471,9 +472,19 @@ By the end of this lab, you will have:
 ### 8.4 Test the Policy
 1. The CustomerSupport Compliance Policy you just created will eventually scan and identify existing custom guardrails that do not follow the policy. 
 2. To test the policy immediately, you can create a new guardrail with the same configuration as the one in the policy:
-   - Create a new guardrail named `TestComplianceGuardrail`
-   - Set Jailbreak detection to "Annotate" for user input
-   - Apply it to the Triage-Agent 
+   - Go to **Build** > **Guardrails** > **Guardrails** tab
+   - Select **Create** in the upper right corner
+   - Under Add controls: Select Jailbreak
+      - Intervention point: User input
+      - Action: **Annotate**
+      - Click **Add control**
+   - Click **Next**
+   - Click **Next** to skip to the next step. We will not assign this to any agent or model.
+   - Set Guardrail name to  `TestComplianceGuardrail`
+   - Review the configuration and ensure it violates the compliance policy you just created (Jailbreak control with Annotate action)
+   - Click **Submit** to create the guardrail
+3. Head back to the **Operate** > **Compliance** page and wait for the `CustomerSupportCompliancePolicy` policy to detect the non-compliant guardrail.
+> Note: This may take a few minutes to populate. You can refresh the page to check for updates.
 
 ---
 
