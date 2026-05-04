@@ -135,7 +135,7 @@ By the end of this lab, you will have:
 1. Navigate to the top.
 2. Under **Model**, ensure `gpt-5.4-mini` is selected
 3. Navigate to Tools:
-   - Click **Browse all tools**
+   - Click **Add > Browse all tools**
    - Select **File search**
    - Click **Add tool**
    - Configure the File Search tool:
@@ -242,7 +242,7 @@ By the end of this lab, you will have:
    - Click **Next**
 9. Under Criteria:
    - Remove all auto-generated criteria
-   - Click **Add criteria** and add the following criteria:
+   - Click **Add new evaluator** and add the following criteria:
      - **Relevance:** Measures if responses are relevant to the query
      - **Coherence:** Measures if responses are coherent and well-structured
      - **Fluency:** Measures linguistic quality
@@ -280,7 +280,7 @@ By the end of this lab, you will have:
 1. Select **Microsoft.DefaultV2** from the list
 2. Review the configuration:
    - **Type:** Model - Applied to specific models
-   - **Applied to:** `gpt-5.4-mini`, `text-embedding-3-large`
+   - **Applied to:** `gpt-5.4-mini`, `text-embedding-3-small`
 3. Note: Default guardrails provide baseline content safety filtering, jailbreak detection, and protected content filtering. You will create a custom guardrail for your specific use case.
 4. Exit the guardrail details and return to the list.
 
@@ -394,7 +394,7 @@ By the end of this lab, you will have:
     - Click **Save**
 7. Modify Run configuration - Seed data queries: `5`
 8. Modify Run configuration - Attack strategies:
-    - Click Modify under Attack strategies to view the different attack strategies.
+    - Click **Modify icon** under Attack strategies to view the different attack strategies.
     - Select the following attack strategies:
         - Jailbreak
         - Base64
