@@ -389,27 +389,17 @@ By the end of this lab, you will have:
 5. Click **Next**
 6. Modify Run configuration - Risk Categories:
     - Click Modify under Risk Categories to view the different attack categories.
-    - Keep all categories selected for comprehensive testing.
-    - Enter in Tool description: `This is a FAQ document for the Contoso Coffee company.`
+    - Remove all except **Violence**
     - Click **Save**
 7. Modify Run configuration - Seed data queries: `5`
 8. Modify Run configuration - Attack strategies:
     - Click **Modify icon** under Attack strategies to view the different attack strategies.
-    - Select the following attack strategies:
-        - Jailbreak
-        - Base64
-        - CharacterSpace
-        - UnicodeConfusable
-        - SuffixAppend
+    - Select Jailbreak
     - Click **Save**
 9. Click **Next**
-10. Under Review prohibited actions, click Configure:
-    - Review the list of prohibited actions that the red team will attempt to bypass during testing. 
-    - Click **Save** to confirm the prohibited actions list.
-11. Click **Next**
-12. Enter Red team name: `TriageAgentRedTeam`
-13. Review your red team configuration
-14. Click **Submit** to start the red team run
+10. Enter Red team name: `TriageAgentRedTeam`
+11. Review your red team configuration
+12. Click **Submit** to start the red team run
 
 ### 6.3 Review Red Team Results
 > Note: Red Teaming typically take 5-10 minutes to complete. You may proceed to the Next step while waiting for it to complete.
