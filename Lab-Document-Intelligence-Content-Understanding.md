@@ -446,11 +446,11 @@ curl -i -v -X POST "$endpoint/documentintelligence/documentModels/$model_id:anal
   -H "Ocp-Apim-Subscription-Key: $key" \
   --data-ascii "{'urlSource': '$file_path'}"
 ```
-4. Get the apim request id from the result. 
-5. Use the request id to get the result of the analysis with the following command. Replace `{resultId}` with the actual request id you received from the previous command.
+4. Get the apim-request-id from the result. 
+5. Use the request id to get the result of the analysis with the following command. Replace `{requestId}` with the actual request id you received from the previous command.
 ```bash
 # GET request to retrieve results
-curl -v -X GET "$endpoint/documentintelligence/documentModels/$model_id/analyzeResults/{resultId}?api-version=2024-11-30" \
+curl -v -X GET "$endpoint/documentintelligence/documentModels/$model_id/analyzeResults/{requestId}?api-version=2024-11-30" \
   -H "Ocp-Apim-Subscription-Key: $key" | \
   jq '.analyzeResult.documents[0].fields | {
     LastName: .LastName.content,
