@@ -432,7 +432,7 @@ To access the test documents and call recordings via API, you need to enable ano
 1. Open the Azure Cloud Shell from the Azure Portal (top right corner)
 2. Select Bash environment
 3. Use the following sample code to call your Document Intelligence model via API (replace placeholders with your values):
-
+> Tip: To get the file path for your test document in Azure Storage, navigate to the `test-forms` container, click on the test document, and copy the URL from the properties pane. It should look like: `https://stdocumentai<yourname>.blob.core.windows.net/test-forms/test-document.pdf`
 ```bash
 # Set variables
 endpoint="<your-document-intelligence-endpoint>"
@@ -467,7 +467,7 @@ curl -v -X GET "$endpoint/documentintelligence/documentModels/$model_id/analyzeR
 
 ### Get Content Understanding Results via API
 1. Use the following sample code to call your Content Understanding analyzer via API (replace placeholders with your values):
-
+> Tip: To get the file path for your call recording in Azure Storage, navigate to the `call-recordings` container, click on the recording, and copy the URL from the properties pane. It should look like: `https://stdocumentai<yourname>.blob.core.windows.net/call-recordings/call1.wav`
 ```bash 
 # Set variables
 endpoint="<your-content-understanding-endpoint>"
