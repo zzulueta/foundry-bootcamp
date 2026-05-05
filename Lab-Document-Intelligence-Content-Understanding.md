@@ -1,7 +1,7 @@
 # Lab: Document Intelligence and Content Understanding with Azure AI
 
 ## Overview
-In this hands-on lab, you will learn how to extract structured information from unstructured documents using Azure AI Document Intelligence and analyze audio recordings using Azure AI Content Understanding. This lab demonstrates how to process real-world documents like forms and analyze customer service call recordings to extract valuable insights.
+In this hands-on lab, you will learn how to extract structured information from unstructured documents using Azure Document Intelligence and analyze audio recordings using Azure Content Understanding. This lab demonstrates how to process real-world documents like forms and analyze customer service call recordings to extract valuable insights.
 
 **Estimated Time:** 90 minutes
 
@@ -16,9 +16,9 @@ In this hands-on lab, you will learn how to extract structured information from 
 
 ## Lab Architecture
 By the end of this lab, you will have:
-- An Azure AI Document Intelligence resource configured for custom form extraction
+- An Azure Document Intelligence resource configured for custom form extraction
 - A custom document model trained to extract patient information from COVID consent forms
-- An Azure AI Content Understanding resource for audio analysis
+- A Microsoft Foundry resource for audio analysis
 - A content understanding model that extracts insights from customer service call recordings
 - Tested both models with real sample data
 
@@ -99,13 +99,17 @@ By the end of this lab, you will have:
 15. Upload all PDF files from the `Unstructured Data\Forms\Test Files` folder
 16. Click **Upload** and wait for completion
 
-#### Create Call Recordings Container
+#### Upload Call Recordings
 17. Click **Containers** in the breadcrumb navigation to return to the containers list
 18. Click **+ Container**
 19. Configure the container:
     - **Name:** `call-recordings`
     - **Public access level:** Private (no anonymous access)
 20. Click **Create**
+21. Click on the **call-recordings** container
+22. Click **Upload**
+23. Upload all audio files from the `Unstructured Data\Recordings` folder
+24. Click **Upload** and wait for completion
 
 ### 1.5 Create an Azure Document Intelligence Resource
 1. In the Azure Portal, click **Create a resource**
@@ -219,7 +223,7 @@ Now you'll label the fields you want to extract from the forms.
    - Select the text in the document that corresponds to the field
    - Click the proper field
    - The selected text will be highlighted and associated with that field
-   - If the field is empty (e.g., middle name), select the empty location by using Draw region, then assign it to the field. This will help the model learn that this field can be empty.
+   - If the field is empty (e.g., middle name), click the Draw region tool in the toolbar to manually draw a box around the empty field then click End drawing after. This will help the model learn that this field can be empty.
 7. Label all 13 fields on the first document
 **Tip:** Use the zoom controls if text is too small to read clearly
 8. Review your labels to ensure they are correct, consistent, and complete.
@@ -499,7 +503,7 @@ curl -s \
 | jq '.result.contents[0].fields
       | map_values(.valueString)'
 ```
-> Note the use of `jq` to parse the JSON response and extract the field values for easier readability.
+> Note the use of `jq` to parse the JSON response and extract the field values for easier readability. The results may come out after 2-3 minutes, depending on the length of the audio and the complexity of the analysis.
 
 4. Review the extracted fields (Customer Name, Agent Name, Call Summary, Call Resolution, Product Name, Call Sentiment) in the API response and compare them to the results you saw in the Content Understanding Studio.
 
@@ -519,7 +523,7 @@ curl -s \
 - [ ] All 13 fields defined in schema
 - [ ] All 6 training documents labeled
 - [ ] Model trained successfully
-- [ ] Test documents analyzed 
+- [ ] Test documents analyzed via Studio and API
 
 ### Content Understanding
 - [ ] Content Understanding Studio accessed
@@ -527,7 +531,7 @@ curl -s \
 - [ ] Schema defined with 6 extraction fields
 - [ ] Audio files processed successfully
 - [ ] Extracted fields reviewed (Customer Name, Agent Name, etc.)
-- [ ] Sentiment analysis results reviewed
+- [ ] Sentiment analysis results reviewed via Studio and API
 
 ---
 
@@ -550,7 +554,7 @@ To avoid incurring charges, delete the resources when you're finished with the l
 
 In this lab, you successfully:
 
-1. ✅ Created Azure AI resources (Storage, Document Intelligence, Microsoft Foundry)
+1. ✅ Created Azure resources (Storage, Document Intelligence, Microsoft Foundry)
 2. ✅ Uploaded training documents to Azure Blob Storage
 3. ✅ Built a custom document extraction model in Document Intelligence Studio
 4. ✅ Labeled 13 fields across 6 training documents
