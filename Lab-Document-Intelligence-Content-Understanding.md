@@ -121,8 +121,8 @@ By the end of this lab, you will have:
 6. Wait for deployment to complete (typically 2-3 minutes)
 7. Once deployed, click **Go to resource**
 8. Navigate to **Resource Management > Keys and Endpoint** in the left menu
-9. Copy and save:
-   - **KEY 1** (you'll need this later)
+9. Copy and save (you'll need this later):
+   - **KEY 1** 
    - **Endpoint** URL
 
 ### 1.6 Create a Microsoft Foundry Resource (for Content Understanding)
@@ -137,6 +137,11 @@ By the end of this lab, you will have:
    - **Default project name:** project-cu
 5. Click **Review + Create**, then **Create**
 6. Wait for deployment to complete (typically 2-3 minutes)
+7. Once deployed, click **Go to resource**
+8. Navigate to **Resource Management > Keys and Endpoint** in the left menu
+9. Copy and save (you'll need this later):
+   - **KEY 1** 
+   - **Foundry > API endpoint** URL
 
 ---
 
