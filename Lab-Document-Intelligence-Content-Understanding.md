@@ -428,7 +428,7 @@ To access the test documents and call recordings via API, you need to enable ano
 10. Click **Ok**
 11. Repeat steps 7-10 for the `call-recordings` container
 
-### 5.2 Document Intelligence 
+### 5.2 Get Document Intelligence Results via API
 1. Open the Azure Cloud Shell from the Azure Portal (top right corner)
 2. Select Bash environment
 3. Use the following sample code to call your Document Intelligence model via API (replace placeholders with your values):
@@ -445,7 +445,7 @@ curl -i -v -X POST "$endpoint/documentintelligence/documentModels/$model_id:anal
   -H "Content-Type: application/json" \
   -H "Ocp-Apim-Subscription-Key: $key" \
   --data-ascii "{'urlSource': '$file_path'}"
-
+```
 4. Get the apim request id from the result. 
 5. Use the request id to get the result of the analysis with the following command. Replace `{resultId}` with the actual request id you received from the previous command.
 ```bash
@@ -465,7 +465,7 @@ curl -v -X GET "$endpoint/documentintelligence/documentModels/$model_id/analyzeR
 > Note the use of `jq` to parse the JSON response and extract specific fields for easier readability.
 6. Review the extracted field values in the API response and compare them to the results you saw in the Document Intelligence Studio.
 
-### Content Understanding
+### Get Content Understanding Results via API
 1. Use the following sample code to call your Content Understanding analyzer via API (replace placeholders with your values):
 
 ```bash 
