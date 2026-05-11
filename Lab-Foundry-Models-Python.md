@@ -15,7 +15,7 @@ In this hands-on lab, you will learn how to deploy and interact with Microsoft F
 
 ## Lab Architecture
 By the end of this lab, you will have:
-- A Microsoft Foundry resource with deployed models (GPT-4.1 and DeepSeek-V3.2)
+- A Microsoft Foundry resource with deployed models (GPT-4.1 and DeepSeek-V3.1)
 - Tested models in the Foundry playground
 - Python scripts that call your models via REST API
 - Understanding of authentication and API integration with Foundry models
@@ -40,7 +40,7 @@ By the end of this lab, you will have:
 
 ### 1.3 Create a Foundry Resource
 1. In the Azure Portal, click **Create a resource**
-2. Search for **Microsoft Foundry** and select it.
+2. Search for **Microsoft Foundry** and select it
 3. Click **Create**
 4. Configure the resource:
    - **Subscription:** Select your subscription
@@ -66,8 +66,8 @@ By the end of this lab, you will have:
 2. Select **Models** from the left sidebar
 3. Click **Deploy a base model**
 4. Search for the **gpt-4.1** model
-5. **Select** the model.
-6. Select Deploy > Custom settings.
+5. **Select** the model
+6. Select Deploy > Custom settings
 7. Configure the deployment:
    - **Deployment name:** `gpt-4.1`
    - **Deployment type:** Select **Global Standard** (pay-per-token, easiest for testing)
@@ -211,7 +211,7 @@ api_key = os.getenv("AZURE_OPENAI_KEY")
 deployment_name = os.getenv("MODEL_DEPLOYMENT_NAME")
 
 # Construct the full URL
-url = f"{endpoint}/responses?"
+url = f"{endpoint}/responses"
 
 # Headers
 headers = {
@@ -270,23 +270,24 @@ except requests.exceptions.RequestException as e:
 ### 6.2 Run the Basic Script
 
 1. Save the file and run it:
-   ```bash
-   python foundry_basic.py
-   ```
+```bash
+python foundry_basic.py
+```
+
 2. You should see output similar to:
-   ```
-   Assistant Response:
-   **Top 3 Benefits of Using Microsoft Foundry:**
+```
+Assistant Response:
+**Top 3 Benefits of Using Microsoft Foundry:**
 
-   1. **Unified AI Platform**: Foundry provides a centralized environment for building, deploying, and managing AI models...
-   2. **Enterprise-Grade Security**: Built on Azure, it offers robust security features...
-   3. **Seamless Integration**: Easy integration with Azure services and tools...
+1. **Unified AI Platform**: Foundry provides a centralized environment for building, deploying, and managing AI models...
+2. **Enterprise-Grade Security**: Built on Azure, it offers robust security features...
+3. **Seamless Integration**: Easy integration with Azure services and tools...
 
-   Token Usage:
-     Input tokens: 28
-     Output tokens: 150
-     Total tokens: 178
-   ```
+Token Usage:
+    Input tokens: 28
+    Output tokens: 150
+    Total tokens: 178
+```
 
 ### 6.3 Create an Advanced Script with OpenAI Library
 
@@ -350,9 +351,9 @@ else:
 ### 6.4 Run the Advanced Script
 
 1. Save the file and run it:
-   ```bash
-   python foundry_openai.py
-   ```
+```bash
+python foundry_openai.py
+```
 2. You should see a similar response as the basic script, but this time using the `openai` library which provides a more streamlined interface for working with Foundry models.
 
 ### 6.5 Create a Streaming Response Script
@@ -439,9 +440,9 @@ else:
 ### 6.6 Run the Streaming Script
 
 1. Save and run:
-   ```bash
-   python foundry_streaming.py
-   ```
+```bash
+python foundry_streaming.py
+```
 
 2. Observe how the response streams in real-time, similar to ChatGPT's interface
 
@@ -536,20 +537,20 @@ while True:
 ### 6.8 Run the Interactive Chat
 
 1. Save and run:
-   ```bash
-   python foundry_chat.py
-   ```
+```bash
+python foundry_chat.py
+```
 
 2. Have a conversation with the model:
-   ```
-   You: What is Microsoft Foundry?
-   Assistant: [Response...]
+```
+You: What is Microsoft Foundry?
+Assistant: [Response...]
    
-   You: How do I deploy models in Foundry?
-   Assistant: [Response...]
+You: How do I deploy models in Foundry?
+Assistant: [Response...]
    
-   You: quit
-   ```
+You: quit
+```
 ### 6.9 Run with another model
 1. To test with the second model, update the `MODEL_DEPLOYMENT_NAME` in your `.env` file to `DeepSeek-V3.1`
 2. Run any of the scripts again to see how the response differs with the different model.
@@ -561,56 +562,13 @@ while True:
 ### Verification Checklist
 - [ ] Foundry resource created successfully
 - [ ] GPT-4.1 model deployed and tested in playground
-- [ ] DeepSeek-V3.2 model deployed and tested in playground
+- [ ] DeepSeek-V3.1 model deployed and tested in playground
 - [ ] Python environment set up with required libraries
 - [ ] Environment variables configured correctly
 - [ ] Basic Python script runs successfully
 - [ ] OpenAI library script works with both models
 - [ ] Streaming script demonstrates real-time responses
 - [ ] Interactive chat script provides conversational interface
-- [ ] Error handling and retry logic tested
-
-### Troubleshooting Common Issues
-
-**Issue 1: Import Error - Module not found**
-- **Solution:** 
-  - Ensure you've activated your virtual environment
-  - Reinstall packages: `pip install openai requests python-dotenv`
-  - Verify installation: `pip list | grep openai`
-
-**Issue 2: Authentication Error (401)**
-- **Solution:** 
-  - Verify your API key is correct in the `.env` file
-  - Check for extra spaces or quotes in the key
-  - Ensure the key hasn't expired
-  - Regenerate the key in Azure Portal if needed
-
-**Issue 3: Endpoint Not Found (404)**
-- **Solution:** 
-  - Verify the endpoint URL is correct
-  - Check that the deployment name matches exactly
-  - Ensure the API version is valid
-  - Verify the model deployment is complete in Foundry portal
-
-**Issue 4: Rate Limit Errors (429)**
-- **Solution:** 
-  - Implement the retry logic from Step 7.1
-  - Wait before making another request
-  - Check your token per minute limit in Foundry
-  - Consider upgrading your deployment tier
-
-**Issue 5: Environment variables not loading**
-- **Solution:** 
-  - Ensure `.env` file is in the same directory as your script
-  - Check the file is named exactly `.env` (not `.env.txt`)
-  - Verify `load_dotenv()` is called before accessing variables
-  - Print variables to debug: `print(os.getenv("AZURE_FOUNDRY_KEY"))`
-
-**Issue 6: SSL/TLS Errors**
-- **Solution:** 
-  - Update your Python `requests` library: `pip install --upgrade requests`
-  - Update `openai` library: `pip install --upgrade openai`
-  - Check your network/firewall settings
 
 ---
 
@@ -632,52 +590,14 @@ To avoid incurring charges, delete the resources when you're finished with the l
 In this lab, you successfully:
 
 1. ✅ Created a Microsoft Foundry resource for hosting AI models
-2. ✅ Deployed GPT-4.1 and DeepSeek-V3.2 models in Microsoft Foundry
+2. ✅ Deployed GPT-4.1 and DeepSeek-V3.1 models in Microsoft Foundry
 3. ✅ Tested models in the Foundry playground
 4. ✅ Retrieved API credentials for programmatic access
 5. ✅ Set up a Python development environment
 6. ✅ Created Python scripts using the `requests` library
 7. ✅ Implemented advanced features using the `openai` library
 8. ✅ Built streaming and interactive chat interfaces
-9. ✅ Implemented robust error handling and retry logic
 
-### Benefits of Using Python with Foundry Models
-
-**Direct Integration:** Using Python to call Foundry models directly provides:
-- **Flexibility:** Full control over request parameters and response handling
-- **Simplicity:** No additional infrastructure (like APIM) required for development
-- **Rich ecosystem:** Leverage Python libraries for data processing, ML, and integration
-- **Rapid prototyping:** Quickly test and iterate on AI-powered features
-- **Easy deployment:** Integrate into existing Python applications, notebooks, or scripts
-
-### When to Use This Approach
-
-**Best for:**
-- Development and testing
-- Python-based applications and microservices
-- Data science and analytics workflows
-- Jupyter notebooks and research
-- Internal tools and automation scripts
-
-**Consider adding API Management when you need:**
-- Centralized governance across multiple APIs
-- Advanced security policies and throttling
-- API monetization or external partner access
-- Centralized logging and analytics across services
-- Response caching and transformation policies
-
----
-
-## Next Steps
-
-Now that you've completed this lab, consider:
-
-1. **Integrate with your applications:** Use the patterns learned to add AI capabilities to your Python projects
-2. **Explore advanced features:** Try function calling, embeddings, and multi-turn conversations
-3. **Build production applications:** Implement monitoring, logging, and error handling for production use
-4. **Learn about governance:** Explore Azure API Management for enterprise scenarios (see the APIM lab)
-5. **Experiment with prompting:** Try different system messages, temperatures, and prompting techniques
-6. **Monitor costs:** Use Azure Cost Management to track token usage and optimize spending
 
 ---
 
@@ -692,8 +612,6 @@ You now have hands-on experience with:
 - Using both `requests` and `openai` libraries
 - Implementing streaming responses
 - Building interactive chat interfaces
-- Error handling and retry logic
-- Best practices for production deployments
 
 ---
 

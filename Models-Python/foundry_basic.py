@@ -11,7 +11,7 @@ api_key = os.getenv("AZURE_OPENAI_KEY")
 deployment_name = os.getenv("MODEL_DEPLOYMENT_NAME")
 
 # Construct the full URL
-url = f"{endpoint}/responses?"
+url = f"{endpoint}/responses"
 
 # Headers
 headers = {
