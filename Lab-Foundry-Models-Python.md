@@ -3,13 +3,14 @@
 ## Overview
 In this hands-on lab, you will learn how to deploy and interact with Microsoft Foundry Models using Python. You will deploy AI models in Microsoft Foundry, test them in the playground, and then use Python code to call the models via REST API. This approach is ideal for developers who want to integrate Foundry models directly into their Python applications.
 
-**Estimated Time:** 60 minutes
+**Estimated Time:** 90 minutes
 
 **Prerequisites:**
 - An Azure account with an active subscription 
 - Access to a role that allows you to create Foundry resources (e.g., Azure AI Owner)
-- Python 3.8 or higher installed on your local machine
 - Basic understanding of Python and REST APIs
+- Access to Azure Cloud Shell (or Python 3.8+ locally with command line experience)
+
 
 ---
 
@@ -38,7 +39,22 @@ By the end of this lab, you will have:
    - **Region:** `Australia East`
 5. Click **Review + Create**, then **Create**
 
-### 1.3 Create a Foundry Resource
+### 1.3 Create an API Management Instance
+1. In the Azure Portal, click **Create a resource**
+2. Search for **API Management** and select it
+3. Click **Create**
+4. Configure the API Management service:
+   - **Subscription:** Select your subscription
+   - **Resource group:** `rg-foundry-python-lab`
+   - **Region:** `Australia East` (same as your Foundry resource)
+   - **Resource name:** `apim<yourname>` (must be globally unique)
+   - **Organization name:** Your organization name (can be your name or company name)
+   - **Administrator email:** Your email address (any valid email for notifications)
+   - **Pricing tier:** Select **Basic**
+5. Click **Review + Create**, then **Create**
+6. Do not wait for deployment to complete. **Proceed to next step**.
+
+### 1.4 Create a Foundry Resource
 1. In the Azure Portal, click **Create a resource**
 2. Search for **Microsoft Foundry** and select it
 3. Click **Create**
@@ -51,7 +67,7 @@ By the end of this lab, you will have:
 5. Click **Review + Create**, then **Create**
 6. Wait for the deployment to complete (typically 1-2 minutes)
 
-### 1.4 Access Microsoft Foundry Portal
+### 1.5 Access Microsoft Foundry Portal
 1. Once deployment completes, click **Go to resource**
 2. In the resource overview, click **Go to Foundry Portal** or navigate directly to [https://ai.azure.com/](https://ai.azure.com/)
 3. Sign in with your Azure credentials
@@ -556,19 +572,205 @@ You: quit
 2. Run any of the scripts again to see how the response differs with the different model.
 
 ---
+## Step 7: Setup the Model to be Called via Azure API Management
 
-## Verification and Testing
+### 7.1 Verify API Management is Ready
+1. Return to the Azure Portal
+2. Navigate to **Resource groups** > `rg-foundry-python-lab` > `apim<yourname>`
+3. Verify the **Status** shows as **Online** (if not, wait for completion)
 
-### Verification Checklist
-- [ ] Foundry resource created successfully
-- [ ] GPT-4.1 model deployed and tested in playground
-- [ ] DeepSeek-V3.1 model deployed and tested in playground
-- [ ] Python environment set up with required libraries
-- [ ] Environment variables configured correctly
-- [ ] Basic Python script runs successfully
-- [ ] OpenAI library script works with both models
-- [ ] Streaming script demonstrates real-time responses
-- [ ] Interactive chat script provides conversational interface
+### 7.2 Import the Foundry Model API into APIM
+1. In your API Management instance, navigate to **APIs** in the left menu and select **+ Add API** at the top
+2. Under **Create an AI API**, click **Microsoft Foundry**
+3. On the **Select AI Service** tab:
+   - **Subscription:** Select your subscription
+   - **AI Service:** Select `foundry<yourname>` (the Foundry resource you created)
+   - Review deployments by clicking the deployments link
+   - Click **Next**
+
+4. On the **Configure Model Route** tab:
+   - **Display name:** `Microsoft Foundry API`
+   - **Name:** `microsoft-foundry-api`
+   - **Base path:** `foundry` (this will be part of your API URL)
+   - **Description:** `API for accessing Microsoft Foundry deployed models`
+   - **Products:** Select **Unlimited** 
+   - **Client compatibility:** Select **Azure OpenAI v1**
+   - Click **Next**
+
+5. On the **Manage token consumption** tab:
+   - Enable Manage token consumption
+   - Tokens per minute (TPM): 1000
+   - Token quota: 5000
+   - Token quota period: Hourly 
+   - Enable the following options:
+     - **Estimate prompt tokens**: ON
+     - **Add consumed tokens header**: ON
+     - **Add remaining tokens header**: ON
+   - Click **Next**
+> Note: We're setting a lower token limit in APIM (1000 TPM) than the model's capacity (50000 TPM) to easily demonstrate rate limiting. In production, set APIM limits based on your budget and expected usage patterns.
+
+6. On the **Apply semantic caching** tab:
+   - Optionally enable semantic caching to reduce costs and latency for similar requests
+   - For this lab, we will disable, so leave it OFF
+   - Click **Next**
+
+7. On the **AI content safety** tab:
+   - Optionally configure Azure AI Content Safety integration
+   - For this lab, you will skip this step because there is a default content safety policy applied for all the models deployed in Foundry.
+   - Click **Review**
+
+8. Review the configuration and click **Create**
+
+### 7.3 Verify API Configuration
+1. Once created, click on the **Microsoft Foundry API** in the APIs list
+2. Navigate to the **Design** tab
+3. Verify operations are listed (e.g., `Creates a completion for the chat message`)
+4. Click **All operations**, then under **Inbound processing**, click the **</>** (code icon) to view **Policies**. Review the automatically applied policies for token per minute and token quota enforcement.
+5. Navigate to the **Settings** tab
+6. Note the following:
+   - **Base URL:** This shows your APIM gateway URL
+   - **Copy this URL to your Notepad for use in calling the API.**
+7. Scroll down to the **Subscriptions** section
+   - Notice that Subscription required is set to Yes.
+   - Notice that Header name is set to `api-key` - this is the header you will use to pass your subscription key for authentication when calling the API.
+
+### 7.4 Test the API in APIM
+1. In the **Design** tab, select the `Creates a model response` operation
+2. Click on the **Test** tab
+3. Configure the test request:
+    - **api-version:** `v1`
+    - **Request body:**
+    ```json
+    {"model":"gpt-4.1","input":"What is Azure?","stream":false}
+    ```
+4. Click **Send**.
+5. Review the response and verify you receive a valid response from the model with token usage headers included.
+6. Modify the model to `DeepSeek-V3.1` in the request body and test the second model as well.
+
+### 7.5 Get Your API Credentials
+1. In APIM, navigate to **Subscriptions** in the left menu
+2. Create a new subscription:
+   - Click **+ Add subscription**
+   - **Name:** `foundry-test-subscription`
+   - **Display name:** `Foundry Test Subscription`
+   - **Scope:** Select **API** > **Microsoft Foundry API**
+   - Click **Create**
+3. Click the **...** menu next to your subscription and select **Show/hide keys**
+4. Copy the **Primary key** to your Notepad - you'll need this for authentication
+
+---
+## Step 8: Call the APIM Endpoint from Python
+
+### 8.1 Create a Script
+
+1. Open your existing .env file and **add** these new lines (keep the existing ones):
+```
+GENAI_GATEWAY_ENDPOINT=your_apim_gateway_url_here
+GENAI_GATEWAY_API_KEY=your_subscription_key_here
+```
+2. Create a file named `foundry_apim.py`.
+```
+code foundry_apim.py
+```
+3. Open the file and add the following code to demonstrate how to handle responses from the Foundry model via the APIM endpoint with proper error handling for rate limits and API errors:
+```python
+import os
+from openai import OpenAI, RateLimitError, APIError
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Configuration
+gateway_endpoint = os.getenv("GENAI_GATEWAY_ENDPOINT")
+gateway_api_key = os.getenv("GENAI_GATEWAY_API_KEY")
+deployment_name = os.getenv("MODEL_DEPLOYMENT_NAME")
+
+def get_client_from_gateway() -> OpenAI:
+    client = OpenAI(
+        api_key="fakevalueshouldnotbeused", # dummy value to satisfy the required parameter, actual key is passed in headers
+        base_url=gateway_endpoint,
+        default_headers={"api-key": gateway_api_key},
+        timeout=30.0,  # Set timeout to 30 seconds
+        max_retries=0  # Disable automatic retries
+    )
+    return client
+
+client = get_client_from_gateway()
+
+try:
+    response = client.responses.create(   
+      input=[
+        {
+            "role": "system",
+            "content": "You are a helpful AI assistant."
+        },
+        {
+            "role": "user",
+            "content": "What are the top 3 benefits of using Microsoft Foundry?"
+        }
+    ],
+      max_output_tokens=1000,
+      temperature=0.7,
+      model=deployment_name
+    )
+
+    # Extract and print the assistant's message
+    if response.output and len(response.output) > 0:
+        assistant_message = response.output[0].content[0].text
+        print("Assistant Response:")
+        print(assistant_message)
+        
+        # Print token usage
+        if response.usage:
+            print("\nToken Usage:")
+            print(f"  Input tokens: {response.usage.input_tokens}")
+            print(f"  Output tokens: {response.usage.output_tokens}")
+            print(f"  Total tokens: {response.usage.total_tokens}")
+    else:
+        print("Error: Unexpected response structure.")
+        print(response.model_dump_json(indent=2))
+
+except RateLimitError as e:
+    print(f"\n⚠️  Rate limit exceeded!")
+    print(f"Status Code: {e.status_code}")
+    print(f"Error Message: {e.message}")
+    print(f"Response Body: {e.body}")
+
+except APIError as e:
+    # Check if this is a rate limit error (can be 403 or 429)
+    is_rate_limit = False
+    if e.status_code in [403, 429]:
+        error_msg = str(e.message).lower()
+        if any(keyword in error_msg for keyword in ['quota', 'limit', 'rate', 'exceeded', 'try again']):
+            is_rate_limit = True
+    
+    if is_rate_limit:
+        print(f"\n⚠️  Rate limit/Quota exceeded!")
+        print(f"Status Code: {e.status_code}")
+        print(f"Error Message: {e.message}")
+        print(f"Response Body: {e.body}")
+    else:
+        print(f"\n❌ API Error occurred!")
+        print(f"Status Code: {e.status_code}")
+        print(f"Error Message: {e.message}")
+        print(f"Response Body: {e.body}")
+
+except Exception as e:
+    print(f"\n❌ Unexpected error: {type(e).__name__}")
+    print(f"Details: {str(e)}")
+```
+4. You may copy the contents of the foundry_apim.py file found in the Models-Python folder of the repository and paste it into your `foundry_apim.py` file.
+
+### 8.2 Run the APIM Script
+
+1. Save and run:
+```bash
+python foundry_apim.py
+```
+2. Observe the response from the Foundry model via the APIM endpoint. 
+3. **Expected behavior:** The first call should succeed. Running it multiple times rapidly will trigger the rate limit (1000 TPM). You should see the rate limit error after consuming your quota.
+
 
 ---
 
@@ -597,7 +799,7 @@ In this lab, you successfully:
 6. ✅ Created Python scripts using the `requests` library
 7. ✅ Implemented advanced features using the `openai` library
 8. ✅ Built streaming and interactive chat interfaces
-
+9. ✅ Tested APIM rate limits and subscription key authentication
 
 ---
 
@@ -606,13 +808,14 @@ In this lab, you successfully:
 Congratulations! 🎉 You have completed the **Microsoft Foundry Models with Python** lab.
 
 You now have hands-on experience with:
+- Azure API Management for AI models
 - Microsoft Foundry resource and model deployment
 - Testing AI models in the playground
 - Python integration with Foundry APIs
 - Using both `requests` and `openai` libraries
 - Implementing streaming responses
 - Building interactive chat interfaces
-
+- Testing APIM rate limits and subscription key authentication
 ---
 
 **End of Lab**

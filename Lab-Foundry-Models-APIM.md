@@ -174,7 +174,7 @@ By the end of this lab, you will have:
 3. Verify the **Status** shows as **Online** (if not, wait for completion)
 
 ### 5.2 Import the Foundry Model API into APIM
-1. In your API Management instance, navigate to **APIs** in the left menu
+1. In your API Management instance, navigate to **APIs** in the left menu and select **+ Add API** at the top
 2. Under **Create an AI API**, click **Microsoft Foundry**
 3. On the **Select AI Service** tab:
    - **Subscription:** Select your subscription
@@ -218,7 +218,7 @@ By the end of this lab, you will have:
 1. Once created, click on the **Microsoft Foundry API** in the APIs list
 2. Navigate to the **Design** tab
 3. Verify operations are listed (e.g., `Creates a completion for the chat message`)
-4. Select All operations > Inbound processing > Policies. Review the automatically applied policies for token per minute and token quota enforcement.
+4. Click **All operations**, then under **Inbound processing**, click the **</>** (code icon) to view **Policies**. Review the automatically applied policies for token per minute and token quota enforcement.
 5. Navigate to the **Settings** tab
 6. Note the following:
    - **Base URL:** This shows your APIM gateway URL
