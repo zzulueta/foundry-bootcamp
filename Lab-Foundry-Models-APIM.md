@@ -111,8 +111,8 @@ By the end of this lab, you will have:
 ### 3.2 Deploy another Model
 1. Select Models from the left sidebar.
 2. Repeat the deployment steps to deploy a DeepSeek model with the following configuration:
-   - **Model:** DeepSeek-V3.2
-   - **Deployment name:** `DeepSeek-V3.2`
+   - **Model:** DeepSeek-V3.1
+   - **Deployment name:** `DeepSeek-V3.1`
    - **Deployment type:** Select **Global Standard**
    - **Tokens per minute rate limit:** `50000`
 
@@ -126,13 +126,13 @@ By the end of this lab, you will have:
 3. Select Open in playground
 
 ### 4.2 Configure the Playground
-1. In the **System message** field, add context:
+1. In the **Instructions** field, add context:
    ```
    You are a helpful AI assistant that provides concise and accurate answers about Azure. If you don't know the answer, say you don't know. Always provide clear and informative responses. If you are asked questions about other topics besides Azure, politely decline to answer.
    ```
 2. Adjust parameters:
    - **Temperature:** `0.7` (controls randomness; 0 = deterministic, 1 = creative)
-   - **Max tokens:** `800` (maximum response length)
+   - **Max Completion tokens:** `800` (maximum response length)
    - **Top P:** `0.95` (nucleus sampling threshold)
 
 ### 4.3 Test the Model
@@ -161,7 +161,7 @@ By the end of this lab, you will have:
 > **Note:** Token usage affects your billing and is important for monitoring costs.
 
 ### 4.5 Test the Second Model
-1. Go back to the Models list and open the playground for `DeepSeek-V3.2`
+1. Go back to the Models list and open the playground for `DeepSeek-V3.1`
 2. Repeat the same testing steps 4.2 to 4.3 with similar prompts to verify the second model is also working correctly.
 
 ---
@@ -239,6 +239,7 @@ By the end of this lab, you will have:
     - Click **Save**
 13. Head back to the Settings tab of the Microsoft Foundry API and scroll down to the **Diagnostics Logs** section
 14. Select Azure Monitor tab. Enable Override global.
+> Note: This may take at least 30 minutes before the Azure Portal reflects the new setting . You can proceed with the lab by testing the API and come back to check the logs later.
 15. Enable Log LLM messages.
 16. Enable Log prompts and Log completions.
 17. Click Save.
@@ -265,7 +266,7 @@ By the end of this lab, you will have:
     ```
 4. Click **Send**.
 5. Review the response and verify you receive a valid response from the model with token usage headers included.
-6. Modify the deployment-id to `DeepSeek-V3.2` and test the second model as well.
+6. Modify the deployment-id to `DeepSeek-V3.1` and test the second model as well.
 
 ### 5.5 Get Your API Credentials
 1. In APIM, navigate to **Subscriptions** in the left menu
@@ -298,7 +299,7 @@ By the end of this lab, you will have:
 In Cloud Shell, set up your environment variables. You'll need the following information:
 - **APIM Instance Name:** `apim<yourname>` (e.g., `apimjohn`)
 - **Subscription Key:** From Step 5.5
-- **Deployment Name:** `gpt-4.1` or `DeepSeek-V3.2`
+- **Deployment Name:** `gpt-4.1` or `DeepSeek-V3.1`
 - **API Version:** `2025-03-01-preview`
 
 Copy and paste the following commands, replacing the placeholder values:
@@ -446,7 +447,7 @@ Now test your second model deployment. Update the deployment name and run anothe
 
 ```bash
 # Update deployment name for DeepSeek
-DEPLOYMENT_NAME="DeepSeek-V3.2"
+DEPLOYMENT_NAME="DeepSeek-V3.1"
 
 curl -X POST "${APIM_ENDPOINT}/deployments/${DEPLOYMENT_NAME}/chat/completions?api-version=${API_VERSION}" \
   -H "Content-Type: application/json" \
@@ -550,7 +551,7 @@ ApiManagementGatewayLlmLog
 - [ ] Foundry resource created successfully
 - [ ] API Management instance is online
 - [ ] GPT-4.1 model deployed in Foundry portal
-- [ ] DeepSeek-V3.2 model deployed in Foundry portal
+- [ ] DeepSeek-V3.1 model deployed in Foundry portal
 - [ ] Both models tested successfully in playground
 - [ ] Foundry API imported into APIM with token policies
 - [ ] Subscription key obtained
@@ -572,7 +573,7 @@ ApiManagementGatewayLlmLog
 
 **Issue 3: 404 Not Found error**
 - **Solution:** 
-  - Verify the deployment name matches exactly (`gpt-4.1` or `DeepSeek-V3.2`)
+  - Verify the deployment name matches exactly (`gpt-4.1` or `DeepSeek-V3.1`)
   - Check that the base path is `/foundry/`
   - Ensure API version is valid (`2025-03-01-preview`)
   - Verify your APIM instance name is correct in the URL
@@ -659,7 +660,7 @@ Congratulations! 🎉 You have completed the **Microsoft Foundry Models with Azu
 
 You now have hands-on experience with:
 - Microsoft Foundry resource management
-- AI model deployment and testing (GPT-4.1 and DeepSeek-V3.2)
+- AI model deployment and testing (GPT-4.1 and DeepSeek-V3.1)
 - Azure API Management configuration
 - REST API integration with AI models
 - Token consumption policies and quota management
