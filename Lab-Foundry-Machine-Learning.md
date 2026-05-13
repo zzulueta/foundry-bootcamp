@@ -255,7 +255,7 @@ print("✅ Libraries imported successfully")
 2. Click **Run cell**
 
 ### 6.3 Load and Explore the Dataset
-1. Select Add code cell. Add the following code to load the dataset from Azure ML data assets and perform basic exploration:
+1. Add a new cell. Add the following code to load the dataset from Azure ML data assets and perform basic exploration:
 
 ```python
 # Cell 2: Load dataset from Azure ML Data Assets
@@ -286,7 +286,7 @@ print(df['Outcome'].value_counts())
 2. Run the cell and review the output
 
 ### 6.4 Exploratory Data Analysis (EDA)
-1. Select Add code cell. Add the following code for visualization:
+1. Add a new cell. Add the following code for visualization:
 
 ```python
 # Cell 3: Exploratory Data Analysis
@@ -323,7 +323,7 @@ print("✅ EDA visualizations complete")
 2. Run the cell and analyze the distributions
 
 ### 6.5 Data Preprocessing
-1. Add a new cell for data preparation:
+1. Select Add code cell for data preparation:
 
 ```python
 # Cell 4: Data Preprocessing
