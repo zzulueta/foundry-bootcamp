@@ -819,10 +819,10 @@ print()  # newline at end
 ### 10.3 Calling the Published Agent via CURL
 You can also call the published agent using CURL from the Cloud Shell. Here's how:
 1. First, get an access token using Azure CLI:
-   ```bash
-   TOKEN=$(az account get-access-token --resource https://ai.azure.com --query accessToken -o tsv)
+```bash
+TOKEN=$(az account get-access-token --resource https://ai.azure.com --query accessToken -o tsv)
 echo "${#TOKEN}"   # should print a non-zero length
-   ```
+```
 > Note: You must be logged in to Azure CLI (via az login) and have the appropriate permissions (Azure AI User) to get an access token. The token will be used for authentication when calling the published agent.
 2. Use the following CURL command to call the published agent, replacing `<BASE_URL>` with your actual values:
 ```bash
