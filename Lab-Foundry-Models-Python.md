@@ -71,7 +71,7 @@ By the end of this lab, you will have:
 1. Once deployment completes, click **Go to resource**
 2. In the resource overview, click **Go to Foundry Portal** or navigate directly to [https://ai.azure.com/](https://ai.azure.com/)
 3. Sign in with your Azure credentials
-4. Verify that you are in the New Foundry Portal and that your project (`project01`) is selected in the upper left corner.
+4. Verify that you are in the **New** Foundry Portal and that your project (`project01`) is selected in the upper left corner.
 
 ---
 
@@ -109,7 +109,7 @@ By the end of this lab, you will have:
 3. Select Open in playground
 
 ### 3.2 Configure the Playground
-1. In the **System message** field, add context:
+1. In the **Instructions** field, add context:
    ```
    You are a helpful AI assistant that provides concise and accurate answers about Azure. If you don't know the answer, say you don't know. Always provide clear and informative responses. If you are asked questions about other topics besides Azure, politely decline to answer.
    ```
