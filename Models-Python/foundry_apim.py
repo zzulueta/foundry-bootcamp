@@ -31,7 +31,7 @@ try:
         },
         {
             "role": "user",
-            "content": "What are the top 3 benefits of using Microsoft Foundry?"
+            "content": "What are the top 3 benefits of using Microsoft Foundry? Give me a 1000 word essay."
         }
     ],
       max_output_tokens=1000,
