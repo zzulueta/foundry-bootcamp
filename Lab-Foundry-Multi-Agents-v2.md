@@ -150,7 +150,7 @@ In this task, you will invoke the Triage Agent to classify each support ticket i
 2. In the workflow actions menu, under **Invoke**, select **Agent** to add an agent node
 3. In the Agent pane, open the **Select an agent** dropdown, and then choose **Create a new agent**
 4. In the Create an agent pane, enter `Triage-Agent` as the agent name, and then select **Create**
-5. In the **Details** tab, select the **Parameters** icon next to the model name
+5. Click **Edit in agent playground** to head to the agents playground. Select the **Parameters** icon next to the model name
 6. In the Parameters pane, open the **Text format** dropdown, and then select **JSON Schema**
 7. In the Add response format pane, enter the following definition and select **Save**:
    ```json
@@ -202,7 +202,8 @@ In this task, you will invoke the Triage Agent to classify each support ticket i
    - Questions about exporting, viewing, or downloading invoices are General, not Billing
    - Billing ONLY applies when money was charged, refunded, or paid incorrectly
    ```
-9. Select **Node settings** tab beside the Details tab to configure the input and output of the agent
+   Save the Agent and exit the agent playground.
+9. Head back to the workflow editor. In the Agent pane, select **Node settings** tab beside the Details tab to configure the input and output of the agent
 10. Set the **Input message** field to the `Local.CurrentTicket` variable
 11. Under **Save agent output message as**, create a new variable by entering `TriageOutputText` and select **Create new variable** from the drop-down
 12. Under **Save output json_object/json_schema as**, create a new variable by entering `TriageOutputJson` and select **Create new variable** from the drop-down
@@ -257,7 +258,7 @@ In this task, you will invoke the Resolution Agent to automatically generate a p
 2. In the workflow actions menu, under **Invoke**, select **Agent** to add an agent node
 3. In the Agent pane, open the **Select an agent** dropdown, and then select **Create a new agent** from the list
 4. In the Create an agent pane, enter `Resolution-Agent` as the agent name, and then select **Create**
-5. In the agent editor, set the **Instructions** field to the following prompt:
+5. Click **Edit in agent playground** to head to the agents playground. Set the **Instructions** field to the following prompt:
    ```
    You are a customer support resolution assistant for ContosoPay, a B2B payments and invoicing platform.
 
@@ -282,7 +283,8 @@ In this task, you will invoke the Resolution Agent to automatically generate a p
    Return only the drafted response text.
    Do not include internal reasoning or analysis.
    ```
-6. Select **Node settings** to configure the input and output of the agent
+   Select **Save** to save the agent configuration.  
+6. Return to the workflow editor. Select **Node settings** to configure the input and output of the agent
 7. Set the **Input message** field to the `Local.TriageOutputText` variable
 8. Under **Save agent output message as**, create a new variable by entering `ResolutionOutputText` and select **Create new variable** from the drop-down
 9. Select **Done** to save the node
