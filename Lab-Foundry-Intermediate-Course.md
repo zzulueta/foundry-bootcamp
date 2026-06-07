@@ -222,7 +222,7 @@ Now you'll build your first agent visually in the Foundry Portal and give it two
 ## Step 2.2: Configure Agent Basics
 1. On the **Create an agent** page:
    - **Agent name:** `pythonassistant`
-2. Click **Create and open playground**
+2. Click **Create**
 
 ## Step 2.3: Configure Agent Instructions
 1. In the agent configuration page, navigate to the **Instructions** tab
@@ -290,7 +290,7 @@ Now you'll build your first agent visually in the Foundry Portal and give it two
    - ✅ Agent combines both results into a single answer with sources cited
 
 ## Step 2.7: Review Agent Logs
-1. Click on the **Logs** at the bottom
+1. Click on the **Traces** at the bottom
 2. Review the tool calls performed (web search and code interpreter)
 
 ---
@@ -302,6 +302,7 @@ Now you'll build your first agent visually in the Foundry Portal and give it two
 In this module you'll create and call agents from code using the Azure AI Projects SDK — covering basic agents, multi-tool agents, streaming, and conversations.
 
 ## Step 3.1: Setup Azure Cloud Shell Environment
+> Note: Skip this step and proceed to Step 3.1.1 if you already have the Cloud Shell environment set up.
 1. In the Azure Portal, click the **Cloud Shell** icon (`>_`) in the top navigation bar
 2. Select **Bash** as your shell environment
 3. Select **No storage account required**
@@ -619,7 +620,7 @@ print("=" * 60)
 6. Observe the agent using different tools for different tasks
 
 **Key Concepts:**
-- ✅ **Step 1**: Create agent with multiple tools: `WebSearchTool()` and `CodeInterpreterTool()`
+- ✅ Created agent with multiple tools: `WebSearchTool()` and `CodeInterpreterTool()`
 - ✅ The agent automatically selects the appropriate tool based on the query
 - ✅ Tool calls are visible in `response.output` with type indicators
 - ✅ Both tools can be used together in a single query
@@ -823,9 +824,9 @@ In this module you'll publish your multi-tool agent as a managed, OpenAI-compati
 ## Step 4.1: Publish Your Agent
 1. In the Foundry Portal, select **Build**
 2. Select **Agents** and navigate to your agent (`python-multitool-agent`)
-3. Select **Publish** in the upper right
-4. Copy the **Endpoint (Responses)** endpoint URL
-   - Format: `https://foundry-int-<yourname>.services.ai.azure.com/api/projects/intermediate-project/agents/python-multitool-agent/endpoint/protocols/openai/v1/responses`
+3. Select **Details** tab
+4. Copy the **Endpoint** URL
+   - Format: `https://foundry-int-<yourname>.services.ai.azure.com/api/projects/intermediate-project/agents/python-multitool-agent/endpoint/protocols/openai/responses`
 5. Update your `.env` file to add the BASE_URL:
    ```bash
    code .env
@@ -834,7 +835,7 @@ In this module you'll publish your multi-tool agent as a managed, OpenAI-compati
    ```
    BASE_URL="https://foundry-int-<yourname>.services.ai.azure.com/api/projects/intermediate-project/agents/python-multitool-agent/endpoint/protocols/openai"
    ```
-   > **Important:** The `BASE_URL` should stop before `/v1/responses` because the OpenAI SDK will append that path internally when making requests.
+   > **Important:** The `BASE_URL` should stop before `/responses` because the OpenAI SDK will append that path internally when making requests.
 7. Save with `Ctrl+S`
 
 ## Step 4.2: Call the Published Agent via OpenAI SDK (Streaming)
