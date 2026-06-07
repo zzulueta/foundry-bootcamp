@@ -100,7 +100,7 @@ In this module you create the shared Foundry resource, deploy your chat model, a
 
 ## Step 1.5: Deploy the gpt-4.1 Model
 1. In Microsoft Foundry, navigate to **Build** in the top navigation
-2. Select **Models** from the left sidebar
+2. Select **Models** from the left sidebar. **Note:** Some user may see "Deployments" instead of "Models" — this is the same place, just different naming based on your Foundry version.
 3. Click **Deploy a base model**
 4. Search for the **gpt-4.1** model
 5. **Select** the model
@@ -128,13 +128,21 @@ To experience working with more than one model family, deploy a second model —
 3. Search for the **DeepSeek-V3.1** model
 4. **Select** the model
 5. Select **Deploy** > **Custom settings**
+> Note: If a dialog box appears asking you to accepts terms of use, select **Agree and proceed** to continue with the deployment
 6. Configure the deployment:
    - **Deployment name:** `DeepSeek-V3.1`
    - **Deployment type:** Select **Global Standard**
    - **Tokens per minute rate limit:** `50000`
 7. Click **Deploy**
 8. Wait for deployment to complete (typically 1-3 minutes)
-9. (Optional) Once deployed, open the Playground for `DeepSeek-V3.1` and submit a quick test prompt (e.g., `What is Microsoft Foundry?`) to confirm the second model responds correctly
+9. Once deployment completes, you should be sent to the Playground with the `DeepSeek-V3.1` model selected
+10. In the input box, enter a test prompt:
+    ```
+    What is Microsoft Foundry?
+    ```
+11. Click **Submit**
+12. Verify you receive a coherent response describing Microsoft Foundry
+
 
 ## Step 1.8: Call the Model Directly via curl (Warm-Up)
 Before working with agents, confirm the deployed model responds to a raw REST call. This calls the **model** directly (no agent, no SDK) using the Foundry Azure OpenAI endpoint with an **API key** — a useful baseline you'll contrast against the agent call in Module 4.
