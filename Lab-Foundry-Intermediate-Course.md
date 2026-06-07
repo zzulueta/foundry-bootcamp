@@ -910,7 +910,7 @@ You can also call the published agent using curl from Cloud Shell.
      -H "Foundry-Features: AgentEndpoints=V1Preview" \
      -d '{"input": "What are the benefits of using Microsoft Foundry?"}'
    ```
-   
+
    Sample:
    ```bash
    curl -i --fail-with-body -X POST \
@@ -959,7 +959,7 @@ In this final module you'll build a knowledge base from your own documents using
 
 ## Step 5.2: Create Containers and Upload Sample Documents
 1. In your storage account, navigate to **Data storage** > **Containers** in the left menu
-2. Click **+ Container**
+2. Click **+ Add container**
 3. Configure the container:
    - **Name:** `manuals`
    - **Public access level:** Private (no anonymous access)
@@ -985,6 +985,7 @@ In this final module you'll build a knowledge base from your own documents using
 
 ## Step 5.4: Deploy an Embedding Model
 1. In Microsoft Foundry, navigate to **Build** > **Models**
+> Note: Verify if you have a **text-embedding-3-large** model automatically deployed. If so, you can skip this step and proceed to Step 5.5.
 2. Click **Deploy a base model**
 3. Search for the **text-embedding-3-large** model
 4. Select the model and click **Deploy** > **Custom settings**
@@ -1039,7 +1040,7 @@ In this final module you'll build a knowledge base from your own documents using
    - Click **Connect**
 
 ## Step 5.8: Create a New Knowledge Base
-1. In the Knowledge section, click **Create a knowledge base**
+1. In the Knowledge bases tab, click **Create a knowledge base**
 2. Select **Azure AI Search** under Configure a knowledge base
 3. Click **Connect**
 4. Create a knowledge source configuration:
@@ -1062,7 +1063,7 @@ In this final module you'll build a knowledge base from your own documents using
 
 ## Step 5.10: Add Azure Blob as a Second Knowledge Source
 1. In your knowledge base, scroll down to the **Knowledge sources** section
-2. Click **Create new**
+2. Click **Add sources**
 3. Select **Azure Blob Storage**
 4. Configure knowledge source:
    - **Name:** `productreviews`
@@ -1085,10 +1086,10 @@ In this final module you'll build a knowledge base from your own documents using
 
 ## Step 5.12: Create the RAG Agent
 1. In Microsoft Foundry Portal, navigate to **Build** > **Agents** in the left sidebar
-2. Click **Create agent**
+2. Click **New agent > Build an agent**
 3. On the **Create an agent** page:
    - **Agent name:** `productassistant`
-4. Click **Create and open playground**
+4. Click **Create**
 5. Navigate to the **Instructions** tab and add:
    ```
    You are a helpful AI assistant. Your role is to answer questions based on the product knowledge base.
@@ -1160,7 +1161,7 @@ In this final module you'll build a knowledge base from your own documents using
 4. Verify the agent synthesizes information from both the manuals and reviews sources
 
 ### Review Agent Logs
-1. Click on the **Logs** at the bottom
+1. Click on the **Traces** at the bottom
 2. Review the knowledge base searches performed
 
 ---
@@ -1173,7 +1174,7 @@ In this final module you'll build a knowledge base from your own documents using
 **Module 1 — Foundation & Model Basics**
 - [ ] Resource group `rg-foundry-intermediate` created
 - [ ] Foundry resource created successfully
-- [ ] GPT-4.1 model deployed in Foundry
+- [ ] GPT-4.1 & DeepSeek model deployed in Foundry
 - [ ] Model verified in the playground
 - [ ] Model called successfully via curl (API key auth)
 
