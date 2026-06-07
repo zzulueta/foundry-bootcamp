@@ -190,6 +190,21 @@ Confirm that:
 - ✅ The JSON contains an `output` array with the model's answer text
 - ✅ A `usage` block reports input/output/total tokens
 
+### 1.8.5 Call the Second Model
+To compare responses from different models, change the `DEPLOYMENT_NAME` variable to `DeepSeek-V3.1` and run the curl command again:
+```bash
+DEPLOYMENT_NAME="DeepSeek-V3.1"
+curl -X POST "${MODEL_ENDPOINT}/responses" \
+  -H "Content-Type: application/json" \
+  -H "api-key: ${MODEL_KEY}" \
+   -d '{
+      "model": "'"${DEPLOYMENT_NAME}"'",
+      "input": "What are the top 3 benefits of using Microsoft Foundry? Keep it concise.",
+      "max_output_tokens": 300
+   }' | jq '.'
+```
+Verify you receive a response and compare the output to the previous model's answer.
+
 **Key takeaway:** This curl hits the **model** endpoint directly using an **API key**. In Module 4, you'll call a **published agent** at a different endpoint using an **Entra ID bearer token** — notice how the auth method and URL differ between a raw model and an agent.
 
 ---
@@ -202,7 +217,7 @@ Now you'll build your first agent visually in the Foundry Portal and give it two
 
 ## Step 2.1: Navigate to Agent Builder
 1. In Microsoft Foundry Portal, navigate to **Build** > **Agents** in the left sidebar
-2. Click **Create agent**
+2. Click **Create New agent > Build an agent**
 
 ## Step 2.2: Configure Agent Basics
 1. On the **Create an agent** page:
