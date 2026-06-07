@@ -856,7 +856,7 @@ load_dotenv()  # Load environment variables from .env file if needed
 credential = DefaultAzureCredential()
 token = credential.get_token("https://ai.azure.com/.default")  # aligns with Foundry data-plane audience
 BASE_URL = os.getenv("BASE_URL") 
-# 2) IMPORTANT: base_url must stop BEFORE "/v1/responses"
+# 2) IMPORTANT: base_url must stop BEFORE "/responses"
 #    Because the SDK will call POST {base_url}/v1/responses internally.
 
 client = OpenAI(
@@ -910,8 +910,7 @@ You can also call the published agent using curl from Cloud Shell.
      -H "Foundry-Features: AgentEndpoints=V1Preview" \
      -d '{"input": "What are the benefits of using Microsoft Foundry?"}'
    ```
-   > **Note:** Remove `/v1/responses` from the BASE_URL when using it in the curl command, as the path is included in the command itself.
-
+   
    Sample:
    ```bash
    curl -i --fail-with-body -X POST \
