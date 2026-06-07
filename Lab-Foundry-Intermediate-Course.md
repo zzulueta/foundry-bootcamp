@@ -147,7 +147,7 @@ To experience working with more than one model family, deploy a second model —
 ## Step 1.8: Call the Model Directly via curl (Warm-Up)
 Before working with agents, confirm the deployed model responds to a raw REST call. This calls the **model** directly (no agent, no SDK) using the Foundry Azure OpenAI endpoint with an **API key** — a useful baseline you'll contrast against the agent call in Module 4.
 
-### 1.7.1 Get the Model Endpoint and Key
+### 1.8.1 Get the Model Endpoint and Key
 1. In the Foundry Portal, select **Home** from the top navigation
 2. Copy your **Azure OpenAI endpoint** — it looks like:
    ```
@@ -158,18 +158,18 @@ Before working with agents, confirm the deployed model responds to a raw REST ca
 
 > **Note:** Keep your API key secure and never commit it to version control. In production, use Azure Key Vault or environment variables.
 
-### 1.7.2 Open Cloud Shell and Set Variables
+### 1.8.2 Open Cloud Shell and Set Variables
 1. In the Azure Portal, click the **Cloud Shell** icon (`>_`) in the top navigation bar
 2. Select **Bash**, choose **No storage account required**, select your subscription, and click **Apply**
 3. Once Cloud Shell opens, set up your values (replace the placeholders):
    ```bash
-   # From Step 1.7.1
+   # From Step 1.8.1
    MODEL_ENDPOINT="https://foundry-int-<yourname>.openai.azure.com/openai/v1"
    MODEL_KEY="YOUR_API_KEY_HERE"
    DEPLOYMENT_NAME="gpt-4.1"
    ```
 
-### 1.7.3 Call the Model
+### 1.8.3 Call the Model
 Run the following curl command to send a prompt directly to the model:
 ```bash
 curl -X POST "${MODEL_ENDPOINT}/responses" \
@@ -184,7 +184,7 @@ curl -X POST "${MODEL_ENDPOINT}/responses" \
 
 > **Note:** The `| jq '.'` formats the JSON response for readability. If `jq` is unavailable, remove it.
 
-### 1.7.4 Verify the Response
+### 1.8.4 Verify the Response
 Confirm that:
 - ✅ You receive a `200 OK` response
 - ✅ The JSON contains an `output` array with the model's answer text
