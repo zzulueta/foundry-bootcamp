@@ -35,7 +35,7 @@ Use these names consistently throughout the course (replace `<yourname>` with yo
 | Resource | Name |
 |---|---|
 | Resource group | `rg-foundry-intermediate` |
-| Region | `Australia East` |
+| Region | `Australia East or France Central` |
 | Foundry resource | `foundry-int-<yourname>` |
 | Default project | `intermediate-project` |
 | Chat model deployment | `gpt-4.1` |
@@ -75,7 +75,7 @@ In this module you create the shared Foundry resource, deploy your chat model, a
 4. Configure the resource group:
    - **Subscription:** Select your subscription
    - **Resource group name:** `rg-foundry-intermediate`
-   - **Region:** `Australia East`
+   - **Region:** `Australia East or France Central`
 5. Click **Review + Create**, then **Create**
 
 ## Step 1.3: Create a Foundry Resource
@@ -86,7 +86,7 @@ In this module you create the shared Foundry resource, deploy your chat model, a
    - **Subscription:** Select your subscription
    - **Resource group:** `rg-foundry-intermediate`
    - **Name:** `foundry-int-<yourname>` (must be globally unique)
-   - **Region:** `Australia East`
+   - **Region:** `Australia East or France Central`
    - **Default project name:** `intermediate-project`
 5. Click **Review + Create**, then **Create**
 6. Wait for the deployment to complete (typically 1-2 minutes)
@@ -927,7 +927,7 @@ In this final module you'll build a knowledge base from your own documents using
    - **Subscription:** Select your subscription
    - **Resource group:** `rg-foundry-intermediate`
    - **Storage account name:** `stfoundryint<yourname>` (must be globally unique, lowercase, no hyphens)
-   - **Region:** `Australia East`
+   - **Region:** `Australia East or France Central`
    - **Preferred storage type:** `Azure Blob Storage or Azure Data Lake Storage Gen2`
    - **Performance:** Standard
    - **Redundancy:** Locally-redundant storage (LRS)
@@ -955,7 +955,7 @@ In this final module you'll build a knowledge base from your own documents using
    - **Subscription:** Select your subscription
    - **Resource group:** `rg-foundry-intermediate`
    - **Service name:** `search-foundry-int-<yourname>` (must be globally unique)
-   - **Location:** `Australia East`
+   - **Location:** `Australia East or France Central`
    - **Pricing tier:** Basic (sufficient for this lab)
 5. Click **Review + Create**, then **Create**
 6. Wait for deployment to complete (typically 3-5 minutes)
