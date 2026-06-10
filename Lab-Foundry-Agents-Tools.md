@@ -111,13 +111,13 @@ By the end of this lab, you will have:
 3. Sign in with your Azure credentials
 4. Verify that your project (`agents-tools`) is selected in the upper left corner
 
-### 2.3 Deploy GPT-4.1 Model
+### 2.3 Deploy GPT Model
 1. In Microsoft Foundry, navigate to **Build** > **Models**
 2. Click **Deploy a base model**
-3. Search for **gpt-4.1** and select it
+3. Search for **gpt-5.4** and select it
 4. Click **Deploy** > **Custom settings**
 5. Configure the deployment:
-   - **Deployment name:** `gpt-4.1`
+   - **Deployment name:** `gpt-5.4`
    - **Deployment type:** **Global Standard**
    - **Tokens per minute rate limit:** `50000`
 6. Click **Deploy**
@@ -657,7 +657,7 @@ Note: This configuration uses the stock symbol as the PartitionKey and a timesta
 - [ ] Storage account connection string obtained
 - [ ] Alpha Vantage API key obtained
 - [ ] Foundry resource created
-- [ ] GPT-4.1 model deployed
+- [ ] GPT model deployed
 
 ### Part 2: Logic App (MCP Server)
 - [ ] Logic App created
