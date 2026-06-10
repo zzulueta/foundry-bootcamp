@@ -66,7 +66,7 @@ By the end of this lab, you will have:
 6. Click **Upload**
 7. Upload manuals data from the Product Data folder of this repository.
 8. Click **Upload** and wait for completion
-9. Perform the same steps 1-8 to create another container named `reviews` and upload reviews data from the Product Data folder of this repository.
+9. Perform the same steps 2-8 to create another container named `reviews` and upload reviews data from the Product Data folder of this repository.
 
 ### 1.5 Create an Azure AI Search Service
 1. In the Azure Portal, click **Create a resource**
@@ -107,6 +107,7 @@ By the end of this lab, you will have:
 ### 2.3 Deploy a Model for Your Agent
 1. In Microsoft Foundry, navigate to **Build** in the top navigation
 2. Select **Models** from the left sidebar
+> Note: The Models option may be replaced by the **Deployments** option in the left sidebar for newer versions of Foundry. If you see Deployments instead of Models, click on Deployments. 
 3. Click **Deploy a base model**
 4. Search for the **gpt-5.4** model
 5. **Select** the model
@@ -187,7 +188,7 @@ By the end of this lab, you will have:
 
 ### 3.4 Create a New Knowledge Base
 1. In the Knowledge section, click **Create a knowledge base**
-2. Select **Azure AI Search** under Configure a knowledge base
+2. Select **Azure AI Search Index** under Configure a knowledge base
 3. Click **Connect**
 4. Create a knowledge source configuration:
    - **Name:** `productmanuals`
@@ -236,7 +237,7 @@ By the end of this lab, you will have:
 
 ### 4.1 Navigate to Agent Builder
 1. In Microsoft Foundry Portal, navigate to **Build** > **Agents** in the left sidebar
-2. Click **Create agent**
+2. Click **New agent > Build an agent**
 
 ### 4.2 Configure Agent Basics
 1. On the **Create an agent** page:
@@ -267,7 +268,7 @@ By the end of this lab, you will have:
 
 ### 4.4 Connect the Knowledge Base
 1. Navigate to the **Knowledge** section of the agent configuration
-2. Click **Add** then Connect to Foundry IQ.
+2. Click **Add** then **Connect to Foundry IQ**.
 3. Connect to Foundry IQ:
    - **Connection:** Select `search-foundry-<yourname>`
    - **Knowledge base:** Select **productkb**
@@ -321,8 +322,8 @@ By the end of this lab, you will have:
    ```
 4. Verify the agent synthesizes information from multiple sources
 
-### 5.4 Review Agent Logs
-1. Click on the **Logs** at the bottom
+### 5.4 Review Agent Traces
+1. Click on the **Traces** at the bottom
 2. Review the knowledge base searches performed
 
 ---
