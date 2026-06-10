@@ -207,12 +207,15 @@ Now you'll label the fields you want to extract from the forms.
    - Field: `MiddleName` 
    - Field: `DateOfBirth` 
    - Field: `Age` 
-   - Selection Mark: `Gender` 
+   - Selection Mark: `GenderM`
+   - Selection Mark: `GenderF`
+   - Selection Mark: `GenderO` 
    - Field: `HomeAddress` 
    - Field: `City` 
    - Field: `State` 
    - Field: `Zip` 
-   - Selection Mark: `VaccineArm` 
+   - Selection Mark: `ArmLeft`
+   - Selection Mark: `ArmRight` 
    - Field: `PreviousDoseReceived` 
    - Field: `PreviousManufacturer` 
 
