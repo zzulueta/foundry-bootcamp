@@ -341,14 +341,15 @@ If the issue persists, try regenerating your API key and updating it in your int
 ### 3.2 Configure the Application Settings
 In this task, you will configure the application settings by installing dependencies and updating the project endpoint details to connect your code with Microsoft Foundry.
 
-1. Enter the following command to edit the configuration file that is provided:
+1. Enter the following command to edit the configuration file:
    ```bash
    code .env
    ```
-2. In the code file, replace the placeholder values with the correct details for your project:
-   - **PROJECT_ENDPOINT:** Your Foundry project endpoint
-   
-   > **Note:** You can find your project endpoint in the Foundry portal by navigating to the Home page.
+2. Open the `.env` file in your text editor and add your credentials:
+   ```
+   PROJECT_ENDPOINT=your_endpoint_here
+   ```
+   > Replace `your_endpoint_here` with the endpoint URL of your Foundry project, which can be found in the Foundry portal under the **Home** page.
 3. After you've replaced the placeholder, use the **CTRL+S** command to save your changes
 4. Use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open
 
@@ -536,10 +537,11 @@ Group chat orchestration models a collaborative conversation among multiple agen
 
 ### 4.2 Prepare the Group Chat Environment
 
-1. In the Cloud Shell, ensure you're still in the working directory:
+1. In the Cloud Shell, ensure you're still in the same working directory:
    ```bash
-   cd ~/ai-agents/Labfiles/06-build-workflow-ms-foundry/Python
+   cd foundry-workflow-lab
    ```
+   
 2. Add the model deployment in the .env file:  
    ```bash
    code .env
