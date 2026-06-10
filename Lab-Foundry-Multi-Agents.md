@@ -318,7 +318,6 @@ If the issue persists, try regenerating your API key and updating it in your int
 ## Step 3: Use Your Workflow in Code
 
 ### 3.1 Prepare the Environment
-In this task, you will prepare the environment in Microsoft Azure by setting up Cloud Shell, cloning the repository, and accessing the Python files required to invoke the workflow programmatically.
 
 1. In the Azure portal, select the **Cloud Shell** icon in the top navigation bar to open a new Cloud Shell session
 2. In the Cloud Shell toolbar, open the **Settings** menu and choose **Go to Classic version** from the drop-down
