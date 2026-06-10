@@ -49,7 +49,7 @@ By the end of this lab, you will have:
    - **Resource name:** `apim<yourname>` (must be globally unique)
    - **Organization name:** Your organization name (can be your name or company name)
    - **Administrator email:** Your email address (any valid email for notifications)
-   - **Pricing tier:** Select **Basic**
+   - **Pricing tier:** Select **Basic v2**
 5. Click **Review + Create**, then **Create**
 6. Do not wait for deployment to complete. **Proceed to next step**.
 

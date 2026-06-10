@@ -16,7 +16,7 @@ In this hands-on lab, you will learn how to deploy and interact with Microsoft F
 
 ## Lab Architecture
 By the end of this lab, you will have:
-- A Microsoft Foundry resource with deployed models (GPT-4.1 and DeepSeek-V3.1)
+- A Microsoft Foundry resource with deployed models (GPT-5.4 and DeepSeek-V3.1)
 - Tested models in the Foundry playground
 - Python scripts that call your models via REST API
 - Understanding of authentication and API integration with Foundry models
@@ -50,7 +50,7 @@ By the end of this lab, you will have:
    - **Resource name:** `apim<yourname>` (must be globally unique)
    - **Organization name:** Your organization name (can be your name or company name)
    - **Administrator email:** Your email address (any valid email for notifications)
-   - **Pricing tier:** Select **Basic**
+   - **Pricing tier:** Select **Basic v2**
 5. Click **Review + Create**, then **Create**
 6. Do not wait for deployment to complete. **Proceed to next step**.
 
@@ -77,15 +77,16 @@ By the end of this lab, you will have:
 
 ## Step 2: Deploy Foundry Models
 
-### 2.1 Deploy a GPT-4.1 Model
+### 2.1 Deploy a GPT Model
 1. In Microsoft Foundry, navigate to **Build** in the top navigation
-2. Select **Models** from the left sidebar
+2. Select **Models** from the left sidebar. 
+> Note: Newer Foundry Portals may show "Deployments" instead of "Models" - the functionality is the same, just select "Deployments" if that's what you see.
 3. Click **Deploy a base model**
-4. Search for the **gpt-4.1** model
+4. Search for the **gpt-5.4** model
 5. **Select** the model
 6. Select Deploy > Custom settings
 7. Configure the deployment:
-   - **Deployment name:** `gpt-4.1`
+   - **Deployment name:** `gpt-5.4`
    - **Deployment type:** Select **Global Standard** (pay-per-token, easiest for testing)
    - **Tokens per minute rate limit:** `50000`
 8. Click **Deploy**
@@ -105,7 +106,7 @@ By the end of this lab, you will have:
 
 ### 3.1 Access the Playground
 1. In Microsoft Foundry, navigate to **Build** > **Models**
-2. Select your deployment: `gpt-4.1`
+2. Select your deployment: `gpt-5.4`
 3. Select Open in playground
 
 ### 3.2 Configure the Playground
@@ -118,7 +119,7 @@ By the end of this lab, you will have:
    - **Max tokens:** `800` (maximum response length)
    - **Top P:** `0.95` (nucleus sampling threshold)
 
-### 3.3 Test the GPT-4.1 Model
+### 3.3 Test the GPT Model
 1. In the **User message** field, type a test prompt:
    ```
    What are the top 3 benefits of using Microsoft Foundry for AI model deployment?
@@ -198,7 +199,7 @@ By the end of this lab, you will have:
    ```
    AZURE_OPENAI_ENDPOINT=your_endpoint_here
    AZURE_OPENAI_KEY=your_api_key_here
-   MODEL_DEPLOYMENT_NAME=gpt-4.1
+   MODEL_DEPLOYMENT_NAME=gpt-5.4
    ```
 3. Replace the placeholder values with your actual endpoint and API key
 4. Save the `.env` file by pressing `Ctrl + S` then close it by pressing `Ctrl + Q`
@@ -641,7 +642,7 @@ You: quit
     - **api-version:** `v1`
     - **Request body:**
     ```json
-    {"model":"gpt-4.1","input":"What is Azure?","stream":false}
+    {"model":"gpt-5.4","input":"What is Azure?","stream":false}
     ```
 4. Click **Send**.
 5. Review the response and verify you receive a valid response from the model with token usage headers included.
@@ -792,7 +793,7 @@ To avoid incurring charges, delete the resources when you're finished with the l
 In this lab, you successfully:
 
 1. ✅ Created a Microsoft Foundry resource for hosting AI models
-2. ✅ Deployed GPT-4.1 and DeepSeek-V3.1 models in Microsoft Foundry
+2. ✅ Deployed GPT-5.4 and DeepSeek-V3.1 models in Microsoft Foundry
 3. ✅ Tested models in the Foundry playground
 4. ✅ Retrieved API credentials for programmatic access
 5. ✅ Set up a Python development environment
