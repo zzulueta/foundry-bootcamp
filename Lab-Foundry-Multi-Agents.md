@@ -345,7 +345,7 @@ In this task, you will configure the application settings by installing dependen
    ```bash
    code .env
    ```
-2. Open the `.env` file in your text editor and add your credentials:
+2. Open the `.env` file in your text editor and add your project endpoint:
    ```
    PROJECT_ENDPOINT=your_endpoint_here
    ```
@@ -541,7 +541,7 @@ Group chat orchestration models a collaborative conversation among multiple agen
    ```bash
    cd foundry-workflow-lab
    ```
-   
+
 2. Add the model deployment in the .env file:  
    ```bash
    code .env
@@ -704,6 +704,7 @@ orchestrator = Agent(
    3. If critique exists but hasn't been addressed → select Refiner
    4. After refinement → send back to Critic for validation
    5. Continue cycles of critique and refinement until the Critic indicates the explanation is satisfactory
+   6. There should be at least 3 iterations between the Critic and Refiner.
    
    TERMINATION: When the Critic's feedback shows the explanation is clear, uses kid-friendly language,
    and is suitable for a 10-year-old, FINISH the conversation. Look for positive indicators like
