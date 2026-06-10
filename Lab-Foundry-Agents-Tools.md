@@ -120,7 +120,7 @@ By the end of this lab, you will have:
 5. Configure the deployment:
    - **Deployment name:** `gpt-5.4`
    - **Deployment type:** **Global Standard**
-   - **Tokens per minute rate limit:** `50000`
+   - **Tokens per minute rate limit:** `100000`
 6. Click **Deploy**
 7. Wait for deployment to complete
 

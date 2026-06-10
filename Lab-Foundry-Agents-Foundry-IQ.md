@@ -108,18 +108,18 @@ By the end of this lab, you will have:
 1. In Microsoft Foundry, navigate to **Build** in the top navigation
 2. Select **Models** from the left sidebar
 3. Click **Deploy a base model**
-4. Search for the **gpt-4.1** model
+4. Search for the **gpt-5.4** model
 5. **Select** the model
 6. Select **Deploy** > **Custom settings**
 7. Configure the deployment:
-   - **Deployment name:** `gpt-4.1`
+   - **Deployment name:** `gpt-5.4`
    - **Deployment type:** Select **Global Standard** (pay-per-token, easiest for testing)
-   - **Tokens per minute rate limit:** `50000`
+   - **Tokens per minute rate limit:** `100000`
 8. Click **Deploy**
 9. Wait for deployment to complete (typically 1-3 minutes)
 
 ### 2.4 Verify Model Deployment
-1. Once deployment completes, you should be sent to the Playground with the `gpt-4.1` model selected
+1. Once deployment completes, you should be sent to the Playground with the `gpt-5.4` model selected
 2. In the input box, enter a test prompt:
    ```
    What is Microsoft Foundry?
@@ -199,7 +199,7 @@ By the end of this lab, you will have:
 1. Under Basic configuration:
    - **Name:** `productkb`
    - **Description:** `Knowledge base for product manuals and other information`
-   - **Chat completions model:** Select `gpt-4.1`
+   - **Chat completions model:** Select `gpt-5.4`
    - **Retrieval reasoning effort:** Select **Low**
    - **Output mode:** Extractive
    - **Retrieval instructions:** 
@@ -219,7 +219,7 @@ By the end of this lab, you will have:
    - **Authentication:** Select **API Key**
    - **Context extraction mode:** Select **Minimal**
    - **Embedding model:** Select `text-embedding-3-large`
-   - **Chat completions model:** Select `gpt-4.1`
+   - **Chat completions model:** Select `gpt-5.4`
 5. Click **Create**
 
 **Notes**: 
@@ -332,7 +332,7 @@ By the end of this lab, you will have:
 - [ ] Azure Storage account created with sample documents uploaded
 - [ ] Azure AI Search service provisioned
 - [ ] Foundry resource created successfully
-- [ ] GPT-4.1 model deployed in Foundry
+- [ ] GPT model deployed in Foundry
 - [ ] Embedding model deployed in Foundry
 - [ ] Azure AI Search index created and documents indexed
 - [ ] Knowledge base created in Foundry IQ
@@ -364,7 +364,7 @@ To avoid incurring charges, delete the resources when you're finished with the l
 In this lab, you successfully:
 
 1. ✅ Created Azure resources (Storage, AI Search, Foundry)
-2. ✅ Deployed a GPT-4.1 model in Microsoft Foundry
+2. ✅ Deployed a GPT model in Microsoft Foundry
 3. ✅ Deployed an embedding model in Microsoft Foundry for embedding generation
 4. ✅ Created an Azure AI Search index and ingested documents from Azure Blob Storage
 5. ✅ Built a knowledge base in Foundry IQ with multiple knowledge sources
