@@ -20,7 +20,7 @@ In the final section, you will explore advanced multi-agent collaboration using 
 By the end of this lab, you will have:
 - An Azure resource group for organizing all lab resources
 - A Microsoft Foundry resource with a deployed project
-- A GPT-4.1 model deployment for agent capabilities
+- A GPT model deployment for agent capabilities
 - A workflow in Microsoft Foundry for customer support ticket processing
 - A Triage Agent that classifies support tickets with confidence scores
 - A Resolution Agent that generates recommended responses
@@ -84,18 +84,18 @@ By the end of this lab, you will have:
 1. In Microsoft Foundry, navigate to **Build** in the top navigation
 2. Select **Models** from the left sidebar
 3. Click **Deploy a base model**
-4. Search for the **gpt-4.1** model
+4. Search for the **gpt-5.4** model
 5. **Select** the model
 6. Select **Deploy** > **Custom settings**
 7. Configure the deployment:
-   - **Deployment name:** `gpt-4.1`
+   - **Deployment name:** `gpt-5.4`
    - **Deployment type:** Select **Global Standard** (pay-per-token, easiest for testing)
-   - **Tokens per minute rate limit:** `50000`
+   - **Tokens per minute rate limit:** `100000`
 8. Click **Deploy**
 9. Wait for deployment to complete (typically 1-3 minutes)
 
 ### 1.6 Verify Model Deployment
-1. Once deployment completes, you should be sent to the Playground with the `gpt-4.1` model selected
+1. Once deployment completes, you should be sent to the Playground with the `gpt-5.4` model selected
 2. In the input box, enter a test prompt:
    ```
    What is Microsoft Foundry?
@@ -506,7 +506,7 @@ Group chat orchestration models a collaborative conversation among multiple agen
    ```bash
    code .env
    ```
-   - Place this in the file `MODEL_DEPLOYMENT_NAME=gpt-4.1`
+   - Place this in the file `MODEL_DEPLOYMENT_NAME=gpt-5.4`
    - Click **CTRL+S** to save the file and **CTRL+Q** to exit the editor.
 
 3. Create a new Python file for the group chat example:
@@ -807,7 +807,7 @@ Workflow completed.
 - [ ] Resource group `rg-foundry-workflows` created
 - [ ] Foundry resource `foundry-workflows-<yourname>` created
 - [ ] Foundry Portal accessed successfully
-- [ ] GPT-4.1 model deployed
+- [ ] GPT model deployed
 - [ ] Model deployment verified in Playground
 
 ### Sequential Workflow (Steps 2-3)
@@ -864,7 +864,7 @@ To avoid incurring charges, delete the resources when you're finished with the l
 In this lab, you successfully:
 
 1. ✅ Created Azure resources (Resource Group and Foundry resource)
-2. ✅ Deployed a GPT-4.1 model in Microsoft Foundry
+2. ✅ Deployed a GPT model in Microsoft Foundry
 3. ✅ Created a sequential workflow in Microsoft Foundry for customer support automation
 4. ✅ Built a Triage Agent with structured JSON output for ticket classification
 5. ✅ Implemented conditional logic for handling low-confidence classifications
