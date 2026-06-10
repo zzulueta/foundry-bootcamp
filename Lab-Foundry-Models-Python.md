@@ -93,12 +93,13 @@ By the end of this lab, you will have:
 9. Wait for deployment to complete (typically 1-3 minutes)
 
 ### 2.2 Deploy a DeepSeek Model
-1. Select Models from the left sidebar.
+1. Select **Models** from the left sidebar.
 2. Repeat the deployment steps to deploy a DeepSeek model with the following configuration:
    - **Model:** DeepSeek-V3.1
    - **Deployment name:** `DeepSeek-V3.1`
    - **Deployment type:** Select **Global Standard**
    - **Tokens per minute rate limit:** `50000`
+   > Note: Select **Agree and proceed** if you are asked for terms of use acceptance for the DeepSeek model.
 
 ---
 
@@ -115,9 +116,8 @@ By the end of this lab, you will have:
    You are a helpful AI assistant that provides concise and accurate answers about Azure. If you don't know the answer, say you don't know. Always provide clear and informative responses. If you are asked questions about other topics besides Azure, politely decline to answer.
    ```
 2. Adjust parameters:
-   - **Temperature:** `0.7` (controls randomness; 0 = deterministic, 1 = creative)
-   - **Max tokens:** `800` (maximum response length)
-   - **Top P:** `0.95` (nucleus sampling threshold)
+   - **Max Completion Tokens:** `1000` (maximum response length)
+   - **Reasoning Effort:** `low` (controls the depth of reasoning)
 
 ### 3.3 Test the GPT Model
 1. In the **User message** field, type a test prompt:
@@ -145,7 +145,7 @@ By the end of this lab, you will have:
 
 ### 4.1 Retrieve the Endpoint URL
 1. In Microsoft Foundry, navigate to **Home**.
-2. Copy your `Azure OpenAI endpoint` endpoint
+2. Copy your `Azure OpenAI endpoint` value
    It should look like:
    ```
    https://foundry<yourname>.openai.azure.com/openai/v1
@@ -164,8 +164,8 @@ By the end of this lab, you will have:
 ## Step 5: Setup Python Environment
 
 ### 5.1 Verify Python Installation
-1. Open Cloud Shell in Azure Portal. 
-2. Go to Classic Version of Cloud Shell (Bash)
+1. Open Cloud Shell in Azure Portal. Select **Bash** if prompted for environment choice. Select No Mount Storage if asked about storage.
+2. Select Settings > Go to Classic Version
 3. Check your Python version:
    ```bash
    python --version
@@ -203,6 +203,7 @@ By the end of this lab, you will have:
    ```
 3. Replace the placeholder values with your actual endpoint and API key
 4. Save the `.env` file by pressing `Ctrl + S` then close it by pressing `Ctrl + Q`
+
 ---
 
 ## Step 6: Call Models Using Python
@@ -570,6 +571,7 @@ You: quit
 ```
 ### 6.9 Run with another model
 1. To test with the second model, update the `MODEL_DEPLOYMENT_NAME` in your `.env` file to `DeepSeek-V3.1`
+> Type `code .env` in the terminal to open the .env file, then change the MODEL_DEPLOYMENT_NAME value and save the file.
 2. Run any of the scripts again to see how the response differs with the different model.
 
 ---
@@ -594,7 +596,6 @@ You: quit
    - **Name:** `microsoft-foundry-api`
    - **Base path:** `foundry` (this will be part of your API URL)
    - **Description:** `API for accessing Microsoft Foundry deployed models`
-   - **Products:** Select **Unlimited** 
    - **Client compatibility:** Select **Azure OpenAI v1**
    - Click **Next**
 
@@ -625,12 +626,12 @@ You: quit
 ### 7.3 Verify API Configuration
 1. Once created, click on the **Microsoft Foundry API** in the APIs list
 2. Navigate to the **Design** tab
-3. Verify operations are listed (e.g., `Creates a completion for the chat message`)
+3. Verify operations are listed (e.g., `Creates a chat completion`)
 4. Click **All operations**, then under **Inbound processing**, click the **</>** (code icon) to view **Policies**. Review the automatically applied policies for token per minute and token quota enforcement.
 5. Navigate to the **Settings** tab
 6. Note the following:
    - **Base URL:** This shows your APIM gateway URL
-   - **Copy this URL to your Notepad for use in calling the API.**
+   - **Copy this URL to your Notepad for use in calling the API**
 7. Scroll down to the **Subscriptions** section
    - Notice that Subscription required is set to Yes.
    - Notice that Header name is set to `api-key` - this is the header you will use to pass your subscription key for authentication when calling the API.
@@ -669,6 +670,7 @@ You: quit
 GENAI_GATEWAY_ENDPOINT=your_apim_gateway_url_here
 GENAI_GATEWAY_API_KEY=your_subscription_key_here
 ```
+> Note: append `openai/v1/` to your gateway endpoint URL. Example: https://apimyourname.azure-api.net/foundry/openai/v1/
 2. Create a file named `foundry_apim.py`.
 ```
 code foundry_apim.py
