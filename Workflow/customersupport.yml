@@ -1,0 +1,65 @@
+kind: workflow
+trigger:
+  kind: OnConversationStart
+  id: trigger_wf
+  actions:
+    - kind: SetVariable
+      id: node-1781078388017
+      variable: Local.SupportTickets
+      value: |-
+        =[ 
+        "The API returns a 403 error when creating invoices, but our API key hasn't changed.", 
+        "Is there a way to export all invoices as a CSV?", 
+        "I was charged twice for the same invoice last Friday and my customer is also seeing two receipts. Can someone fix this?",
+        "I have an issue."
+        ]
+    - kind: Foreach
+      items: =Local.SupportTickets
+      value: Local.CurrentTicket
+      index: Local.LoopIndex_node_1781078433353
+      actions:
+        - kind: InvokeAzureAgent
+          id: node-1781078497178
+          agent:
+            name: Triage-Agent
+          conversationId: =System.ConversationId
+          input:
+            messages: =Local.CurrentTicket
+          output:
+            autoSend: true
+            messages: Local.TriageOutputText
+            responseObject: Local.TriageOutputJson
+        - kind: ConditionGroup
+          conditions:
+            - condition: =Local.TriageOutputJson.confidence > 0.6
+              actions:
+                - kind: ConditionGroup
+                  conditions:
+                    - condition: =Local.TriageOutputJson.category = "Billing"
+                      actions:
+                        - kind: SendActivity
+                          activity: Escalate billing issue to human support team.
+                          id: node-1781078721906
+                      id: if-node-1781078683095-nmlr6b54
+                  id: node-1781078683095
+                  elseActions:
+                    - kind: InvokeAzureAgent
+                      id: node-1781078747097
+                      agent:
+                        name: Resolution-Agent
+                      conversationId: =System.ConversationId
+                      input:
+                        messages: =Local.TriageOutputText
+                      output:
+                        autoSend: true
+                        messages: Local.ResolutionOutputText
+              id: if-node-1781078618679-t9wtr0ue
+          id: node-1781078618679
+          elseActions:
+            - kind: SendActivity
+              activity: 'The support ticket classification has low confidence. Requesting more details about the issue: "{Local.CurrentTicket}"'
+              id: node-1781078665935
+      id: node-1781078433353
+id: ""
+name: ContosoPay-Customer-Support-Triage
+description: ""
