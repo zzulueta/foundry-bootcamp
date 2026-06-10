@@ -83,6 +83,7 @@ By the end of this lab, you will have:
 ### 1.5 Deploy a Model for Your Agents
 1. In Microsoft Foundry, navigate to **Build** in the top navigation
 2. Select **Models** from the left sidebar
+> Note: The Models option may be replaced by the **Deployments** option in the left sidebar for newer versions of Foundry. If you see Deployments instead of Models, click on Deployments. 
 3. Click **Deploy a base model**
 4. Search for the **gpt-5.4** model
 5. **Select** the model
@@ -322,67 +323,107 @@ In this task, you will prepare the environment in Microsoft Azure by setting up 
 1. In the Azure portal, select the **Cloud Shell** icon in the top navigation bar to open a new Cloud Shell session
 2. In the Cloud Shell toolbar, open the **Settings** menu and choose **Go to Classic version** from the drop-down
    > **Note:** Ensure you've switched to the classic version of the cloud shell before continuing.
-3. In the cloud shell pane, enter the following commands to clone the GitHub repo containing the code files for this exercise:
+3. Create a new directory for your lab project:
    ```bash
-   rm -r ai-agents -f
-   git clone https://github.com/MicrosoftLearning/mslearn-ai-agents ai-agents
+   mkdir foundry-workflow-lab
+   cd foundry-workflow-lab
    ```
-   > **Tip:** As you enter commands into the cloud shell, the output may take up a large amount of the screen buffer and the cursor on the current line may be obscured. You can clear the screen by entering the `clear` command to make it easier to focus on each task.
-4. When the repo has been cloned, enter the following command to change the working directory to the folder containing the code files and list them all:
+4. Create a virtual environment:
    ```bash
-   cd ai-agents/Labfiles/06-build-workflow-ms-foundry/Python
-   ls -a -l
+   python -m venv venv
+   source venv/bin/activate
    ```
-   - The provided files include application code and a file for configuration settings
+5. Install the required libraries:
+   ```bash
+   pip install python-dotenv azure-identity azure-ai-projects==2.0.0b4 aiohttp
+   ```
+   > **Tip:** As you enter commands into the cloud shell, the output may take up a large amount of the screen buffer. You can clear the screen by entering the `clear` command to make it easier to focus on each task.
 
 ### 3.2 Configure the Application Settings
 In this task, you will configure the application settings by installing dependencies and updating the project endpoint details to connect your code with Microsoft Foundry.
 
-1. In the cloud shell command-line pane, enter the following command to install the libraries you'll use:
-   ```bash
-   python -m venv labenv
-   source labenv/bin/activate
-   pip install -r requirements.txt
-   ```
-   > **Tip:** As you enter commands into the cloud shell, the output may take up a large amount of the screen buffer. You can clear the screen by entering the `clear` command to make it easier to focus on each task.
-2. Enter the following command to edit the configuration file that is provided:
+1. Enter the following command to edit the configuration file that is provided:
    ```bash
    code .env
    ```
-3. In the code file, replace the placeholder values with the correct details for your project:
+2. In the code file, replace the placeholder values with the correct details for your project:
    - **PROJECT_ENDPOINT:** Your Foundry project endpoint
    
    > **Note:** You can find your project endpoint in the Foundry portal by navigating to the Home page.
-4. After you've replaced the placeholder, use the **CTRL+S** command to save your changes
-5. Use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open
+3. After you've replaced the placeholder, use the **CTRL+S** command to save your changes
+4. Use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open
 
 ### 3.3 Connect to the Workflow and Run It
 In this task, you will connect your Python application to the workflow and run it programmatically using the Azure AI Projects SDK to automate customer support processing.
 
 > **Tip:** As you add code, be sure to maintain the correct indentation. Use the comment indentation levels as a guide.
 
-1. Enter the following command to edit the workflow.py file:
+1. Enter the following command to create a workflow.py file:
    ```bash
    code workflow.py
    ```
-2. Review the code in the file, noting that it contains comments indicating where you will add code to connect to your workflow and run it
+2. Enter the following code into the workflow.py file, which will serve as the main application file to connect to and run your workflow.
+   ```python
+   import os, json, re
+   from dotenv import load_dotenv
+
+   # Add references
+
+
+   def print_workflow_output(output_text):
+      tickets = re.findall(r"(\{.*?\})(.*?)(?=\{|$)", output_text, re.DOTALL)
+
+      if not tickets:
+         print(output_text)
+         return
+
+      for ticket_number, (ticket_json, response_text) in enumerate(tickets, start=1):
+         ticket = json.loads(ticket_json)
+
+         print("\n" + "=" * 80)
+         print(f"Ticket {ticket_number}: {ticket['category']} ({ticket['confidence']:.0%} confidence)")
+         print("-" * 80)
+         print(f"Issue: {ticket['customer_issue']}")
+         print("\nResponse:")
+         print(response_text.strip())
+      print("=" * 80 + "\n")
+
+   load_dotenv()
+   endpoint = os.environ["PROJECT_ENDPOINT"]
+
+   # Connect to the AI Project client
+
+
+      # Specify the workflow
+      
+
+      # Create a conversation and run the workflow
+
+
+      # Process events from the workflow run
+   
+
+      # Clean up resources
+
+   ```
+   Review the code in the file, noting that it contains comments indicating where you will add code to connect to your workflow and run it
 3. Find the comment `# Add references` and add the following code to import the classes you'll need:
-```python
-# Add references
-from azure.identity import AzureCliCredential
-from azure.ai.projects import AIProjectClient
-from azure.ai.projects.models import IndexType
-```
+   ```python
+   # Add references
+   from azure.identity import AzureCliCredential
+   from azure.ai.projects import AIProjectClient
+   from azure.ai.projects.models import IndexType
+   ```
 4. Note that code to load the project endpoint from your environment variables has been provided
 5. Find the comment `# Connect to the AI Project client`, and add the following code to create an AI Project Client connected to your project:
-```python
-# Connect to the AI Project client
-with (
-   AzureCliCredential() as credential,
-   AIProjectClient(endpoint=endpoint, credential=credential) as project_client,
-   project_client.get_openai_client() as openai_client,
-):
-```
+   ```python
+   # Connect to the AI Project client
+   with (
+      AzureCliCredential() as credential,
+      AIProjectClient(endpoint=endpoint, credential=credential) as project_client,
+      project_client.get_openai_client() as openai_client,
+   ):
+   ```
 
 6. Find the comment `# Specify the workflow` and add the following code:
    ```python
