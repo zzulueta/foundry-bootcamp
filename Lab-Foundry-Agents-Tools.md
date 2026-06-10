@@ -113,6 +113,7 @@ By the end of this lab, you will have:
 
 ### 2.3 Deploy GPT Model
 1. In Microsoft Foundry, navigate to **Build** > **Models**
+> Note: The Models option may be replaced by the  **Deployments** option in the left sidebar for newer versions of Foundry. If you see Deployments instead of Models, click on Deployments. 
 2. Click **Deploy a base model**
 3. Search for **gpt-5.4** and select it
 4. Click **Deploy** > **Custom settings**
@@ -141,7 +142,7 @@ By the end of this lab, you will have:
 
 ### 3.1 Navigate to Agent Builder
 1. In Microsoft Foundry Portal, navigate to **Build** > **Agents**
-2. Click **Create agent**
+2. Click **New agent > Build an agent**
 
 ### 3.2 Configure Agent Basics
 1. On the **Create an agent** page:
@@ -207,7 +208,7 @@ By the end of this lab, you will have:
 ## Step 4: Add the Alpha Vantage OpenAPI Tool
 
 ### 4.1 Add Alpha Vantage Stock API as OpenAPI Tool
-1. In the **Tools** section, click **Browse all tools**
+1. In the **Tools** section, click **Add > Browse all tools**
 2. Select **Custom** > **OpenAPI tool** > **Create**
 3. Configure the OpenAPI tool:
    - **Name:** `get_stock_quote`
@@ -366,7 +367,7 @@ This demonstrates:
    - **Workflow name:** `workflow-stocks-<yourname>`
    - Select **Stateful**
    - Click **Create**
-4. Select the newly created workflow and to open the Logic App Designer.
+4. Select the newly created workflow to open the Logic App Designer.
 
 ### 5.4 Add an HTTP Trigger
 1. Click **Add a trigger**
@@ -613,7 +614,7 @@ Note: This configuration uses the stock symbol as the PartitionKey and a timesta
    - ✅ Skips the `stock-storage-mcp` tool as requested
 
 ### 7.6 Review Agent Logs
-1. Click on **Logs** at the bottom of the playground
+1. Click on **Traces** at the bottom of the playground
 2. Review the sequence of tool invocations
 3. Examine:
    - OpenAPI calls to Alpha Vantage
