@@ -84,6 +84,7 @@ Throughout this lab, you'll follow a consistent pattern for working with agents:
 ### 2.3 Deploy a Model for Your Agent
 1. In Microsoft Foundry, navigate to **Build** in the top navigation
 2. Select **Models** from the left sidebar
+> Note: The Models option may be replaced by the  **Deployments** option in the left sidebar for newer versions of Foundry. If you see Deployments instead of Models, click on Deployments. 
 3. Click **Deploy a base model**
 4. Search for the **gpt-5.4** model
 5. **Select** the model
