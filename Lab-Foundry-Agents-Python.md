@@ -111,7 +111,7 @@ Throughout this lab, you'll follow a consistent pattern for working with agents:
 
 ### 3.1 Navigate to Agent Builder
 1. In Microsoft Foundry Portal, navigate to **Build** > **Agents** in the left sidebar
-2. Click **Create agent**
+2. Click **New agent** > **Build an agent**
 
 ### 3.2 Configure Agent Basics
 1. On the **Create an agent** page:
@@ -173,7 +173,7 @@ Throughout this lab, you'll follow a consistent pattern for working with agents:
 ### 4.3 Test Code Interpreter
 1. Ask a question that requires code execution:
    ```
-   Calculate the factorial of 10 and show me the Python code
+   Simulate rolling two dice 100 times and visualize the results in a chart.
    ```
 2. Verify the agent executes code and provides the result
 
