@@ -243,28 +243,33 @@ By the end of this lab, you will have:
 
 
 ### 5.4 Test the API in APIM
-1. In the **Design** tab, select the `Creates a completion for the chat message` operation
+1. Navigate back to **APIs** > **APIs** > **Microsoft Foundry API**. In the **Design** tab, select the `Creates a model response` operation
 2. Click on the **Test** tab
 3. Configure the test request:
-    - **deployment-id:** `gpt-5.4`
-    - **api-version:** `2025-03-01-preview` (or latest Azure OpenAI API version)
+    - **api-version:** `v1` (or latest Azure OpenAI API version)
     - **Request body:**
     ```json
     {
         "model": "gpt-5.4",
-        "messages": [
-        {
-            "role": "user",
-            "content": "Hello! What can you tell me about Azure API Management?"
-        }
-        ],
-        "max_tokens": 500,
-        "temperature": 0.7
+        "input": "Hello! What can you tell me about Azure API Management?",
+        "stream": false,
+        "max_output_tokens": 800,
+        "reasoning": {"effort": "low"}
     }
     ```
 4. Click **Send**.
-5. Review the response and verify you receive a valid response from the model with token usage headers included.
-6. Modify the deployment-id to `DeepSeek-V3.2` and test the second model as well.
+5. Review the response and verify you receive a valid response from the model with content filter and token usage information included.
+6. Modify the test for `DeepSeek-V3.2` to test the second model as well.
+    - **api-version:** `v1` (or latest Azure OpenAI API version)
+    - **Request body:**
+    ```json
+    {
+      "model": "DeepSeek-V3.2",
+      "input": "Hello! What can you tell me about Azure API Management?",
+      "max_output_tokens": 800,
+      "temperature": 0.7
+    }
+    ```
 
 ### 5.5 Get Your API Credentials
 1. In APIM, navigate to **Subscriptions** in the left menu
