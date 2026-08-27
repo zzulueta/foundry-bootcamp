@@ -497,12 +497,6 @@ You should receive a response similar to:
 }
 ```
 
-Review the response and verify:
-- ✅ You receive a `200 OK` status
-- ✅ The response contains a `choices` array with the model's answer
-- ✅ Token usage is reported
-- ✅ Check response headers for token consumption tracking (if configured in Step 5.2)
-
 ### 6.5 Test the DeepSeek Model
 
 Now test your second model deployment. Update the deployment name and run another request:
