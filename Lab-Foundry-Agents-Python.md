@@ -761,7 +761,7 @@ print("=" * 60)
    ```
    BASE_URL="https://foundry-python-<yourname>.services.ai.azure.com/api/projects/python-agents-project/agents/python-multitool-agent/endpoint/protocols/openai"
    ```
-   > **Important:** The `BASE_URL` should stop before `/v1/responses` because the OpenAI SDK will append that path internally when making requests.
+   > **Important:** The `BASE_URL` should stop before `/responses` because the OpenAI SDK will append that path internally when making requests.
 7. Save with `Ctrl+S`
 
 ### 10.2 Call Published Agent (Streaming)
