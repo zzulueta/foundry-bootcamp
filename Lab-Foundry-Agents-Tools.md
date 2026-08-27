@@ -208,7 +208,7 @@ By the end of this lab, you will have:
 ## Step 4: Add the Alpha Vantage OpenAPI Tool
 
 ### 4.1 Add Alpha Vantage Stock API as OpenAPI Tool
-1. In the **Tools** section, click **Add > Browse all tools**
+1. In the **Tools** section, click **Add > Add tools**
 2. Select **Custom** > **OpenAPI tool** > **Create**
 3. Configure the OpenAPI tool:
    - **Name:** `get_stock_quote`
@@ -518,7 +518,7 @@ Note: This configuration uses the stock symbol as the PartitionKey and a timesta
 3. Navigate to the **Tools** section
 
 ### 6.2 Add Custom MCP Server Tool
-1. Click **Add** and select **Browse all tools**
+1. Click **Add** and select **Add tools**
 2. Select Custom tab and click **Model Context Protocol (MCP)**
 3. Click **Create**
 4. Add Model Context Protocol Tool:

@@ -94,12 +94,13 @@ By the end of this lab, you will have:
 ### 3.1 Deploy a Model
 1. In Microsoft Foundry, navigate to **Build** in the top navigation
 2. Select **Models** from the left sidebar
+> Note: The Models option may be replaced by the  **Deployments** option in the left sidebar for newer versions of Foundry. If you see Deployments instead of Models, click on Deployments. 
 3. Click **Deploy a base model**
-4. Search for the **gpt-4.1** model
+4. Search for the **gpt-5.4** model
 5. **Select** the model.
 6. Select Deploy > Custom settings.
 7. Configure the deployment:
-   - **Deployment name:** `gpt-4.1`
+   - **Deployment name:** `gpt-5.4`
    - **Deployment type:** Select **Global Standard** (pay-per-token, easiest for testing)
    - **Tokens per minute rate limit:** `50000`
 
@@ -111,8 +112,8 @@ By the end of this lab, you will have:
 ### 3.2 Deploy another Model
 1. Select Models from the left sidebar.
 2. Repeat the deployment steps to deploy a DeepSeek model with the following configuration:
-   - **Model:** DeepSeek-V3.1
-   - **Deployment name:** `DeepSeek-V3.1`
+   - **Model:** DeepSeek-V3.2
+   - **Deployment name:** `DeepSeek-V3.2`
    - **Deployment type:** Select **Global Standard**
    - **Tokens per minute rate limit:** `50000`
 
@@ -122,7 +123,7 @@ By the end of this lab, you will have:
 
 ### 4.1 Access the Playground
 1. In Microsoft Foundry, navigate to **Build** > **Models**
-2. Select your deployment: `gpt-4.1`
+2. Select your deployment: `gpt-5.4`
 3. Select Open in playground
 
 ### 4.2 Configure the Playground
@@ -161,7 +162,7 @@ By the end of this lab, you will have:
 > **Note:** Token usage affects your billing and is important for monitoring costs.
 
 ### 4.5 Test the Second Model
-1. Go back to the Models list and open the playground for `DeepSeek-V3.1`
+1. Go back to the Models list and open the playground for `DeepSeek-V3.2`
 2. Repeat the same testing steps 4.2 to 4.3 with similar prompts to verify the second model is also working correctly.
 
 ---
@@ -248,12 +249,12 @@ By the end of this lab, you will have:
 1. In the **Design** tab, select the `Creates a completion for the chat message` operation
 2. Click on the **Test** tab
 3. Configure the test request:
-    - **deployment-id:** `gpt-4.1`
+    - **deployment-id:** `gpt-5.4`
     - **api-version:** `2025-03-01-preview` (or latest Azure OpenAI API version)
     - **Request body:**
     ```json
     {
-        "model": "gpt-4.1",
+        "model": "gpt-5.4",
         "messages": [
         {
             "role": "user",
@@ -266,7 +267,7 @@ By the end of this lab, you will have:
     ```
 4. Click **Send**.
 5. Review the response and verify you receive a valid response from the model with token usage headers included.
-6. Modify the deployment-id to `DeepSeek-V3.1` and test the second model as well.
+6. Modify the deployment-id to `DeepSeek-V3.2` and test the second model as well.
 
 ### 5.5 Get Your API Credentials
 1. In APIM, navigate to **Subscriptions** in the left menu
@@ -299,7 +300,7 @@ By the end of this lab, you will have:
 In Cloud Shell, set up your environment variables. You'll need the following information:
 - **APIM Instance Name:** `apim<yourname>` (e.g., `apimjohn`)
 - **Subscription Key:** From Step 5.5
-- **Deployment Name:** `gpt-4.1` or `DeepSeek-V3.1`
+- **Deployment Name:** `gpt-5.4` or `DeepSeek-V3.2`
 - **API Version:** `2025-03-01-preview`
 
 Copy and paste the following commands, replacing the placeholder values:
@@ -312,13 +313,13 @@ APIM_ENDPOINT="YOUR_API_URL"
 SUBSCRIPTION_KEY="YOUR_SUBSCRIPTION_KEY_HERE"
 
 # Set the deployment name
-DEPLOYMENT_NAME="gpt-4.1"
+DEPLOYMENT_NAME="gpt-5.4"
 
 # Set the API version
 API_VERSION="2025-03-01-preview"
 ```
 
-### 6.3 Test the GPT-4.1 Model
+### 6.3 Test the GPT Model
 
 Now run a curl command to test your first model deployment:
 
@@ -386,7 +387,7 @@ You should receive a response similar to:
   ],
   "created": 1777539621,
   "id": "chatcmpl-DaHXpPJW6vp41Ss0WI2QVBX0eICGN",
-  "model": "gpt-4.1-2025-04-14",
+  "model": "gpt-5.4-2025-04-14",
   "object": "chat.completion",
   "prompt_filter_results": [
     {
@@ -447,7 +448,7 @@ Now test your second model deployment. Update the deployment name and run anothe
 
 ```bash
 # Update deployment name for DeepSeek
-DEPLOYMENT_NAME="DeepSeek-V3.1"
+DEPLOYMENT_NAME="DeepSeek-V3.2"
 
 curl -X POST "${APIM_ENDPOINT}/deployments/${DEPLOYMENT_NAME}/chat/completions?api-version=${API_VERSION}" \
   -H "Content-Type: application/json" \
@@ -474,7 +475,7 @@ Compare the responses from both models and note any differences in:
 Test how APIM handles authentication failures by using an invalid subscription key:
 
 ```bash
-curl -X POST "${APIM_ENDPOINT}/deployments/gpt-4.1/chat/completions?api-version=${API_VERSION}" \
+curl -X POST "${APIM_ENDPOINT}/deployments/gpt-5.4/chat/completions?api-version=${API_VERSION}" \
   -H "Content-Type: application/json" \
   -H "api-key: invalid-key-12345" \
   -d '{
@@ -550,8 +551,8 @@ ApiManagementGatewayLlmLog
 ### Verification Checklist
 - [ ] Foundry resource created successfully
 - [ ] API Management instance is online
-- [ ] GPT-4.1 model deployed in Foundry portal
-- [ ] DeepSeek-V3.1 model deployed in Foundry portal
+- [ ] GPT model deployed in Foundry portal
+- [ ] DeepSeek model deployed in Foundry portal
 - [ ] Both models tested successfully in playground
 - [ ] Foundry API imported into APIM with token policies
 - [ ] Subscription key obtained
@@ -573,7 +574,7 @@ ApiManagementGatewayLlmLog
 
 **Issue 3: 404 Not Found error**
 - **Solution:** 
-  - Verify the deployment name matches exactly (`gpt-4.1` or `DeepSeek-V3.1`)
+  - Verify the deployment name matches exactly (`gpt-5.4` or `DeepSeek-V3.2`)
   - Check that the base path is `/foundry/`
   - Ensure API version is valid (`2025-03-01-preview`)
   - Verify your APIM instance name is correct in the URL
@@ -660,7 +661,7 @@ Congratulations! 🎉 You have completed the **Microsoft Foundry Models with Azu
 
 You now have hands-on experience with:
 - Microsoft Foundry resource management
-- AI model deployment and testing (GPT-4.1 and DeepSeek-V3.1)
+- AI model deployment and testing (GPT and DeepSeek)
 - Azure API Management configuration
 - REST API integration with AI models
 - Token consumption policies and quota management
