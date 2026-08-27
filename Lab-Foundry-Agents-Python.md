@@ -223,10 +223,11 @@ Throughout this lab, you'll follow a consistent pattern for working with agents:
 ### 5.4 Install Required Packages
 1. Install the Azure AI Projects SDK (with virtual environment activated):
    ```bash
-   pip install "azure-ai-projects==2.1.0"
+   pip install "azure-ai-projects==2.3.0"
    pip install azure-identity
    pip install openai
    pip install python-dotenv
+   pip install httpx
    ```
 
 ### 5.5 Get Your Project Endpoint
