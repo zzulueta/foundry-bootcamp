@@ -750,8 +750,8 @@ print("=" * 60)
 ### 10.1 Publish Your Agent
 1. In the Foundry Portal, select **Build**.
 2. Select **Agents** and navigate to your agent (`python-multitool-agent`)
-3. Select **Publish** in the upper right.
-4. Copy the **Endpoint (Responses)** endpoint URL
+3. Select **Details** tab
+4. Copy the **Endpoint** endpoint URL
    - Format: `https://foundry-python-<yourname>.services.ai.azure.com/api/projects/python-agents-project/agents/python-multitool-agent/endpoint/protocols/openai/v1/responses`
 5. Update your `.env` file to add the BASE_URL:
    ```bash
