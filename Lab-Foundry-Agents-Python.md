@@ -92,7 +92,7 @@ Throughout this lab, you'll follow a consistent pattern for working with agents:
 7. Configure the deployment:
    - **Deployment name:** `gpt-5.4`
    - **Deployment type:** Select **Global Standard** (pay-per-token, easiest for testing)
-   - **Tokens per minute rate limit:** `50000`
+   - **Tokens per minute rate limit:** `100000`
 8. Click **Deploy**
 9. Wait for deployment to complete (typically 1-3 minutes)
 
@@ -163,7 +163,7 @@ Throughout this lab, you'll follow a consistent pattern for working with agents:
 ### 4.2 Test Web Search
 1. Ask a question that requires current information:
    ```
-   What are the latest developments in AI technology this week?
+   Give me 3 latest developments in AI technology this week.
    ```
 2. Verify the response:
    - ✅ Agent performs a web search
@@ -178,7 +178,7 @@ Throughout this lab, you'll follow a consistent pattern for working with agents:
 2. Verify the agent executes code and provides the result
 
 ### 4.4 Review Agent Logs
-1. Click on the **Logs** at the bottom
+1. Click on the **Traces** at the bottom
 2. Review the tool calls performed (web search and code interpreter)
 
 ---
