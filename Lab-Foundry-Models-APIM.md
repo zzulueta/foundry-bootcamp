@@ -132,9 +132,8 @@ By the end of this lab, you will have:
    You are a helpful AI assistant that provides concise and accurate answers about Azure. If you don't know the answer, say you don't know. Always provide clear and informative responses. If you are asked questions about other topics besides Azure, politely decline to answer.
    ```
 2. Adjust parameters:
-   - **Temperature:** `0.7` (controls randomness; 0 = deterministic, 1 = creative)
    - **Max Completion tokens:** `800` (maximum response length)
-   - **Top P:** `0.95` (nucleus sampling threshold)
+   - **Reasoning effort:** `low` 
 
 ### 4.3 Test the Model
 1. In the **User message** field, type a test prompt:
@@ -188,8 +187,7 @@ By the end of this lab, you will have:
    - **Name:** `microsoft-foundry-api`
    - **Base path:** `foundry` (this will be part of your API URL)
    - **Description:** `API for accessing Microsoft Foundry deployed models`
-   - **Products:** Select **Unlimited** 
-   - **Client compatibility:** Select **Azure OpenAI** (since we're using OpenAI-compatible models)
+   - **Client compatibility:** Select **Azure OpenAI v1** (since we're using OpenAI-compatible models)
    - Click **Next**
 
 5. On the **Manage token consumption** tab:
@@ -218,7 +216,7 @@ By the end of this lab, you will have:
 ### 5.3 Verify API Configuration and Enable Monitoring
 1. Once created, click on the **Microsoft Foundry API** in the APIs list
 2. Navigate to the **Design** tab
-3. Verify operations are listed (e.g., `Creates a completion for the chat message`)
+3. Verify operations are listed (e.g., `Creates a model response`)
 4. Click **All operations**, then under **Inbound processing**, click the **</>** (code icon) to view **Policies**. Review the automatically applied policies for token per minute and token quota enforcement.
 5. Navigate to the **Settings** tab
 6. Note the following:
@@ -228,22 +226,21 @@ By the end of this lab, you will have:
    - Notice that Subscription required is set to Yes.
    - Notice that Header name is set to `api-key` - this is the header you will use to pass your subscription key for authentication when calling the API.
 8. Scroll down to the **Diagnostics Logs** section
-9. Select Azure Monitor.
-10. Select Please enable Azure Monitor diagnostics here link.
-11. In the Diagnostics settings page, click **+ Add diagnostic setting**
-12. Configure the diagnostic setting:
+   - Select Azure Monitor.
+   - **Enable Override global**
+   - **Enable Log LLM messages**
+   - **Enable Log prompts and Log completions**
+   - Click **Save**
+9. Go to **Monitoring** > **Diagnostics settings**. In the Diagnostics settings page, click **+ Add diagnostic setting**
+10. Configure the diagnostic setting:
     - **Diagnostic setting name:** `default`
     - Category groups: Enable allLogs and audit
     - Metrics: Enable AllMetrics
     - Destination details: Send to Log Analytics workspace
     - Log Analytics workspace: `law-foundry-lab` (the workspace you created in Step 1.4)
     - Click **Save**
-13. Head back to the Settings tab of the Microsoft Foundry API and scroll down to the **Diagnostics Logs** section
-14. Select Azure Monitor tab. Enable Override global.
 > Note: This may take at least 30 minutes before the Azure Portal reflects the new setting . You can proceed with the lab by testing the API and come back to check the logs later.
-15. Enable Log LLM messages.
-16. Enable Log prompts and Log completions.
-17. Click Save.
+
 
 ### 5.4 Test the API in APIM
 1. In the **Design** tab, select the `Creates a completion for the chat message` operation
