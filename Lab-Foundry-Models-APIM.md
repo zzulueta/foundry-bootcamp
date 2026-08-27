@@ -595,9 +595,7 @@ ApiManagementGatewayLlmLog
 
 ---
 
-## Verification and Testing
-
-### Verification Checklist
+## Verification Checklist
 - [ ] Foundry resource created successfully
 - [ ] API Management instance is online
 - [ ] GPT model deployed in Foundry portal
@@ -609,46 +607,6 @@ ApiManagementGatewayLlmLog
 - [ ] Successful API calls to both models from Cloud Shell
 - [ ] Responses received with model output and token usage
 - [ ] Token quota policies tested and verified
-
-### Troubleshooting Common Issues
-
-**Issue 1: API Management still provisioning**
-- **Solution:** APIM Basic tier takes 30-45 minutes to provision. Check status in Azure Portal and wait for **Status: Online** before proceeding to Step 5.
-
-**Issue 2: 401 Unauthorized error**
-- **Solution:** 
-  - Verify your subscription key is correct and copied completely (no extra spaces)
-  - Check that the subscription is associated with the **Microsoft Foundry API** (from Step 5.5)
-  - Verify the subscription is in **Active** state in APIM
-
-**Issue 3: 404 Not Found error**
-- **Solution:** 
-  - Verify the deployment name matches exactly (`gpt-5.4` or `DeepSeek-V3.2`)
-  - Check that the base path is `/foundry/`
-  - Ensure API version is valid (`2025-03-01-preview`)
-  - Verify your APIM instance name is correct in the URL
-
-**Issue 4: Model deployment fails**
-- **Solution:** 
-  - Verify you have sufficient quota in Australia East region
-  - Try a different deployment type (e.g., Data Zone Standard)
-  - Check Azure Service Health for any regional issues
-  - Ensure the model is available in Australia East region
-
-**Issue 5: Timeout errors**
-- **Solution:** 
-  - Check that your Foundry resource is in Australia East (same region as APIM)
-  - Verify network connectivity between APIM and Foundry resource
-  - Increase timeout settings in APIM policies if needed
-  - Try a simpler prompt with lower max_tokens
-
-**Issue 6: Token quota exceeded errors appearing immediately**
-- **Solution:**
-  - The hourly quota (5000 tokens) may have been reached during testing
-  - Wait for the quota to reset (check Step 5.2 settings)
-  - Increase the quota limit in APIM token policy if needed
-  - Check APIM Analytics to see actual token consumption
-  - Increase timeout settings in APIM if needed
 
 ---
 
