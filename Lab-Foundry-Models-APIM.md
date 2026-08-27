@@ -246,7 +246,7 @@ By the end of this lab, you will have:
 1. Navigate back to **APIs** > **APIs** > **Microsoft Foundry API**. In the **Design** tab, select the `Creates a model response` operation
 2. Click on the **Test** tab
 3. Configure the test request:
-    - **api-version:** `v1` (or latest Azure OpenAI API version)
+    - **api-version:** `v1`
     - **Request body:**
     ```json
     {
@@ -260,7 +260,7 @@ By the end of this lab, you will have:
 4. Click **Send**.
 5. Review the response and verify you receive a valid response from the model with content filter and token usage information included.
 6. Modify the test for `DeepSeek-V3.2` to test the second model as well.
-    - **api-version:** `v1` (or latest Azure OpenAI API version)
+    - **api-version:** `v1` 
     - **Request body:**
     ```json
     {
@@ -299,13 +299,7 @@ By the end of this lab, you will have:
 
 ### 6.2 Set Environment Variables
 
-In Cloud Shell, set up your environment variables. You'll need the following information:
-- **APIM Instance Name:** `apim<yourname>` (e.g., `apimjohn`)
-- **Subscription Key:** From Step 5.5
-- **Deployment Name:** `gpt-5.4` or `DeepSeek-V3.2`
-- **API Version:** `2025-03-01-preview`
-
-Copy and paste the following commands, replacing the placeholder values:
+In Cloud Shell, set up your environment variables:
 
 ```bash
 # Set your API Management endpoint (from Step 5.3)
@@ -317,8 +311,6 @@ SUBSCRIPTION_KEY="YOUR_SUBSCRIPTION_KEY_HERE"
 # Set the deployment name
 DEPLOYMENT_NAME="gpt-5.4"
 
-# Set the API version
-API_VERSION="2025-03-01-preview"
 ```
 
 ### 6.3 Test the GPT Model
@@ -326,18 +318,13 @@ API_VERSION="2025-03-01-preview"
 Now run a curl command to test your first model deployment:
 
 ```bash
-curl -X POST "${APIM_ENDPOINT}/deployments/${DEPLOYMENT_NAME}/chat/completions?api-version=${API_VERSION}" \
+curl -X POST "${APIM_ENDPOINT}/openai/v1/responses" \
   -H "Content-Type: application/json" \
   -H "api-key: ${SUBSCRIPTION_KEY}" \
   -d '{
-    "messages": [
-      {
-        "role": "user",
-        "content": "What are the top 3 benefits of using Azure API Management with AI models? Keep it concise."
-      }
-    ],
-    "max_tokens": 200,
-    "temperature": 0.7
+    "model": "'"${DEPLOYMENT_NAME}"'",
+    "input": "What are the top 3 benefits of using Azure API Management with AI models? Keep it concise.",
+    "max_output_tokens": 200
   }' | jq '.'
 ```
 
@@ -348,13 +335,50 @@ curl -X POST "${APIM_ENDPOINT}/deployments/${DEPLOYMENT_NAME}/chat/completions?a
 You should receive a response similar to:
 ```json
 {
-  "choices": [
+  "id": "resp_04f23351551bd9c4006a9005315a3c8196aed8d6db04a961f1",
+  "object": "response",
+  "created_at": 1787823409,
+  "status": "completed",
+  "background": false,
+  "completed_at": 1787823416,
+  "content_filters": [
     {
+      "blocked": false,
+      "source_type": "prompt",
+      "content_filter_raw": [],
       "content_filter_results": {
         "hate": {
           "filtered": false,
           "severity": "safe"
         },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        }
+      },
+      "content_filter_offsets": {
+        "start_offset": 0,
+        "end_offset": 922,
+        "check_offset": 0
+      }
+    },
+    {
+      "blocked": false,
+      "source_type": "completion",
+      "content_filter_raw": [],
+      "content_filter_results": {
         "protected_material_code": {
           "detected": false,
           "filtered": false
@@ -363,50 +387,10 @@ You should receive a response similar to:
           "detected": false,
           "filtered": false
         },
-        "self_harm": {
-          "filtered": false,
-          "severity": "safe"
-        },
-        "sexual": {
-          "filtered": false,
-          "severity": "safe"
-        },
-        "violence": {
-          "filtered": false,
-          "severity": "safe"
-        }
-      },
-      "finish_reason": "stop",
-      "index": 0,
-      "logprobs": null,
-      "message": {
-        "annotations": [],
-        "content": "**Top 3 benefits of using Azure API Management with AI models:**\n\n1. **Secure & Scalable Access**: Protect AI endpoints with authentication, rate limiting, and scalability for external and internal users.\n2. **Centralized Monitoring & Analytics**: Track usage, performance, and errors of AI APIs with built-in logging and analytics.\n3. **Easy Integration & Versioning**: Simplify integration and manage multiple AI model versions through unified APIs and documentation.",
-        "refusal": null,
-        "role": "assistant"
-      }
-    }
-  ],
-  "created": 1777539621,
-  "id": "chatcmpl-DaHXpPJW6vp41Ss0WI2QVBX0eICGN",
-  "model": "gpt-5.4-2025-04-14",
-  "object": "chat.completion",
-  "prompt_filter_results": [
-    {
-      "prompt_index": 0,
-      "content_filter_results": {
         "hate": {
           "filtered": false,
           "severity": "safe"
         },
-        "jailbreak": {
-          "detected": false,
-          "filtered": false
-        },
-        "self_harm": {
-          "filtered": false,
-          "severity": "safe"
-        },
         "sexual": {
           "filtered": false,
           "severity": "safe"
@@ -414,27 +398,102 @@ You should receive a response similar to:
         "violence": {
           "filtered": false,
           "severity": "safe"
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
         }
+      },
+      "content_filter_offsets": {
+        "start_offset": 0,
+        "end_offset": 491,
+        "check_offset": 0
       }
     }
   ],
+  "error": null,
+  "frequency_penalty": 0.0,
+  "incomplete_details": null,
+  "instructions": null,
+  "max_output_tokens": 200,
+  "max_tool_calls": null,
+  "model": "gpt-5.4",
+  "moderation": null,
+  "output": [
+    {
+      "id": "msg_04f23351551bd9c4006a9005327b70819695980fa0e120dc61",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "logprobs": [],
+          "text": "1. **Security and governance**  \n   Centralizes authentication, authorization, rate limiting, IP filtering, and policy enforcement for AI APIs.\n\n2. **Scalability and reliability**  \n   Helps manage traffic spikes, apply quotas, cache responses where appropriate, and protect backend AI services from overload.\n\n3. **Observability and control**  \n   Provides monitoring, analytics, logging, and versioning so you can track usage, control costs, and manage AI model endpoints more effectively."
+        }
+      ],
+      "phase": "final_answer",
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "presence_penalty": 0.0,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "prompt_cache_retention": "in_memory",
+  "reasoning": {
+    "context": "current_turn",
+    "effort": "none",
+    "mode": "standard",
+    "summary": null
+  },
+  "safety_identifier": null,
   "service_tier": "default",
-  "system_fingerprint": "fp_7a7fd0eb44",
-  "usage": {
-    "completion_tokens": 95,
-    "completion_tokens_details": {
-      "accepted_prediction_tokens": 0,
-      "audio_tokens": 0,
-      "reasoning_tokens": 0,
-      "rejected_prediction_tokens": 0
+  "store": true,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "text"
     },
-    "prompt_tokens": 27,
-    "prompt_tokens_details": {
-      "audio_tokens": 0,
+    "verbosity": "medium"
+  },
+  "tool_choice": "auto",
+  "tool_usage": {
+    "image_gen": {
+      "input_tokens": 0,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "output_tokens": 0,
+      "output_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "total_tokens": 0
+    },
+    "web_search": {
+      "num_requests": 0
+    }
+  },
+  "tools": [],
+  "top_logprobs": 0,
+  "top_p": 0.98,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 26,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
       "cached_tokens": 0
     },
-    "total_tokens": 122
-  }
+    "output_tokens": 101,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 127
+  },
+  "user": null,
+  "metadata": {}
 }
 ```
 
@@ -452,18 +511,13 @@ Now test your second model deployment. Update the deployment name and run anothe
 # Update deployment name for DeepSeek
 DEPLOYMENT_NAME="DeepSeek-V3.2"
 
-curl -X POST "${APIM_ENDPOINT}/deployments/${DEPLOYMENT_NAME}/chat/completions?api-version=${API_VERSION}" \
+curl -X POST "${APIM_ENDPOINT}/openai/v1/responses" \
   -H "Content-Type: application/json" \
   -H "api-key: ${SUBSCRIPTION_KEY}" \
   -d '{
-    "messages": [
-      {
-        "role": "user",
-        "content": "Explain the difference between Azure OpenAI and Microsoft Foundry in one sentence."
-      }
-    ],
-    "max_tokens": 150,
-    "temperature": 0.7
+    "model": "'"${DEPLOYMENT_NAME}"'",
+    "input": "What are the top 3 benefits of using Azure API Management with AI models? Keep it concise.",
+    "max_output_tokens": 200
   }' | jq '.'
 ```
 
@@ -477,17 +531,13 @@ Compare the responses from both models and note any differences in:
 Test how APIM handles authentication failures by using an invalid subscription key:
 
 ```bash
-curl -X POST "${APIM_ENDPOINT}/deployments/gpt-5.4/chat/completions?api-version=${API_VERSION}" \
+curl -X POST "${APIM_ENDPOINT}/openai/v1/responses" \
   -H "Content-Type: application/json" \
   -H "api-key: invalid-key-12345" \
   -d '{
-    "messages": [
-      {
-        "role": "user",
-        "content": "What are Microsoft Foundry Models?"
-      }
-    ],
-    "max_tokens": 500
+    "model": "'"${DEPLOYMENT_NAME}"'",
+    "input": "What are the top 3 benefits of using Azure API Management with AI models? Keep it concise.",
+    "max_output_tokens": 200
   }' | jq '.'
 ```
 
@@ -504,18 +554,15 @@ Expected response:
 In Cloud Shell, test the token quota limits you configured in Step 5.2. Run multiple requests to exceed the hourly quota:
 
 ```bash
-curl -X POST "${APIM_ENDPOINT}/deployments/${DEPLOYMENT_NAME}/chat/completions?api-version=${API_VERSION}" \
+DEPLOYMENT_NAME="gpt-5.4"
+
+curl -X POST "${APIM_ENDPOINT}/openai/v1/responses" \
   -H "Content-Type: application/json" \
   -H "api-key: ${SUBSCRIPTION_KEY}" \
   -d '{
-    "messages": [
-      {
-        "role": "user",
-        "content": "What is Microsoft Foundry? Provide a detailed explanation covering its key features, benefits, and use cases in the context of AI model deployment and management in at least 1000 words."
-      }
-    ],
-    "max_tokens": 1000,
-    "temperature": 0.7
+    "model": "'"${DEPLOYMENT_NAME}"'",
+    "input": "What are the benefits of using Azure API Management with AI models? Answer in detail in 1000 words.",
+    "max_output_tokens": 1000
   }' | jq '.'
 ```
 
