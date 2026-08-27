@@ -835,7 +835,7 @@ curl -i --fail-with-body -X POST \
   -H "Foundry-Features: AgentEndpoints=V1Preview" \
   -d '{"input": "What are the benefits of using Microsoft Foundry?"}'
 ```
-> Note: Remove `/v1/responses` from the BASE_URL when using it in the CURL command, as the path is included in the command itself.
+> Note: Remove `/responses` from the BASE_URL when using it in the CURL command, as the path is included in the command itself.
 
 Sample:
 ```bash
