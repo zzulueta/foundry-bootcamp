@@ -48,7 +48,7 @@ By the end of this lab, you will have:
    - **Resource group:** `rg-foundry-agents-lab`
    - **Storage account name:** `stfoundry<yourname>` (must be globally unique, lowercase, no hyphens)
    - **Region:** `Australia East`
-   - **Preferred storage type:** `Azure Blob Storage or Azure Data Lake Storage Gen2`
+   - **Primary service:** `Azure Blob Storage or Azure Data Lake Storage Gen2`
    - **Performance:** Standard
    - **Redundancy:** Locally-redundant storage (LRS)
 5. Click **Review + Create**, then **Create**
@@ -153,7 +153,7 @@ By the end of this lab, you will have:
    - **Container:** Select `manuals`
    - Click Next
 6. Vectorize your text
-   - **Kind:** Select `Microsoft Foundry`
+   - **Kind:** Select `Foundry resource`
    - **Subscription:** Select your subscription
    - **Microsoft Foundry project:** Select `agents-project`
    - **Model deployment:** Select `text-embedding-3-large`
@@ -180,24 +180,15 @@ By the end of this lab, you will have:
 ### 3.3 Access Foundry IQ
 1. In Microsoft Foundry Portal, navigate to **Build** > **Knowledge** in the left sidebar
 2. If this is your first time accessing Foundry IQ, you may see an introduction screen
-3. Select your Azure AI Search resource:
+3. Select your Foundry IQ (Azure AI Search) resource:
    - Click **Select a resource**
    - Choose `search-foundry-<yourname>` from the list
    - Under Auth Type, choose **API Key**
    - Click **Connect**
 
 ### 3.4 Create a New Knowledge Base
-1. In the Knowledge section, click **Create a knowledge base**
-2. Select **Azure AI Search Index** under Configure a knowledge base
-3. Click **Connect**
-4. Create a knowledge source configuration:
-   - **Name:** `productmanuals`
-   - **Description:** `Knowledge base for product manuals`
-   - **Select search index:** `manuals`
-5. Click **Create**
-
-### 3.5 Configure Knowledge Base Settings
-1. Under Basic configuration:
+1. In the Knowledge bases tab, click **Create a knowledge base**
+2. Under Basic configuration:
    - **Name:** `productkb`
    - **Description:** `Knowledge base for product manuals and other information`
    - **Chat completions model:** Select `gpt-5.4`
@@ -208,11 +199,19 @@ By the end of this lab, you will have:
      Use 'productmanuals' to get product information and specifications. Use 'productreviews' for customer reviews.
      ```
 
+### 3.5 Add Azure AI Search Index as Knowledge Source
+1. Scroll down to the **Knowledge sources** section
+2. Select **Add sources** > **Azure AI Search Index**
+3. Create a knowledge source:
+   - **Name:** `productmanuals`
+   - **Description:** `Knowledge base for product manuals`
+   - **Select search index:** `manuals`
+4. Click **Create**
+
+
 ### 3.6 Add Azure Blob as Knowledge Source
-1. In your knowledge base, scroll down to the **Knowledge sources** section
-2. Click **Create new**
-3. Select **Azure Blob Storage**
-4. Configure knowledge source:
+1. Select **Add sources** > **Azure Blob Storage**
+2. Create a knowledge source:
    - **Name:** `productreviews`
    - **Description:** `Contains customer product reviews`
    - **Storage account:** Select `stfoundry<yourname>`
@@ -220,8 +219,8 @@ By the end of this lab, you will have:
    - **Authentication:** Select **API Key**
    - **Context extraction mode:** Select **Minimal**
    - **Embedding model:** Select `text-embedding-3-large`
-   - **Chat completions model:** Select `gpt-5.4`
-5. Click **Create**
+   - **Chat completions model:** Leave blank
+3. Click **Create**
 
 **Notes**: 
 - Foundry IQ can have multiple knowledge sources such as existing Azure AI Search indexes, Azure Blob Storage containers, and other data sources. This allows you to easily combine different types of data in a single knowledge base.
