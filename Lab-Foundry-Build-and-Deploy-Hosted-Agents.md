@@ -280,7 +280,7 @@ Potential revenue impact if the issue is not resolved quickly
 ### 5.3 Implement Resume Analyzer Logic
 1. Open `main.py`
 2. Replace the entire content with the code from:
-   <https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/blob/main/workshop/lab02-multi-agent/PersonalCareerCopilot/main.py>
+   <https://github.com/zzulueta/foundry-bootcamp/blob/master/Hosted%20Agent/main.py>
 
 ### 5.4 Add Logging for Debugging
 1. In `main.py`, add logging imports at line 13:
