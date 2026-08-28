@@ -233,33 +233,16 @@ By the end of this lab, you will have:
    - **Name:** `TriageAgentTestDataset`
    - **Upload Dataset:** `Upload evaldataset.jsonl` (provided in the Control Plane folder of this repository)
    - Click **Upload**
-7. Click **Next**
-7. Under Field mapping:
+   - Review the uploaded data then click **Next**
+7. Under Configure agents
+   - Click **Next**
+8. Under Criteria:
    - **Judge model**:** `gpt-5.4-mini`
-   - **Query:** `{{item.query}}`
-   - **Response:** `{{sample.output_text}}`
-   - **Context:** `Not Available`
-   - **Ground truth:** `{{item.ground_truth}}`
-   - **Tool calls:** `Not Available`
-   - **Tool definitions:** `Not Available`
-9. Click **Next**
-10. Under Configure agents:
-   - Click the Configure button and notice how {{item.query}} is in the User prompt.
-   - Click **Cancel**
+   - **Agents:** Remove all but keep CustomerSatisfaction
+   - **Metrics:** Remove all but keep Relevance, Coherence, Fluency
+   - **Safety:** Remove all but keep Violence
    - Click **Next**
-11. Under Criteria:
-   - Remove all auto-generated criteria
-   - Click **Add new evaluator** and add the following criteria:
-     - **Relevance:** Measures if responses are relevant to the query
-     - **Coherence:** Measures if responses are coherent and well-structured
-     - **Fluency:** Measures linguistic quality
-     - **Customer Satisfaction:** Measures if the response would likely satisfy the customer's query
-   - For each criteria, set the following:
-     - **Judge model:** `gpt-5.4-mini`
-     - **Threshold:** 3
-     - Click **Confirm** after configuring each criteria
-   - Click **Next**
-12. Under Evaluation details:
+9. Finalize and submit the evaluation:
    - **Name:** `TriageAgentEvaluation`
    - Review the parameters for the evaluation:
    - Click **Submit**
