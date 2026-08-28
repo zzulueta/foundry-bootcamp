@@ -64,7 +64,7 @@ By the end of this lab, you will have:
 
 ### 1.5 Deploy a Base Model
 1. In the Foundry Home page, copy your **API Key** and **Project endpoint** in a notepad
-2. Select **Models** in the left-hand side
+2. Navigate to **Build** in the top navigation, then select **Models** in the left-hand side
 > Note: The Models option may be replaced by the **Deployments** option in the left sidebar for newer versions of Foundry. If you see Deployments instead of Models, click on Deployments. 
 3. Deploy the model:
    - Select **Deploy a base model**
@@ -86,16 +86,14 @@ By the end of this lab, you will have:
 4. Follow the authentication prompts:
    - Select **Work or School account**
    - Use your Azure credentials
-   - Select **No** to "this app only" option
 5. In VS Code, choose the proper subscription when prompted
 
 ### 2.2 Configure Foundry Toolkit
 1. In VS Code, open the Foundry Toolkit extension panel
-2. Click **Set Foundry Project**
-3. Sign in to Azure:
+2. Click **Set Foundry Project** > **Switch project** 
+3. Sign in to Azure if prompted:
    - Use your Azure credentials
-   - Select **No** to "this app only" option
-4. Select the project you created (`hosted-project`)
+4. Select the Azure subscription and the new project you created (`hosted-project`)
 
 ---
 
@@ -112,17 +110,16 @@ By the end of this lab, you will have:
    - Click **Next**
 4. Configure workspace:
    - Choose the proper workspace folder (create new folder if needed)
-   - Choose **Setup with Microsoft Foundry**
-   - Select your subscription, project, and model deployment
+   - Select your model deployment
    - Click **Create**
 
 > **Note:** If you see a GitHub connection issue, ignore it and click **Create** again.
 
 ### 3.2 Configure Environment Variables
-1. Navigate to the `.env` file in your project
+1. Navigate to the `.env` file in your project found in the src folder
 2. Verify that the following variables are set correctly:
    - Project endpoint (must match the endpoint from Step 1.5)
-   - Model deployment name (must match `gpt-5.4-mini` deployment)
+   - Model deployment name (must match your model deployment)
 
 ### 3.3 Configure Azure Deployment Settings
 1. Open the `azure.yaml` file
@@ -187,6 +184,7 @@ Rules:
    ```
    pip install -r requirements.txt
    ```
+5. Wait for the installation to complete
 
 ---
 
@@ -196,9 +194,28 @@ Rules:
 1. Open the **Run and Debug** panel (`Ctrl+Shift+D`)
 2. Press the Play button (or press `F5`)
 3. Wait for the Agent Inspector to open
-4. Test with sample IT issues:
-   - You can ask Copilot: `"Give me a detailed IT issue"`
-   - Paste the issue into the Agent Inspector
+4. Test with a sample IT issue:
+```
+IT Issue: Users Cannot Access a Web Application
+
+Title: Internal Sales Portal Returns "503 Service Unavailable"
+
+Description: Several users report that they cannot access the company's internal Sales Portal. When browsing to the site, they receive a 503 Service Unavailable error. The issue started this morning and affects both remote and on-site employees.
+
+Symptoms:
+
+Website displays "503 Service Unavailable"
+Users can access other websites normally
+Mobile devices experience the same issue
+Application response time increased significantly before the outage
+
+Business Impact:
+
+Sales team cannot submit customer orders
+Delays in processing new opportunities
+Potential revenue impact if the issue is not resolved quickly
+```
+   
 5. Verify the agent provides executive-friendly summaries with:
    - ✅ Plain-language description
    - ✅ Business impact statement
