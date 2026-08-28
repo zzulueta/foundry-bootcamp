@@ -298,7 +298,7 @@ By the end of this lab, you will have:
     - Click **Next**
 4. Enter Guardrail name: `CustomerSupportGuardrail`
 5. Review your guardrail configuration. 
-6. Click **Submit**
+6. Click **Create**
 
 ### 5.5 Create a Blocklist
 1. In the **Guardrails** page, navigate to the **Blocklists** tab
@@ -320,13 +320,12 @@ By the end of this lab, you will have:
 1. Navigate back to **Guardrails** > **Guardrails** tab
 2. Select `CustomerSupportGuardrail`
 3. Click **Edit**
-4. Under **Add controls**, select the Blocklists:
-    - In **Blocklists** drop down, select `Profanity` and `CustomerSupportBlocklist` 
-5. Click **Add Control**
-6. Click **Next**
-7. Click **Next** again to skip to the end
-8. Review the updated guardrail configuration where the blocklists are now included as part of the guardrail controls
-9. Click **Submit** to save the updated guardrail
+4. Under **Content harms**, select the Blocklists:
+    - Enable **Blocklists** checkbox then select `Profanity` and `CustomerSupportBlocklist`
+5. Click **Next**
+6. Click **Next** again to skip to the end
+7. Review the updated guardrail configuration where the blocklists are now included as part of the guardrail controls
+8. Click **Save** to save the updated guardrail
 
 ### 5.7 Test Guardrails
 1. Navigate back to your `Triage-Agent` in the **Agents** section
