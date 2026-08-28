@@ -445,7 +445,7 @@ By the end of this lab, you will have:
    - Click **Next** to skip to the next step. We will not assign this to any agent or model.
    - Set Guardrail name to  `TestComplianceGuardrail`
    - Review the configuration and ensure it violates the compliance policy you just created (Jailbreak control with Annotate action)
-   - Click **Submit** to create the guardrail
+   - Click **Create** to create the guardrail
 3. Head back to the **Operate** > **Compliance** page and wait for the `CustomerSupportCompliancePolicy` policy to detect the non-compliant guardrail.
 > Note: This may take a few minutes to populate. You can refresh the page to check for updates.
 
