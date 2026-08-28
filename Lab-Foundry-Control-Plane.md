@@ -249,7 +249,7 @@ By the end of this lab, you will have:
 
 ### 4.3 Review Evaluation Results
 > Note: Evaluations typically take 5-10 minutes to complete. You may proceed to the Next step while waiting for the evaluation to complete.
-1. Once complete, click on your evaluation run
+1. Once complete, navigate to **Evaluations** > **Runs** and click on your evaluation run
 2. Review the metrics:
    - Relevance score
    - Coherence score
@@ -378,7 +378,7 @@ By the end of this lab, you will have:
 
 ### 6.3 Review Red Team Results
 > Note: Red Teaming typically take 5-10 minutes to complete. You may proceed to the Next step while waiting for it to complete.
-1. Once complete, click on your red team run
+1. Once complete, navigate to **Evaluations** > **Red team** then click on your red team run
 2. Review the Runs summary
 3. Click on each Run to review the details of each attack attempt and the Overall metric results.
 
