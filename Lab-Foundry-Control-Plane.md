@@ -400,10 +400,10 @@ By the end of this lab, you will have:
    - Tool calls and agent runs
    - Error rate 
 4. Click on `Configure` on Evaluations. View the following options:
-   - Continuous evaluation: Enable continuous evaluation to monitor and assess agent metrics in real time.
-   - Scheduled evaluations: Schedule evaluations to run at set intervals and track agent performance over time.
+   - Recurring evaluations:  Continuously evaluate the currently active (deployed) version of your target, so results track your production quality over time.
+   - Scheduled red teaming runs: Schedule red teaming runs at set intervals to continuously test for safety and security risks.
    - Evaluation Alerts: Configure Azure Monitor alerts for this agent. This pass rate will apply to all evaluation metrics for continuous evaluation. 
-5. Exit without configuring and return to the monitoring dashboard.
+5. Exit without configuring and return to the Monitor dashboard.
 
 ---
 
