@@ -215,20 +215,26 @@ By the end of this lab, you will have:
 ## Step 4: Create and Run Evaluations
 
 ### 4.1 Navigate to Evaluations
-1. Navigate to the **Evaluations** Tab under the Triage-Agent page.
+1. Navigate to the **Evaluation** Tab under the Triage-Agent page.
 
 ### 4.2 Create an Evaluation
 1. Under Automatic Evaluation, click **Create** in the upper right corner
 2. Under Target:Agent ensure the Triage-Agent is selected and click **Next**
-3. Under Data:
+3. Under Scope:
+   - Select **Individual turns**
+   - Click **Next**
+4. Under Frequency:
+   - Select **One time**
+   - Click **Next**
+5. Under Data:
    - Select **Existing dataset**
    - Select **Upload new dataset** found in the upper right corner
-4. Upload new dataset configuration:
+6. Upload new dataset configuration:
    - **Name:** `TriageAgentTestDataset`
    - **Upload Dataset:** `Upload evaldataset.jsonl` (provided in the Control Plane folder of this repository)
    - Click **Upload**
-5. Click **Next**
-6. Under Field mapping:
+7. Click **Next**
+7. Under Field mapping:
    - **Judge model**:** `gpt-5.4-mini`
    - **Query:** `{{item.query}}`
    - **Response:** `{{sample.output_text}}`
@@ -236,12 +242,12 @@ By the end of this lab, you will have:
    - **Ground truth:** `{{item.ground_truth}}`
    - **Tool calls:** `Not Available`
    - **Tool definitions:** `Not Available`
-7. Click **Next**
-8. Under Configure agents:
+9. Click **Next**
+10. Under Configure agents:
    - Click the Configure button and notice how {{item.query}} is in the User prompt.
    - Click **Cancel**
    - Click **Next**
-9. Under Criteria:
+11. Under Criteria:
    - Remove all auto-generated criteria
    - Click **Add new evaluator** and add the following criteria:
      - **Relevance:** Measures if responses are relevant to the query
@@ -253,7 +259,7 @@ By the end of this lab, you will have:
      - **Threshold:** 3
      - Click **Confirm** after configuring each criteria
    - Click **Next**
-10. Under Evaluation details:
+12. Under Evaluation details:
    - **Name:** `TriageAgentEvaluation`
    - Review the parameters for the evaluation:
    - Click **Submit**
