@@ -264,15 +264,14 @@ Potential revenue impact if the issue is not resolved quickly
    - Protocol Type: **Responses**
    - Click **Next**
 5. Configure workspace:
-   - Choose a new workspace folder
-   - Choose **Setup with Microsoft Foundry**
-   - Select your subscription, project, and model deployment
+   - Choose the proper workspace folder (create new folder if needed)
+   - Select your model deployment
    - Click **Create**
 
 > **Note:** If you see a GitHub connection issue, ignore it and click **Create** again.
 
 ### 5.2 Configure Environment
-1. Navigate to the `.env` file
+1. Navigate to the `.env` file under the src folder
 2. Verify that the project endpoint and model deployment variables are correctly set
 
 3. Open the `azure.yaml` file
