@@ -229,6 +229,7 @@ By the end of this lab, you will have:
 ### 3.7 Saving the Knowledge Base
 1. In the upper right select **Save knowledge base**
 2. Refresh the page and wait for the product reviews knowledge source to be Active in status (this may take a few minutes)
+3. Once complete, perform Step 3.2 to verify that the knowledge source has the review documents indexed and is searchable.
 
 ---
 
