@@ -223,15 +223,14 @@ Potential revenue impact if the issue is not resolved quickly
    - ✅ No technical jargon
 
 ### 4.2 Deploy to Azure
-1. In the Agent Inspector, click the **Deploy** button
+1. In the Agent Inspector, click the **Deploy** button in the upper right
 2. Configure deployment:
    - **Deployment Method:** Container
    - **Container Registry:** Default ACR
    - **Hosted Agent Name:** `executive-summary-agent`
    - Click **Next**
 3. Set resource allocation:
-   - **CPU:** `0.5 CPU cores`
-   - **Memory:** `1.0 Gi memory`
+   - **CPU and Memory:** `0.5 CPU cores, 1.0 Gi memory`
    - Click **Deploy**
 4. If you receive an error: `Missing ACR permissions required to deploy to Foundry`:
    - Wait 2 minutes for permissions to propagate
