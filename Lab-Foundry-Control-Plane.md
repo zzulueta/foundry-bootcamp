@@ -83,6 +83,7 @@ By the end of this lab, you will have:
 ### 2.1 Deploy a GPT Model
 1. In Microsoft Foundry, navigate to **Build** in the top navigation
 2. Select **Models** from the left sidebar
+> Note: The Models option may be replaced by the **Deployments** option in the left sidebar for newer versions of Foundry. If you see Deployments instead of Models, click on Deployments. 
 3. Click **Deploy a base model**
 4. Search for the **gpt-5.4-mini** model
 5. **Select** the model
@@ -105,7 +106,7 @@ By the end of this lab, you will have:
 
 ### 2.3 Create a Simple AI Agent
 1. In Microsoft Foundry Portal, navigate to **Build** > **Agents** in the left sidebar
-2. Click **Create agent**
+2. Click **New agent** > **Build an agent**
 3. On the **Create an agent** page:
    - **Agent name:** `Triage-Agent`
 4. Click **Create and open playground**
@@ -117,7 +118,7 @@ By the end of this lab, you will have:
    You are a helpful customer support triage agent of the Contoso Coffee Company. Your role is to:
    
    1. Understand their issue or question
-   2. Categorize the issue into one of these categories:
+   2. Categorize the issue first into one of these categories:
       - Technical Support
       - Billing Question
       - Product Inquiry
@@ -135,7 +136,7 @@ By the end of this lab, you will have:
 1. Navigate to the top.
 2. Under **Model**, ensure `gpt-5.4-mini` is selected
 3. Navigate to Tools:
-   - Click **Add > Browse all tools**
+   - Click **Add > Add tools**
    - Select **File search**
    - Click **Add tool**
    - Configure the File Search tool:
@@ -188,7 +189,7 @@ By the end of this lab, you will have:
 
 ### 3.2 View Traces
 > Note: It may take a few minutes for the traces to appear in Application Insights after generating them from the agent playground. You may proceed to Step 4 while waiting for the traces to populate.
-1. Click on the **Traces** tab in your agent
+1. Click on the **Traces** tab > **Conversation view** in your agent
 2. View the list of conversations. Each Conversation ID represents a unique conversation with the agent, and you should see the conversations you just had in the playground.
    - View the Created at timestamp, token usage, and status for each conversation
 3. Click on a Conversation ID to view the trace details for that conversation
