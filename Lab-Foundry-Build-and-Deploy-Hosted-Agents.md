@@ -282,22 +282,7 @@ Potential revenue impact if the issue is not resolved quickly
 2. Replace the entire content with the code from:
    <https://github.com/zzulueta/foundry-bootcamp/blob/master/Hosted%20Agent/main.py>
 
-### 5.4 Add Logging for Debugging
-1. In `main.py`, add logging imports at line 13:
-   ```python
-   import logging
-   logger = logging.getLogger("resume-job-fit")
-   logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-   ```
-
-2. Add workflow tracing at line 226 (below the workflow creation):
-   ```python
-   logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
-   ```
-
-3. Save `main.py`
-
-### 5.5 Setup Python Virtual Environment
+### 5.4 Setup Python Virtual Environment
 1. Open a terminal in the `src\agent-framework-agent-basic-responses` folder
 2. Create a virtual environment:
    ```

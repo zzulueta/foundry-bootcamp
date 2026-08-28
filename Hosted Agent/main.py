@@ -10,6 +10,10 @@ from azure.identity import DefaultAzureCredential
 from dotenv import load_dotenv
 from mcp.client.session import ClientSession
 from mcp.client.streamable_http import streamable_http_client
+import logging
+
+logger = logging.getLogger("resume-job-fit")
+logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 # Load environment variables from .env file (override=True ensures .env wins over shell vars)
 load_dotenv(override=True)
@@ -220,6 +224,8 @@ def main():
         .build()
         .as_agent()
     )
+
+    logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 
     server = ResponsesHostServer(workflow_agent)
     server.run()
