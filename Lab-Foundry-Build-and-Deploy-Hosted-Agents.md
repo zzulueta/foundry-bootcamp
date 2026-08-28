@@ -296,7 +296,7 @@ Potential revenue impact if the issue is not resolved quickly
    ```
    pip install -r requirements.txt
    ```
-
+5. Wait for the installation to complete
 ---
 
 ## Step 6: Test and Deploy the Resume Analyzer
@@ -326,8 +326,7 @@ Potential revenue impact if the issue is not resolved quickly
    - ✅ Job description agent identifies requirements
    - ✅ Matching agent compares requirements vs. qualifications
    - ✅ Gap analysis agent provides recommendations
-6. Check the logs for workflow tracing
-7. **Important:** When testing different resumes and job descriptions, always start a new chat session
+6. **Important:** When testing different resumes and job descriptions, always start a new chat session
 
 ### 6.2 Deploy to Azure
 1. In the Agent Inspector, click the **Deploy** button
@@ -337,8 +336,7 @@ Potential revenue impact if the issue is not resolved quickly
    - **Hosted Agent Name:** `resume-analyzer`
    - Click **Next**
 3. Set resource allocation:
-   - **CPU:** `0.5 CPU cores`
-   - **Memory:** `1.0 Gi memory`
+   - **CPU and Memory:** `0.5 CPU cores, 1.0 Gi memory`
    - Click **Deploy**
 4. If you receive permissions errors, wait 2 minutes and retry
 5. Wait for deployment to complete (typically 5 minutes)
@@ -373,7 +371,6 @@ Potential revenue impact if the issue is not resolved quickly
 - [ ] Executive Summary agent deployed to Azure container
 - [ ] Executive Summary agent accessible in Foundry Portal
 - [ ] Multi-agent resume analyzer scaffolded successfully
-- [ ] Multi-agent workflow implemented with logging
 - [ ] Resume analyzer tested locally with sample data
 - [ ] Resume analyzer deployed to Azure container
 - [ ] Resume analyzer accessible and functional in Foundry Portal
@@ -404,9 +401,8 @@ In this lab, you successfully:
 3. ✅ Built a single-purpose "Executive Summary" agent with custom instructions
 4. ✅ Deployed a containerized agent to Azure
 5. ✅ Created a complex multi-agent workflow for resume analysis
-6. ✅ Implemented logging and tracing for debugging
-7. ✅ Tested agents locally, in Azure, and in the Foundry Portal
-8. ✅ Integrated Foundry hosted agents with production infrastructure
+6. ✅ Tested agents locally, in Azure, and in the Foundry Portal
+7. ✅ Integrated Foundry hosted agents with production infrastructure
 
 ### Benefits of Foundry Hosted Agents
 
