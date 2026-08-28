@@ -355,28 +355,26 @@ By the end of this lab, you will have:
 
 > **Note:** This lab uses East US 2, which fully supports red team evaluation. If you deploy to a different region, verify red team support at the [Microsoft Learn documentation](https://learn.microsoft.com/azure/foundry/how-to/develop/run-scans-ai-red-teaming-agent#region-support).
 
-### 6.1 Navigate to Monitor tab
-1. Navigate to the **Monitor** tab under the Agents page.
+### 6.1 Navigate to Evaluation tab
+1. Navigate to the **Evaluation** tab under the Agents page.
 
 ### 6.2 Create a Red Team Run
-1. Click **Configure** under Scheduled red teaming run issues.
-2. Select Scheduled red teaming runs and Enable it.
-3. Click **Create red team run**
-4. Select Target: Agent and select `Triage-Agent`
-5. Click **Next**
-6. Modify Run configuration - Risk Categories:
-    - Click Modify under Risk Categories to view the different attack categories.
-    - Remove all except **Violence**
-    - Click **Save**
-7. Modify Run configuration - Seed data queries: `5`
-8. Modify Run configuration - Attack strategies:
-    - Click **Modify icon** under Attack strategies to view the different attack strategies.
-    - Select Jailbreak
-    - Click **Save**
-9. Click **Next**
-10. Enter Red team name: `TriageAgentRedTeam`
-11. Review your red team configuration
-12. Click **Submit** to start the red team run
+1. Select the Red team tab.
+2. Click **Create**
+3. Modify Run configuration 
+   - Risk Categories:
+      - Click **Modify** to view the different attack categories.
+      - Remove all except **Hate and unfairness**
+      - Click **Save**
+   - Seed data queries: `5`
+   - Attack strategies:
+      - Click **Modify icon** under Attack strategies to view the different attack strategies.
+      - Select Jailbreak
+      - Click **Save**
+4. Click **Next**
+5. Enter Red team name: `TriageAgentRedTeam`
+6. Review your red team configuration
+7. Click **Submit** to start the red team run
 
 ### 6.3 Review Red Team Results
 > Note: Red Teaming typically take 5-10 minutes to complete. You may proceed to the Next step while waiting for it to complete.
