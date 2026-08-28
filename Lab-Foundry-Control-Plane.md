@@ -295,6 +295,7 @@ By the end of this lab, you will have:
 2. Click **Next**
 3. Under collection of agents and models:
     - Select `Triage-Agent`
+    - Select `gpt-5.4-mini`
     - Click **Next**
 4. Enter Guardrail name: `CustomerSupportGuardrail`
 5. Review your guardrail configuration. 
@@ -331,7 +332,7 @@ By the end of this lab, you will have:
 1. Navigate back to your `Triage-Agent` in the **Agents** section
 2. In the playground, test with a blocked term:
    ```
-   I heard that Nespresso has a better product. Why should I use yours?
+   I want to buy a Breville coffee machine.
    ```
 3. Verify that the request is blocked
 4. Test with a self-harm query:
