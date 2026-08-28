@@ -237,9 +237,9 @@ By the end of this lab, you will have:
 7. Under Configure agents
    - Click **Next**
 8. Under Criteria:
-   - **Judge model**:** `gpt-5.4-mini`
+   - **Judge model**: `gpt-5.4-mini`
    - **Agents:** Remove all but keep CustomerSatisfaction
-   - **Metrics:** Remove all but keep Relevance, Coherence, Fluency
+   - **Quality:** Remove all but keep Relevance, Coherence, Fluency
    - **Safety:** Remove all but keep Violence
    - Click **Next**
 9. Finalize and submit the evaluation:
@@ -255,6 +255,7 @@ By the end of this lab, you will have:
    - Coherence score
    - Fluency score
    - Customer Satisfaction score
+   - Violence score
 3. Review individual query results by clicking on each evaluation run.
 4. Note any queries that scored poorly for improvement
 
@@ -269,48 +270,34 @@ By the end of this lab, you will have:
 ### 5.2 Understand Default Guardrails
 1. Select **Microsoft.DefaultV2** from the list
 2. Review the configuration:
-   - **Type:** Model - Applied to specific models
+   - **Type:** Model
    - **Applied to:** `gpt-5.4-mini`, `text-embedding-3-small`
 3. Note: Default guardrails provide baseline content safety filtering, jailbreak detection, and protected content filtering. You will create a custom guardrail for your specific use case.
-4. Exit the guardrail details and return to the list.
+4. View the guardrail configuration.
 
 ### 5.3 Create a Custom Guardrail
 1. Click **Create** in the upper right corner
 
 ### 5.4 Configure Controls
-1. Under **Add controls**, select the following:
+1. Under **Create guardrail**, select the following:
    - **Hate:**
      - Severity level: Highest blocking
      - Intervention point: User input and Output
-     - Action: Block
-     - Click **Add control**
-     - Click **OK** to override the current setting.
-   - **Self-harm:**
-     - Severity level: Highest blocking
-     - Intervention point: User input and Output
-     - Action: Block
-     - Click **Add control**
-     - Click **OK** to override the current setting.
    - **Sexual:**
      - Severity level: Highest blocking
      - Intervention point: User input and Output
-     - Action: Block
-     - Click **Add control**
-     - Click **OK** to override the current setting.
+   - **Self-harm:**
+     - Severity level: Highest blocking
+     - Intervention point: User input and Output
    - **Violence:**
      - Severity level: Highest blocking
      - Intervention point: User input and Output
-     - Action: Block
-     - Click **Add control**
-     - Click **OK** to override the current setting.
 2. Click **Next**
-3. Under Select agents and models:
-    - Select **Add agents**
+3. Under collection of agents and models:
     - Select `Triage-Agent`
-    - Select **Save**
     - Click **Next**
 4. Enter Guardrail name: `CustomerSupportGuardrail`
-5. Review your guardrail configuration. Notice that Jailbreaks and protected materials are also added by default to the guardrail. 
+5. Review your guardrail configuration. 
 6. Click **Submit**
 
 ### 5.5 Create a Blocklist
