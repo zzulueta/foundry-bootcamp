@@ -437,12 +437,14 @@ By the end of this lab, you will have:
 ### 8.4 Test the Policy
 1. The CustomerSupport Compliance Policy you just created will eventually scan and identify existing custom guardrails that do not follow the policy. 
 2. To test the policy immediately, you can create a new guardrail that goes against the policy:
+   - Go to **Deployments** > **Deploy a base model** and deploy a **text-embedding-3-small** model 
    - Go to **Build** > **Guardrails** > **Guardrails** tab
    - Select **Create** in the upper right corner
    - Select Jailbreak
       - Action: **Annotate**
    - Click **Next**
-   - Click **Next** to skip to the next step. We will not assign this to any agent or model.
+   - Assign this guardrail to the `text-embedding-3-small` model
+   - Click **Next**
    - Set Guardrail name to  `TestComplianceGuardrail`
    - Review the configuration and ensure it violates the compliance policy you just created (Jailbreak control with Annotate action)
    - Click **Create** to create the guardrail
