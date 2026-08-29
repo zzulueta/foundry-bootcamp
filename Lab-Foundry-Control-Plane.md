@@ -448,7 +448,7 @@ By the end of this lab, you will have:
    - Set Guardrail name to  `TestComplianceGuardrail`
    - Review the configuration and ensure it violates the compliance policy you just created (Jailbreak control with Annotate action)
    - Click **Create** to create the guardrail
-3. Head back to the **Operate** > **Compliance** page and wait for the `CustomerSupportCompliancePolicy` policy to detect the non-compliant guardrail.
+3. Head back to the **Operate** > **Overview** page and wait for the `CustomerSupportCompliancePolicy` policy to detect the non-compliant guardrail.
 > Note: This may take a few minutes to populate. You can refresh the page to check for updates.
 
 ---
