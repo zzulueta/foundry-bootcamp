@@ -155,15 +155,15 @@ By the end of this lab, you will have:
 ### 2.1 Access Document Intelligence Studio
 1. Navigate to [Document Intelligence Studio](https://contentunderstanding.ai.azure.com/)
 2. Sign in with your Azure account credentials
-3. Select **Start with Document Intelligence**
+3. Select **Get started with Document Intelligence**
 4. Verify in the upper right corner that you are signed in by clicking the Profile icon.
 5. Click on the cog icon (Settings) near your profile icon.
 6. Under **Resource**, click your Document Intelligence resource (`doc-intel-<yourname>`) to select it.
-7. Click **Use resource** to confirm your selection
+7. Click **Use this resource** to confirm your selection
 8. Select Yes to confirm switching resources if prompted.
 
 ### 2.2 Create a Custom Extraction Model Project
-1. Go back to the Document Intelligence Studio, scroll down to the **Custom models** section
+1. Go back to the Home page of the Document Intelligence Studio, scroll down to the **Custom models** section
 2. Click **Custom extraction model**
 3. Click **Create a project**
 
@@ -301,7 +301,7 @@ Now you'll label the fields you want to extract from the forms.
 ### 4.1 Access Content Understanding Studio
 1. Navigate to [Content Understanding Studio](https://contentunderstanding.ai.azure.com/)
 2. Sign in with your Azure account credentials
-3. Select **Explore Content Understanding**
+3. Select **Get started with Content Understanding**
 
 ### 4.2 Select Your Resource
 1. Click on the settings icon near your profile icon in the top right
@@ -342,7 +342,7 @@ Now you'll label the fields you want to extract from the forms.
 You'll now define what information to extract from the call recordings.
 
 1. In your project, navigate to **Schema**
-2. Click **+ Add field** to create each extraction field
+2. Click **+ Add new field** to create each extraction field
 3. Add the following fields:
 
    - **Field name:** `CustomerName`
