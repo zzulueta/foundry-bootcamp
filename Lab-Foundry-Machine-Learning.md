@@ -127,8 +127,10 @@ The **Diabetes Dataset** contains medical predictor variables and one target var
 11. Browse and select the `diabetes.csv` file
 12. Wait for upload to complete
 13. Click **Next**
-14. **Settings:** Review the file and click **Review**
-15. Click **Create**
+14. **Settings:** Review the file and click **Next**
+15. **Schema:** Review the file schema and verify the Types for each column are correct (BMI and DiabetesPedigreeFunction are decimals while the rest are Integers)
+16. Click **Next**
+17. Click **Create**
 
 ### 4.3 Verify Dataset Upload
 1. Navigate to **Assets** > **Data** > **Data assets**
