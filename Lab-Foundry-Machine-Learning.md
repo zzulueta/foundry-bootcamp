@@ -166,7 +166,6 @@ The **Diabetes Dataset** contains medical predictor variables and one target var
    - Expand **Limits:**
       - **Max concurrent trials:** `2`
       - **Experiment timeout (minutes):** `30`
-      - Click **Save**
    - Click **Next**
 
 ### 5.3 Configure Compute
@@ -220,6 +219,7 @@ The **Diabetes Dataset** contains medical predictor variables and one target var
    - Compute must have a green status
 6. Wait for the kernel to start 
    - Python 3.10 - SDK v2 must have a green status
+7. Click **Authenticate** in the top right corner to authenticate your notebook with Azure ML workspace. Login with your Azure credentials if prompted.
 
 ### 6.2 Install Required Libraries
 1. In the first cell, add the following code to install and import necessary libraries:
