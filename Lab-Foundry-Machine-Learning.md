@@ -217,8 +217,9 @@ The **Diabetes Dataset** contains medical predictor variables and one target var
 5. Ensure your compute instance (`compute-diabetes`) is running
    - Select `compute-diabetes` from the compute dropdown at the top
    - Compute must have a green status
-6. Wait for the kernel to start 
-   - Python 3.10 - SDK v2 must have a green status
+6. Ensure the right kernel is running 
+   - Select `Python 3.10 - AzureML` 
+   - Kernel must have a green status
 7. Click **Authenticate** in the top right corner to authenticate your notebook with Azure ML workspace. Login with your Azure credentials if prompted.
 
 ### 6.2 Install Required Libraries
@@ -261,6 +262,9 @@ print("✅ Libraries imported successfully")
 
 ```python
 # Cell 2: Load dataset from Azure ML Data Assets
+import sys
+!{sys.executable} -m pip install azure-ai-ml azure-identity -q
+
 from azure.ai.ml import MLClient
 from azure.identity import DefaultAzureCredential
 
