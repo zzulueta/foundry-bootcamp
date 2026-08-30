@@ -67,6 +67,7 @@ By the end of this lab, you will have:
    - **Resource group:** `rg-documents`
    - **Storage account name:** `stdocumentai<yourname>` (must be globally unique, lowercase, no hyphens)
    - **Region:** `Australia East`
+   - **Primary service:** Azure Blob Storage or Azure Data Lake Storage
    - **Performance:** Standard
    - **Redundancy:** Locally-redundant storage (LRS)
 5. Click **Review + Create**, then **Create**
@@ -77,7 +78,7 @@ By the end of this lab, you will have:
 1. In your storage account, navigate to **Data storage** > **Containers** in the left menu
 
 #### Upload Training Forms
-2. Click **+ Container**
+2. Click **+ Add container**
 3. Configure the container:
    - **Name:** `training-forms`
    - **Public access level:** Private (no anonymous access)
@@ -89,7 +90,7 @@ By the end of this lab, you will have:
 
 #### Upload Test Forms
 9. Click **Containers** in the breadcrumb navigation to return to the containers list
-10. Click **+ Container**
+10. Click **+ Add container**
 11. Configure the container:
     - **Name:** `test-forms`
     - **Public access level:** Private (no anonymous access)
@@ -101,7 +102,7 @@ By the end of this lab, you will have:
 
 #### Upload Call Recordings
 17. Click **Containers** in the breadcrumb navigation to return to the containers list
-18. Click **+ Container**
+18. Click **+ Add container**
 19. Configure the container:
     - **Name:** `call-recordings`
     - **Public access level:** Private (no anonymous access)
