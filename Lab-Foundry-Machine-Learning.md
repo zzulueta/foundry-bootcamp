@@ -164,34 +164,24 @@ The **Diabetes Dataset** contains medical predictor variables and one target var
       - **Explain best model:** Check this box ✅
       - Click **Save**
    - Expand **Limits:**
-      - **Max concurrent trials:** `2`
       - **Experiment timeout (minutes):** `30`
    - Click **Next**
 
 ### 5.3 Configure Compute
-1. **Select compute type:** Select **Compute cluster**
-2. Click **+ New** to create a new compute cluster
-3. Configure the compute cluster:
-   - **Virtual machine tier:** Dedicated
+1. **Select compute type:** Select **Serverless**
+2. Select the following settings:
    - **Virtual machine type:** CPU
-   - **Virtual machine size:** Click **Select from all options**
-      - Search for and select **Standard_DS3_v2** (choose a different size if you have limited quota)
-      - Click **Next**
-   - **Compute name:** `cpu-cluster-diabetes`
-   - **Minimum number of nodes:** `0`
-   - **Maximum number of nodes:** `2` (if you have limited quota, set to 1)
-   - **Idle seconds before scale down:** `120`
-4. Click **Create**
-5. Wait for compute cluster creation (1-2 minutes)
-6. Select `cpu-cluster-diabetes` from the dropdown
-7. Click **Next**
+   - **Virtual machine tier:** Dedicated
+   - **Virtual machine size:** Standard_DS3_v2 (choose a different size if you have limited quota)
+   - **Number of instances:** `1`
+3. Click **Next**
 
 ### 5.4 Review and Submit AutoML Job
 1. Review all settings on the summary page:
    - Task: Classification
    - Dataset: diabetes-dataset
    - Target: Outcome
-   - Compute: cpu-cluster-diabetes
+   - Compute: Azure ML serverless compute
 2. Click **Submit training job**
 3. You'll be redirected to the job details page
 
