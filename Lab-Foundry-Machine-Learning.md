@@ -676,10 +676,11 @@ print("\n" + "="*80)
 ---
 
 ## Step 9: Model Deployment (Optional)
+> **Note:** Deployment creates a managed endpoint with compute resources. This will incur additional costs. Skip this step if you want to avoid charges.
 
-### 9.1 Deploy Best Model as Online Endpoint
+### 9.1 Deploy AutoML Model as Online Endpoint
 1. Navigate to **Assets** > **Models** in the left sidebar
-2. Select your best performing model (either AutoML or manual)
+2. Select your best AutoML model
 3. Click **Use this model** > **Real-time endpoint**
 4. Configure the endpoint:
    - **Instance count:** `1`
@@ -690,9 +691,26 @@ print("\n" + "="*80)
 5. Click **Deploy**
 6. Wait for deployment (5-10 minutes)
 
-> **Note:** Deployment creates a managed endpoint with compute resources. This will incur additional costs. Skip this step if you want to avoid charges.
+### 9.2 Deploy Manual Model as Online Endpoint
+1. Navigate to **Assets** > **Models** in the left sidebar
+2. Select your best manual model (diabetes-manual-model)
+3. Click **Use this model** > **Real-time endpoint**
+4. Configure the endpoint:
+   - **Endpoint name:** `diabetes-manual-endpoint`
+   - Click **Next** twice
+   - **Deployment name:** `diabetes-manual-deployment`
+   - Click **Next**
+   - Upload the score script (`score.py`) from the Machine Learning folder of this repository
+   - For the environment, select `sklearn-1.5:53`
+   - Click **Next**
+   - **Virtual machine:** Standard_DS3_v2 (or a different size if you have limited quota)
+   - **Instance count:** `1`
+   - Click **Next** twice
+   - Review the summary of your deployment configuration
+   - Click **Create**
+5. Wait for deployment (5-10 minutes)
 
-### 9.2 Test the Deployed Endpoint
+### 9.3 Test the Deployed Endpoint
 1. Once deployed, navigate to **Endpoints** in the left sidebar
 2. Click on `diabetes-prediction-endpoint`
 3. Go to the **Test** tab
@@ -709,7 +727,7 @@ print("\n" + "="*80)
 6. Review the prediction result
 7. A sample output can be shown in the prediction-sample.jpg file in the Machine Learning folder of this repository
 
-### 9.3 Consuming the Endpoint
+### 9.4 Consuming the Endpoint
 1. In the endpoint details page, go to the **Consume** tab
 2. View the REST endpoint URL
 3. View the Authentication details (Primary & Secondary keys)
