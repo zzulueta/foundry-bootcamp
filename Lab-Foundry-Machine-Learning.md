@@ -676,8 +676,8 @@ print("\n" + "="*80)
    - **Instance count:** `1`
    - **Virtual machine:** Standard_DS3_v2 (or a different size if you have limited quota)
    - **Endpoint:** New
-   - **Endpoint name:** `diabetes-prediction-endpoint`
-   - **Deployment name:** `diabetes-prediction-deployment`
+   - **Endpoint name:** `diabetes-auto-endpoint`
+   - **Deployment name:** `diabetes-auto-deployment`
 5. Click **Deploy**
 6. Wait for deployment (5-10 minutes)
 
