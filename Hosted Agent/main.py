@@ -1,5 +1,3 @@
-# Copyright (c) Microsoft. All rights reserved.
-
 import json
 import os
 

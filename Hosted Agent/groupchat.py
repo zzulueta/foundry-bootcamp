@@ -1,5 +1,3 @@
-# Copyright (c) Microsoft. All rights reserved.
-
 """Fit Score Review Panel - a group chat orchestration.
 
 A panel of agents debates and refines a resume-to-job fit score.
